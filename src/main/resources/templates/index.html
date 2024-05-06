@@ -1,0 +1,144 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <link rel="stylesheet" href="/css/main_nav.css">
+    <link rel="stylesheet" href="/css/section_img.css">
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+    <link href='https://fonts.googleapis.com/css?family=Anton' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Neucha' rel='stylesheet' type='text/css'>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"
+            integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="
+            crossorigin="anonymous"></script>
+    <style>
+        .image-container {
+            position: relative;
+            width: 200px;
+            height: 200px;
+            overflow: hidden;
+        }
+        .image-container img {
+            width: 100%;
+            height: 100%;
+            transition: transform 3s;
+        }
+        .image-container img:hover {
+            transform: scale(1.2);
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div>
+            <div>rocally</div>
+            <div>
+                <div>숙소</div>
+                <div>체험</div>
+                <div>온라인 체험</div>
+            </div>
+            <div>
+                <div>당신의 공간을 로컬리하세요</div>
+                <div>
+                    <button>
+                        <div>
+                            <img src="images/horizontal_line.png" width="100px" height="100px">
+                        </div>
+                        <div>
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" aria-hidden="true" role="presentation" focusable="false" style="display: block; height: 100%; width: 100%; fill: currentcolor;"></svg>
+                        </div>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div class="search-bar">
+            <input type="text" placeholder="검색">
+            <div class="category-filters">
+                <button class="filter">전체</button>
+                <button class="filter">이미지 검색</button>
+                <button class="filter">동영상 검색</button>
+                <button class="filter">뉴스 검색</button>
+                <button class="filter">더보기</button>
+            </div>
+            <button class="search-button">
+                <img src="magnifying-glass-icon.svg" alt="Search">
+            </button>
+        </div>
+    </header>
+    <nav>
+
+    </nav>
+    <section>
+        <div id="slider-wrap">
+            <ul id="slider">
+                <li>
+                    <div>
+                        <h3>Slide #1</h3>
+                        <span>Sub-title #1</span>
+                    </div>
+                    <img src="https://fakeimg.pl/350x200/960a96/000?text=11111">
+                </li>
+
+                <li>
+                    <div>
+                        <h3>Slide #2</h3>
+                        <span>Sub-title #2</span>
+                    </div>
+                    <img src="https://fakeimg.pl/350x200/D27328/000?text=22222">
+                </li>
+
+                <li>
+                    <div>
+                        <h3>Slide #3</h3>
+                        <span>Sub-title #3</span>
+                    </div>
+                    <img src="https://fakeimg.pl/350x200/FF607F/000?text=33333">
+                </li>
+
+                <li>
+                    <div>
+                        <h3>Slide #4</h3>
+                        <span>Sub-title #4</span>
+                    </div>
+                    <img src="https://fakeimg.pl/350x200/0A6E0A/000?text=44444">
+                </li>
+
+                <li>
+                    <div>
+                        <h3>Slide #5</h3>
+                        <span>Sub-title #5</span>
+                    </div>
+                    <img src="https://fakeimg.pl/350x200/0064CD/000?text=55555">
+                </li>
+            </ul>
+
+            <div class="slider-btns" id="next"><span>▶</span></div>
+            <div class="slider-btns" id="previous"><span>◀</span></div>
+
+            <div id="slider-pagination-wrap">
+                <ul>
+                </ul>
+            </div>
+        </div>
+        <div class="image-container" id="imageContainer">
+            <img src="/images/image1.png" alt="Image 1">
+        </div>
+    </section>
+    <aside>
+
+    </aside>
+    <footer>
+
+    </footer>
+</body>
+<script src="/js/img_slider.js"></script>
+<script>
+        var images = ["image1.png", "image2.png", "image3.png"];
+        var currentImageIndex = 0;
+        var imageContainer = document.getElementById("imageContainer");
+
+        imageContainer.addEventListener("mouseover", function() {
+            setTimeout(function() {
+                currentImageIndex = (currentImageIndex + 1) % images.length;
+                imageContainer.innerHTML = '<img src="images/' + images[currentImageIndex] + '" alt="Image ' + (currentImageIndex + 1) + '">';
+            }, 3000);
+        });
+    </script>
+</html>

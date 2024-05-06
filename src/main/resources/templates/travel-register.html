@@ -1,0 +1,77 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <style>
+        .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #f9f9f9;
+            min-width: 160px;
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+            padding: 12px 16px;
+            z-index: 1;
+            transition: height 0.5s;
+        }
+        .dropdown:active .dropdown-content {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div>Locally</div>
+    </header>
+    <section>
+        <form method="post" action="/travel-register" enctype="multipart/form-data">
+        <label for="title">프로그램 제목</label>
+        <input id="title" name="title" type="text">
+
+        <label for="content">프로그램 설명</label>
+        <textarea id="content" name="content"></textarea>
+
+        <label for="price">요금</label>
+        <input id="price" name="price" type="text">
+
+        <label for="images">여행 이미지</label>
+        <input type="file" id="images" name="images" multiple>
+
+        <label for="local">여행지 선택</label>
+        <div id="local" class="dropdown">
+            <button onclick="toggleDropdown()">여행지 선택</button>
+            <div class="dropdown-content" id="dropdownContent">
+                <p>서울</p>
+                <p>부산</p>
+                <p>제주</p>
+            </div>
+        </div>
+        </form>
+    </section>
+    <footer>
+
+    </footer>
+</body>
+<script>
+    var dropdown = document.getElementById("dropdown");
+        var dropdownContent = document.getElementById("dropdownContent");
+        var pElements = dropdownContent.getElementsByTagName("p");
+
+        for (var i = 0; i < pElements.length; i++) {
+            pElements[i].addEventListener("click", function() {
+                document.querySelector(".dropdown button").innerText = this.innerText;
+                dropdown.classList.remove("active");
+            });
+        }
+
+        function toggleDropdown() {
+            dropdown.classList.toggle("active");
+        }
+        window.addEventListener("click", function(event) {
+            if (!dropdown.contains(event.target)) {
+                dropdown.classList.remove("active");
+            }
+        });
+</script>
+</html>

@@ -1,0 +1,37 @@
+.search-bar {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.search-bar input[type="text"] {
+  flex-grow: 1;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.category-filters {
+  display: flex;
+  gap: 5px;
+}
+
+.filter {
+  background-color: white;
+  border: none;
+  padding: 5px 10px;
+  cursor: pointer;
+}
+
+.filter:hover,
+.filter:active {
+  background-color: lightgrey;
+}
+
+.search-button {
+  background-color: pink;
+  border: none;
+  border-radius: 50%;
+  padding: 10px;
+  cursor: pointer;
+}
