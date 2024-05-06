@@ -2,6 +2,7 @@ package com.company.rocally.domain.user;
 
 import com.company.rocally.domain.BaseTimeEntity;
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -36,4 +37,23 @@ public class User extends BaseTimeEntity {
     @Enumerated(value = EnumType.STRING)
     @Column(name = "role", nullable = false)
     private Role role;
+
+    @Builder
+    public User(String username, String email, String password, String phoneNumber, String account, Role role) {
+        this.username = username;
+        this.email = email;
+        this.password = password;
+        this.phoneNumber = phoneNumber;
+        this.account = account;
+        this.role = role;
+    }
+
+    public User update(String username) {
+        this.username = username;
+        return this;
+    }
+
+    public String getRoleKey() {
+        return this.role.getKey();
+    }
 }
