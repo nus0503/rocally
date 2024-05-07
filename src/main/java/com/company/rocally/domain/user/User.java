@@ -22,6 +22,9 @@ public class User extends BaseTimeEntity {
     @Column(name = "username", nullable = false)
     private String username;
 
+    @Column(name = "birth_date", nullable = false)
+    private String birthDate;
+
     @Column(name = "email", nullable = false, unique = true)
     private String email;
 
@@ -31,20 +34,42 @@ public class User extends BaseTimeEntity {
     @Column(name = "phone_number", nullable = false, unique = true)
     private String phoneNumber;
 
+    @Column(name = "bank", nullable = false)
+    private String bank;
+
     @Column(name = "account", nullable = false, unique = true)
     private String account;
+
+    @Column(name = "korea_language_level", nullable = false)
+    private String koreaLanguageLevel;
+
+    @Column(name = "discovery_route", nullable = false)
+    private String discoveryRoute;
 
     @Enumerated(value = EnumType.STRING)
     @Column(name = "role", nullable = false)
     private Role role;
 
     @Builder
-    public User(String username, String email, String password, String phoneNumber, String account, Role role) {
+    public User(String username,
+                String birthDate,
+                String email,
+                String password,
+                String phoneNumber,
+                String bank,
+                String account,
+                String koreaLanguageLevel,
+                String discoveryRoute,
+                Role role) {
         this.username = username;
+        this.birthDate = birthDate;
         this.email = email;
         this.password = password;
         this.phoneNumber = phoneNumber;
+        this.bank = bank;
         this.account = account;
+        this.koreaLanguageLevel = koreaLanguageLevel;
+        this.discoveryRoute = discoveryRoute;
         this.role = role;
     }
 
