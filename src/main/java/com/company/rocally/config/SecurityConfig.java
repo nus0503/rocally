@@ -52,12 +52,12 @@ public class SecurityConfig {
                     .formLogin()
                         .loginPage("/loginForm")
                         .usernameParameter("email")
-                        .loginProcessingUrl("login")
+                        .loginProcessingUrl("/login")
                         .defaultSuccessUrl("/")
                         .failureHandler(customAuthFailureHandler)
                 .and()
                 .oauth2Login()
-                .loginPage("login")
+                .loginPage("/login")
                 .userInfoEndpoint()
                 .userService(customOAuth2UserService);
         return http.build();
