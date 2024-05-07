@@ -1,0 +1,114 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <style>
+        .field-error {
+            color: red;
+        }
+    </style>
+</head>
+<body>
+<div class="login-box">
+    <h2>signup</h2>
+    <form method="post" action="/signup" enctype="multipart/form-data" id="form" th:object="${userRegisterRequestDto}" onsubmit="return submitFunction()">
+        <div class="user-box">
+            <label for="username">이름</label>
+            <input type="text" id="username" name="username" th:field="*{username}" th:errorclass="field-error">
+            <div th:if="${#fields.hasErrors('username')}" class="field-error" th:errors="*{username}">이름 오류</div>
+        </div>
+        <div class="user-box">
+            <label for="birth_date">생년월일</label>
+            <input type="date" id="birth_date" name="birthDate" th:field="*{birthDate}" th:errorclass="field-error">
+            <div th:if="${#fields.hasErrors('birthDate')}" class="field-error" th:errors="*{birthDate}">생년월일 오류</div>
+        </div>
+        <div class="user-box">
+            <label for="email">email</label>
+            <input type="text" id="email" name="email" th:field="*{email}" th:errorclass="field-error">
+            <div th:if="${#fields.hasErrors('email')}" class="field-error" th:errors="*{email}">이메일 오류</div>
+        </div>
+        <div class="user-box">
+            <label for="password">Password</label>
+            <input type="password" id="password" name="password" th:field="*{password}" th:errorclass="field-error">
+            <div th:if="${#fields.hasErrors('password')}" class="field-error" th:errors="*{password}">비밀번호 오류</div>
+        </div>
+        <div class="user-box">
+            <label for="phoneNumber">phoneNumber</label>
+            <input type="text" id="phoneNumber" name="phoneNumber" th:field="*{phoneNumber}" th:errorclass="field-error">
+            <div th:if="${#fields.hasErrors('phoneNumber')}" class="field-error" th:errors="*{phoneNumber}">전화번호 오류</div>
+        </div>
+        <div class="user-box">
+            <label for="account">account</label>
+            <input type="text" id="account" name="account" th:field="*{account}" th:errorclass="field-error">
+            <div th:if="${#fields.hasErrors('account')}" class="field-error" th:errors="*{account}">계좌번호 오류</div>
+        </div>
+        <div>
+            <select name="bank" th:field="*{bank}">
+                <option value="">--은행을 선택해주세요.</option>
+                <option value="하나">하나은행</option>
+                <option value="국민">국민은행</option>
+                <option value="카카오">카카오은행</option>
+                <option value="농협">농협은행</option>
+                <option value="수협">수협은행</option>
+            </select>
+            <div th:if="${#fields.hasErrors('bank')}" class="field-error" th:errors="*{bank}">은행선택 오류</div>
+        </div>
+        <div>
+            <select name="koreaLanguageLevel" th:field="*{koreaLanguageLevel}">
+                <option value="">한국어 수준</option>
+                <option value="1">LV.1</option>
+                <option value="2">LV.2</option>
+                <option value="3">LV.3</option>
+                <option value="4">LV.4</option>
+                <option value="5">LV.5</option>
+            </select>
+            <div th:if="${#fields.hasErrors('koreaLanguageLevel')}" class="field-error" th:errors="*{koreaLanguageLevel}">선택 오류</div>
+        </div>
+        <div>
+            <label>알게된 경로</label>
+            <select id="discoveryRoute" name="discoveryRoute" th:field="*{discoveryRoute}" onchange="viewEtcText()">
+                <option value="">선택</option>
+                <option value="인터넷 검색">인터넷 검색</option>
+                <option value="홈페이지">홈페이지</option>
+                <option value="소셜 미디어">소셜 미디어</option>
+                <option value="특정 사이트">특정 사이트</option>
+                <option value="기타" id="etcOption">기타</option>
+            </select>
+            <input type="text" id="etcInput" name="discoveryRoute" style="display: none;">
+            <div th:if="${#fields.hasErrors('discoveryRoute')}" class="field-error" th:errors="*{discoveryRoute}">선택 오류</div>
+        </div>
+        <button type="submit" id="submit">
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            회원가입
+        </button>
+    </form>
+</div>
+</body>
+<script>
+    function viewEtcText() {
+    var discoveryRoute = document.getElementById("discoveryRoute");
+    var etcInput = document.getElementById("etcInput");
+    if (discoveryRoute.value === "기타") {
+        etcInput.style.display = "block";
+        etcInput.name = "discoveryRoute";
+        discoveryRoute.name = "";
+    } else {
+        etcInput.style.display = "none";
+        etcInput.name = "";
+        discoveryRoute.name = "discoveryRoute";
+    }
+}
+
+function submitFunction() {
+    var discoveryRoute = document.getElementById("discoveryRoute");
+    var etcInput = document.getElementById("etcInput");
+    if (discoveryRoute.value === "기타" && etcInput.value) {
+        discoveryRoute.value = etcInput.value;
+    } else {
+        etcInput.name = "";
+    }
+    return true;
+}
+</script>
+</html>
