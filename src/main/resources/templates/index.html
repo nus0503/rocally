@@ -61,6 +61,10 @@
                 <img src="magnifying-glass-icon.svg" alt="Search">
             </button>
         </div>
+        <div th:if="${user}">
+            <button>Become Locally Partner</button>
+        </div>
+        <div th:if="${user}" th:text="${user.getUsername}"></div>
     </header>
     <nav>
 
