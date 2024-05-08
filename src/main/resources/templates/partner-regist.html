@@ -1,0 +1,79 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+</head>
+<body>
+<form action="/login" method="post">
+    <div>
+        <label>Name</label>
+        <input type="text" name="firstName" placeholder="First name"/>
+        <input type="text" name="lastName" PLACEHOLDER="Last name"/>
+    </div>
+    <div>
+        <div>Make sure this matches the name on your Government Id</div>
+    </div>
+    <div>
+        <label>Date of Birth</label>
+        <input type="date" id="birth_date" name="birthDate">
+    </div>
+    <div>
+        <div>To sign up, ypu need to be at least 18.<br>Your birthday won't be shared with other people who use Locally.</div>
+    </div>
+    <div>
+        <label>Career</label>
+        <select name="career">
+            <option>미정</option>
+        </select>
+    </div>
+    <div>
+        <label>Region</label>
+        <select name="country">
+            <option>미정</option>
+        </select>
+        <select name="city">
+            <option>미정</option>
+        </select>
+    </div>
+    <div>
+        <label>Phone</label>
+        <input type="text" name="phoneNumber"/>
+    </div>
+    <div>
+        <label>Level of Korean</label>
+        <select name="koreaLanguageLevel">
+            <option value="">Please select your level of Korean</option>
+            <option value="1">LV.1</option>
+            <option value="2">LV.2</option>
+            <option value="3">LV.3</option>
+            <option value="4">LV.4</option>
+            <option value="5">LV.5</option>
+        </select>
+    </div>
+    <div>
+        <label>How did you find Locally?</label>
+        <select name="discoveryRoute">
+            <option value="">선택</option>
+            <option value="인터넷 검색">인터넷 검색</option>
+            <option value="홈페이지">홈페이지</option>
+            <option value="소셜 미디어">소셜 미디어</option>
+            <option value="특정 사이트">특정 사이트</option>
+            <option value="기타" id="etcOption">기타</option>
+        </select>
+    </div>
+    <div>
+        <label>SNS Address</label>
+        <select name="snsType">
+            <option value="">Type of SNS</option>
+        </select>
+        <input type="text" name="snsAddress"/>
+    </div>
+    <div>
+        <div>The payment will be settled once a month.<br>20% commission fee will be charged from the total amount.<br>(Transfer fees may be applied)</div>
+    </div>
+<!--    <div>-->
+<!--        <input type="password" name="password" placeholder="Password"/>-->
+<!--    </div>-->
+<!--    <div th:if="${error}" th:text="${exception}"></div>-->
+<!--    <input type="submit" value="Log in" />-->
+</form>
+</body>
+</html>
