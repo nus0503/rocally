@@ -35,16 +35,16 @@ public class User extends BaseTimeEntity {
     private String phoneNumber;
 
     @Column(name = "bank", nullable = false)
-    private String bank;
+    private String bank; // 제외
 
     @Column(name = "account", nullable = false, unique = true)
-    private String account;
+    private String account; // 제외
 
     @Column(name = "korea_language_level", nullable = false)
-    private String koreaLanguageLevel;
+    private String koreaLanguageLevel; // 제외
 
     @Column(name = "discovery_route", nullable = false)
-    private String discoveryRoute;
+    private String discoveryRoute; //선택 입력 필드로
 
     @Enumerated(value = EnumType.STRING)
     @Column(name = "role", nullable = false)
