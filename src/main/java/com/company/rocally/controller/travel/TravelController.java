@@ -19,8 +19,8 @@ public class TravelController {
         return "travel-register";
     }
 
-    @PostMapping("/trevel-register")
-    public ResponseEntity createTravel(@ModelAttribute TravelRegisterRequestDto travelRegisterRequestDto, @RequestPart("images")ImageFileDto imageFileDto) {
-
-    }
+//    @PostMapping("/trevel-register")
+//    public ResponseEntity createTravel(@ModelAttribute TravelRegisterRequestDto travelRegisterRequestDto, @RequestPart("images")ImageFileDto imageFileDto) {
+//
+//    }
 }
