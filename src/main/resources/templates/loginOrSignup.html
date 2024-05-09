@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f0f0f0;
+        }
+        .container {
+            width: 300px;
+            padding: 20px;
+            background-color: white;
+            border-radius: 5px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+        }
+        .container h2 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .container input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+        .container input[type="checkbox"] {
+            margin-bottom: 20px;
+        }
+        .container button {
+            width: 100%;
+            padding: 10px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 5px;
+        }
+        .container .social-login {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+        }
+        .container .social-login img {
+            width: 30px;
+            height: 30px;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <form method="post" action="/login-process1">
+    <h2>Log in or Sign up</h2>
+    <input type="text" name="email" placeholder="Enter your email address to Login or Sign up">
+    <input type="checkbox"> Remember me
+    <button>Continue</button>
+    <div class="social-login">
+        <img src="/images/kakao-talk.png" alt="TALK">
+        <img src="/images/google.png" alt="Google">
+        <img src="/images/facebook.png" alt="Facebook">
+    </div>
+    </form>
+</div>
+
+</body>
+</html>

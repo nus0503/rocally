@@ -3,11 +3,14 @@ package com.company.rocally.controller.user;
 import com.company.rocally.domain.user.Role;
 import com.company.rocally.domain.user.User;
 import com.company.rocally.domain.user.UserRepository;
+import com.company.rocally.service.user.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.annotation.PostConstruct;
@@ -20,6 +23,29 @@ public class LoginController {
 
     private final UserRepository userRepository;
 
+    private final UserService userService;
+
+
+    @GetMapping("/login-process1")
+    public String loginOrSignup() {
+        return "loginOrSignup";
+    }
+
+    @PostMapping("/login-process1")
+    public String loginPost(@RequestParam String email) {
+        return "loginOrSignup";
+    }
+
+    @GetMapping("/login-process2")
+    public String loginProcess2() {
+        return "login-process2";
+    }
+
+    @GetMapping("/signup2")
+    public String signup2() {
+        return "signup2";
+    }
+
     @GetMapping("/loginForm")
     public String login(@RequestParam(value = "error", required = false) String error,
                         @RequestParam(value = "exception", required = false) String exception,
@@ -28,6 +54,7 @@ public class LoginController {
         model.addAttribute("exception", exception);
         return "/loginForm";
     }
+
 
     @PostConstruct
     public void userInfo() {

@@ -68,6 +68,26 @@
     </div>
     <div>
         <div>The payment will be settled once a month.<br>20% commission fee will be charged from the total amount.<br>(Transfer fees may be applied)</div>
+        <p>Choose Payment method</p>
+        <input type='checkbox' name='payment' value='bank' onclick='checkOnlyOne(this)'/> Bank Transfer
+        <input type='checkbox' name='payment' value='payPal' onclick='checkOnlyOne(this)'/> Pay Pal
+    </div>
+    <div>
+        <label>Currency</label>
+        <select name="currency">
+            <option>미정</option>
+        </select>
+    </div>
+    <div>
+        <label>Country of bank account</label>
+        <select name="accountCountry">
+            <option>미정</option>
+        </select>
+    </div>
+    <div>
+        <label>IBAN</label>
+        <input type="text" name="iban" placeholder="Enter your IBAN">
+        <input type="text" name="iban" placeholder="confirm your IBAN">
     </div>
 <!--    <div>-->
 <!--        <input type="password" name="password" placeholder="Password"/>-->
@@ -76,4 +96,15 @@
 <!--    <input type="submit" value="Log in" />-->
 </form>
 </body>
+<script>
+  function checkOnlyOne (element) {
+      const checkboxes = document.getElementsByName("payment");
+
+      checkboxes.forEach((cb) => {
+        cb.checked = false;
+      })
+
+      element.checked = true;
+  }
+</script>
 </html>
