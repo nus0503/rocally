@@ -11,8 +11,8 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 public class FileService {
 
-    public UserImageDto saveFile(UserImageDto dto) {
-        log.info("saveFile() saveFile : {}", dto);
-        return dto.from(userImageRepository.save(dto.toEntity()));
-    }
+//    public UserImageDto saveFile(UserImageDto dto) {
+//        log.info("saveFile() saveFile : {}", dto);
+//        return dto.from(userImageRepository.save(dto.toEntity()));
+//    }
 }
