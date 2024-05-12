@@ -42,12 +42,15 @@ public class User extends BaseTimeEntity {
     @Column(name = "role", nullable = false)
     private Role role;
 
-    @OneToOne(mappedBy = "user", cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
+    @OneToOne(mappedBy = "user", cascade = {CascadeType.PERSIST, CascadeType.REMOVE}, fetch = FetchType.LAZY)
     private Partner partner;
 
     public void addPartner(Partner partner) {
         this.partner = partner;
         partner.addUser(this);
+    }
+    public void changeRoleToPartner() {
+        this.role = Role.PARTNER;
     }
 
     @Builder

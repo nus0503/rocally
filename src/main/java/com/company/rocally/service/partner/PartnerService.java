@@ -20,6 +20,7 @@ public class PartnerService {
     private final PartnerRepository partnerRepository;
 
 
+    @Transactional
     public void regist(SessionUser user, PartnerRegistRequestDto partnerRegistRequestDto) {
         User user1 = userRepository.findByEmail(user.getEmail()).orElseThrow(() -> new UsernameNotFoundException("해당 유저가 없습니다."));
         Partner partner = Partner.builder()
@@ -31,6 +32,7 @@ public class PartnerService {
                 .koreaLanguageLevel(partnerRegistRequestDto.getKoreaLanguageLevel())
                 .build();
         user1.addPartner(partner);
+//        user1.changeRoleToPartner();
         userRepository.save(user1);
     }
 }

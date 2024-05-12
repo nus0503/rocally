@@ -24,6 +24,6 @@ public class PartnerController {
     @PostMapping("/partner-regist")
     public String partnerRegister(@LoginUser SessionUser user, @ModelAttribute PartnerRegistRequestDto partnerRegistRequestDto) {
         partnerService.regist(user, partnerRegistRequestDto);
-        return "";
+        return "index";
     }
 }
