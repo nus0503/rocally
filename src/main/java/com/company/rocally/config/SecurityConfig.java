@@ -25,30 +25,33 @@ public class SecurityConfig {
 
     private final UserDetailsService userService;
 
-    @Bean
-    public WebSecurityCustomizer configure() {
-        return web -> web.ignoring().mvcMatchers(
-                "/**"
-        );
-    }
+    /**
+     * 특정 HTTP 요청 패턴에 대한 보안 구성 무시(인증, 권환 검사 등 적용 X)
+     */
+//    @Bean
+//    public WebSecurityCustomizer configure() {
+//        return web -> web.ignoring().mvcMatchers(
+//                "/**"
+//        );
+//    }
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         log.debug("[+] WebSecurityConfig Start !!! ");
         http.antMatcher("/**")
                 .authorizeRequests()
-                .antMatchers("/api/v1/**").hasRole(Role.PARTNER.name())
-                .antMatchers("/api/v1/**").hasRole(Role.USER.name())
-//                .antMatchers("/**"/*, "/css/**", "/images/**", "/js/**", "/h2-console/**", "/api/**", "/news/**", "/signup", "/loginForm", "/user"*/).permitAll()
+//                .antMatchers("/api/v1/**").hasRole(Role.PARTNER.name())
 //                .antMatchers("/api/v1/**").hasRole(Role.USER.name())
-//                .anyRequest().authenticated()
+                .antMatchers("/**"/*, "/css/**", "/images/**", "/js/**", "/h2-console/**", "/api/**", "/news/**", "/signup", "/loginForm", "/user"*/).permitAll()
+                .antMatchers("/api/v1/**").hasRole(Role.USER.name())
+                .anyRequest().authenticated()
                 .and()
                     .cors().disable()
                     .csrf().disable()
                     .headers().frameOptions().disable()
-                .and()
-                    .authorizeRequests()
-                    .anyRequest().permitAll()
+//                .and()
+//                    .authorizeRequests()
+//                    .anyRequest().permitAll()
                 .and()
                     .logout().logoutSuccessUrl("/")
                 .and()
