@@ -27,21 +27,11 @@ public class UserRegisterRequestDto {
 
     @NotBlank(message = "비밀번호를 입력해주세요.")
     @Pattern(regexp = "(?=.*[0-9])(?=.*[a-zA-Z])(?=.*\\W)(?=\\S+$).{8,16}", message = "비밀번호는 8~16자 영문 대 소문자, 숫자, 특수문자를 사용하세요.")
-
     private String password;
 
     @NotBlank(message = "전화번호를 입력해주세요.")
     @Pattern(regexp = "^01(?:0|1|[6-9])[.-]?(\\d{3}|\\d{4})[.-]?(\\d{4})$", message = "10 ~ 11 자리의 숫자만 입력 가능합니다.")
     private String phoneNumber;
-
-    @NotBlank(message = "은행을 선택해주세요.")
-    private String bank;
-
-    @NotBlank(message = "계좌번호를 입력해주세요.")
-    private String account;
-
-    @NotBlank(message = "필수항목 입니다..")
-    private String koreaLanguageLevel;
 
     @NotBlank(message = "필수항목 입니다.")
     private String discoveryRoute;

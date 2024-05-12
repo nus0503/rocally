@@ -1,6 +1,7 @@
 package com.company.rocally.domain.user;
 
 import com.company.rocally.domain.BaseTimeEntity;
+import com.company.rocally.domain.partner.Partner;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -34,15 +35,6 @@ public class User extends BaseTimeEntity {
     @Column(name = "phone_number", nullable = false, unique = true)
     private String phoneNumber;
 
-    @Column(name = "bank", nullable = false)
-    private String bank; // 제외
-
-    @Column(name = "account", nullable = false, unique = true)
-    private String account; // 제외
-
-    @Column(name = "korea_language_level", nullable = false)
-    private String koreaLanguageLevel; // 제외
-
     @Column(name = "discovery_route", nullable = false)
     private String discoveryRoute; //선택 입력 필드로
 
@@ -50,27 +42,31 @@ public class User extends BaseTimeEntity {
     @Column(name = "role", nullable = false)
     private Role role;
 
+    @OneToOne(mappedBy = "user", cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
+    private Partner partner;
+
+    public void addPartner(Partner partner) {
+        this.partner = partner;
+        partner.addUser(this);
+    }
+
     @Builder
     public User(String username,
                 String birthDate,
                 String email,
                 String password,
                 String phoneNumber,
-                String bank,
-                String account,
-                String koreaLanguageLevel,
                 String discoveryRoute,
-                Role role) {
+                Role role,
+                Partner partner) {
         this.username = username;
         this.birthDate = birthDate;
         this.email = email;
         this.password = password;
         this.phoneNumber = phoneNumber;
-        this.bank = bank;
-        this.account = account;
-        this.koreaLanguageLevel = koreaLanguageLevel;
         this.discoveryRoute = discoveryRoute;
         this.role = role;
+        this.partner = partner;
     }
 
     public User update(String username) {

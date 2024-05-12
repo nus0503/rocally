@@ -1,5 +1,7 @@
 package com.company.rocally.controller.user;
 
+import com.company.rocally.domain.partner.Partner;
+import com.company.rocally.domain.partner.PartnerRepository;
 import com.company.rocally.domain.user.Role;
 import com.company.rocally.domain.user.User;
 import com.company.rocally.domain.user.UserRepository;
@@ -24,6 +26,8 @@ public class LoginController {
     private final UserRepository userRepository;
 
     private final UserService userService;
+
+    private final PartnerRepository partnerRepository;
 
 
     @GetMapping("/login-process1")
@@ -58,18 +62,18 @@ public class LoginController {
 
     @PostConstruct
     public void userInfo() {
+        Partner partner1 = new Partner("1", "2", "3", "4", "5", "6");
+//        Partner save = partnerRepository.save(partner1);
         User user = User.builder()
                 .email("aaa@aaa.com")
                 .role(Role.USER)
-                .bank("신한")
                 .discoveryRoute("인터넷")
-                .koreaLanguageLevel("1")
-                .account("1111")
                 .phoneNumber("010-3702-7428")
                 .birthDate("1997-05-03")
                 .username("김정수")
                 .password(bCryptPasswordEncoder.encode("Rla7539750!"))
                 .build();
+//        user.addPartner(partner1);
 
         userRepository.save(user);
     }

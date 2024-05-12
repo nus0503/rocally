@@ -25,9 +25,6 @@ public class UserService {
                 .email(userRegisterRequestDto.getEmail())
                 .password(bCryptPasswordEncoder.encode(userRegisterRequestDto.getPassword()))
                 .phoneNumber(userRegisterRequestDto.getPhoneNumber())
-                .account(userRegisterRequestDto.getAccount())
-                .koreaLanguageLevel(userRegisterRequestDto.getKoreaLanguageLevel())
-                .bank(userRegisterRequestDto.getBank())
                 .discoveryRoute(userRegisterRequestDto.getDiscoveryRoute())
                 .role(Role.USER)
                 .build()).getId();

@@ -58,7 +58,6 @@ public class OAuthAttributes {
                 .email(email)
                 .password(UUID.randomUUID().toString())
                 .phoneNumber(UUID.randomUUID().toString())
-                .account(UUID.randomUUID().toString())
                 .role(Role.USER)
                 .build();
     }
