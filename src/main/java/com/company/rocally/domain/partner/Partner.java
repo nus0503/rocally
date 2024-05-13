@@ -1,5 +1,6 @@
 package com.company.rocally.domain.partner;
 
+import com.company.rocally.domain.BaseTimeEntity;
 import com.company.rocally.domain.user.User;
 import lombok.AccessLevel;
 import lombok.Builder;
@@ -12,7 +13,7 @@ import javax.persistence.*;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
 @Table(name = "partner")
-public class Partner {
+public class Partner extends BaseTimeEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -36,6 +37,9 @@ public class Partner {
 
     @Column(name = "personal_sns_link", unique = true)
     private String personalSnsLink;
+
+    @Column(name = "introduce")
+    private String introduce;
 
     @OneToOne
     @JoinColumn(name = "user_id")
