@@ -29,6 +29,21 @@ public class Travel extends BaseTimeEntity {
     @Column(nullable = false)
     private int price;
 
+    @Column(name = "local", nullable = false)
+    private String local;
+
+    @Column(name = "country", nullable = false)
+    private String country;
+
+    @Column(name = "lat")
+    private String lat;
+
+    @Column(name = "lng")
+    private String lng;
+
+    @Column(name = "max_people")
+    private String maxPeople;
+
     @OneToMany(mappedBy = "travel", cascade = CascadeType.ALL)
     private List<TravelImage> travelImages = new ArrayList<>();
 
@@ -40,5 +55,9 @@ public class Travel extends BaseTimeEntity {
         this.title = title;
         this.content = content;
         this.price = price;
+    }
+
+    public void addImage(List<TravelImage> travelImages) {
+        this.travelImages.addAll(travelImages);
     }
 }
