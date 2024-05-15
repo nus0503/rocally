@@ -2,12 +2,15 @@ package com.company.rocally.domain.user;
 
 import com.company.rocally.domain.BaseTimeEntity;
 import com.company.rocally.domain.partner.Partner;
+import com.company.rocally.domain.travel.Travel;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Getter
@@ -44,6 +47,9 @@ public class User extends BaseTimeEntity {
 
     @OneToOne(mappedBy = "user", cascade = {CascadeType.PERSIST, CascadeType.REMOVE}, fetch = FetchType.LAZY)
     private Partner partner;
+
+    @OneToMany(mappedBy = "user", cascade = {CascadeType.PERSIST, CascadeType.REMOVE}, fetch = FetchType.LAZY)
+    private List<Travel> travels = new ArrayList<>();
 
     public void addPartner(Partner partner) {
         this.partner = partner;
