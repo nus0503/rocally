@@ -47,6 +47,22 @@
                 <p>제주</p>
             </div>
         </div>
+
+            <label for="local">지역</label>
+            <input id="local" name="local" type="text">
+
+            <label for="price">나라</label>
+            <input id="country" name="country" type="text">
+
+            <label for="price">위도</label>
+            <input id="lat" name="lat" type="text">
+
+            <label for="price">경도</label>
+            <input id="lng" name="lng" type="text">
+
+            <label for="price">최대인원</label>
+            <input id="maxPeople" name="maxPeople" type="text">
+            <button type="submit">보내기</button>
         </form>
     </section>
     <footer>
@@ -54,24 +70,24 @@
     </footer>
 </body>
 <script>
-    var dropdown = document.getElementById("dropdown");
-        var dropdownContent = document.getElementById("dropdownContent");
-        var pElements = dropdownContent.getElementsByTagName("p");
+<!--    var dropdown = document.getElementById("dropdown");-->
+<!--        var dropdownContent = document.getElementById("dropdownContent");-->
+<!--        var pElements = dropdownContent.getElementsByTagName("p");-->
 
-        for (var i = 0; i < pElements.length; i++) {
-            pElements[i].addEventListener("click", function() {
-                document.querySelector(".dropdown button").innerText = this.innerText;
-                dropdown.classList.remove("active");
-            });
-        }
+<!--        for (var i = 0; i < pElements.length; i++) {-->
+<!--            pElements[i].addEventListener("click", function() {-->
+<!--                document.querySelector(".dropdown button").innerText = this.innerText;-->
+<!--                dropdown.classList.remove("active");-->
+<!--            });-->
+<!--        }-->
 
-        function toggleDropdown() {
-            dropdown.classList.toggle("active");
-        }
-        window.addEventListener("click", function(event) {
-            if (!dropdown.contains(event.target)) {
-                dropdown.classList.remove("active");
-            }
-        });
+<!--        function toggleDropdown() {-->
+<!--            dropdown.classList.toggle("active");-->
+<!--        }-->
+<!--        window.addEventListener("click", function(event) {-->
+<!--            if (!dropdown.contains(event.target)) {-->
+<!--                dropdown.classList.remove("active");-->
+<!--            }-->
+<!--        });-->
 </script>
 </html>

@@ -1,6 +1,9 @@
 package com.company.rocally.service.travel;
 
+import com.company.rocally.common.dto.ImageDto;
+import com.company.rocally.common.file.image.ImageStore;
 import com.company.rocally.controller.file.dto.ImageFileDto;
+import com.company.rocally.controller.travel.dto.TravelImageRequestDto;
 import com.company.rocally.controller.travel.dto.TravelRegisterRequestDto;
 import com.company.rocally.domain.travel.Travel;
 import com.company.rocally.domain.travel.TravelImage;
@@ -20,6 +23,8 @@ import java.util.UUID;
 public class TravelService {
 
     private final TravelRepository travelRepository;
+
+    private final ImageStore imageStore;
 
     public void createTravel(TravelRegisterRequestDto dto, ImageFileDto imageFileDto) throws IOException {
         List<String> fileNames = new ArrayList<>();
@@ -46,5 +51,12 @@ public class TravelService {
         }
 
         travelRepository.save(travel);
+    }
+
+    public void createTravelWithImage(TravelRegisterRequestDto travelRegisterRequestDto) throws IOException {
+        List<ImageDto> imageDtos = ImageStore.getFileDtoFromMultipartFile(travelRegisterRequestDto.getImages());
+        travelRegisterRequestDto.setImageDto(imageDtos);
+        travelRepository.save(travelRegisterRequestDto.toTravelEntity());
+
     }
 }

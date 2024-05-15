@@ -35,4 +35,8 @@ public class TravelImage {
         this.filepath = filepath;
         this.travel = travel;
     }
+
+    public void addTravel(Travel travel) {
+        this.travel = travel;
+    }
 }
