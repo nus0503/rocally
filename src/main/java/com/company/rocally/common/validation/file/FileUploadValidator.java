@@ -25,6 +25,8 @@ public class FileUploadValidator implements ConstraintValidator<FileUploadValid,
 
     @Override
     public boolean isValid(List<MultipartFile> multipartFiles, ConstraintValidatorContext context) {
+        context.disableDefaultConstraintViolation();
+
         if (multipartFiles.isEmpty()) {
             context.buildConstraintViolationWithTemplate("업로드 대상 파일이 없습니다. 정확히 선택 업로드해주세요.")
                     .addConstraintViolation();
@@ -59,8 +61,13 @@ public class FileUploadValidator implements ConstraintValidator<FileUploadValid,
         final String[] detechedMediaType = this.getMimeTypeByTika(multipartFiles);
         UploadAllowFileDefine[] allowExtensionArray = annotation.allowFileDefine();
 
+        int i = 0;
+
         for (MultipartFile multipartFile : multipartFiles) {
             String fileExtension = FilenameUtils.getExtension(multipartFile.getOriginalFilename());
+
+
+
             for (UploadAllowFileDefine allowDefine : allowExtensionArray) {
                 // 파일명의 허용 확장자 검사
                 if (!StringUtils.equals(allowDefine.getFileExtensionLowerCase(), fileExtension.toLowerCase())) {
@@ -69,14 +76,31 @@ public class FileUploadValidator implements ConstraintValidator<FileUploadValid,
                     sb.append(": ");
                     sb.append(ArrayUtils.toString(allowExtensionArray));
                     context.buildConstraintViolationWithTemplate(sb.toString()).addConstraintViolation();
+
+                    return false;
                 }
+
+                if (!ArrayUtils.contains(allowDefine.getAllowMimeTypes(), detechedMediaType[i])) {
+                    StringBuilder sb = new StringBuilder();
+                    sb.append("확장자 변조 파일은 허용되지 않습니다.");
+                    context.buildConstraintViolationWithTemplate(sb.toString()).addConstraintViolation();
+
+                    return false;
+                }
+
             }
+            i++;
         }
 
 
-        return false;
+        return true;
     }
 
+    /**
+     * apache Tika 라이브러리를 이용해서 파일의 mimeType을 가져옴
+     * @param multipartFiles
+     * @return
+     */
     private String[] getMimeTypeByTika(List<MultipartFile> multipartFiles) {
         String[] mimeTypes = new String[multipartFiles.size()];
         Tika tika = new Tika();

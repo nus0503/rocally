@@ -25,7 +25,7 @@
         <div>Locally</div>
     </header>
     <section>
-        <form method="post" action="/travel-register" enctype="multipart/form-data">
+        <form method="post" action="/travel-register" enctype="multipart/form-data" th:object="${travelRegisterRequestDto}">
         <label for="title">프로그램 제목</label>
         <input id="title" name="title" type="text">
 
@@ -37,6 +37,7 @@
 
         <label for="images">여행 이미지</label>
         <input type="file" id="images" name="images" multiple>
+            <div th:if="${#fields.hasErrors('images')}" class="field-error" th:errors="*{images}">이름 오류</div>
 
         <label for="local">여행지 선택</label>
         <div id="local" class="dropdown">
