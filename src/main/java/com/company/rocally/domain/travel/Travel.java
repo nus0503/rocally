@@ -53,17 +53,21 @@ public class Travel extends BaseTimeEntity {
 //    @JoinColumn(name = "travel_local_id")
 //    private TravelLocal travelLocal;
 
-    @ManyToOne()
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
     @JoinColumn(name = "user_id")
     private User user;
 
     public void addTravelImages(List<TravelImage> travelImages) {
-        this.travelImages = new ArrayList<>();
 
         for (TravelImage travelImage : travelImages) {
             this.travelImages.add(travelImage);
             travelImage.addTravel(this);
         }
+    }
+
+    public void addUser(User user) {
+        this.user = user;
+        user.getTravels().add(this);
     }
 
     public Travel(String title, String content, int price) {
@@ -72,8 +76,7 @@ public class Travel extends BaseTimeEntity {
         this.price = price;
     }
 
-    @Builder
-    public Travel(String title, String content, int price, String local, String country, String lat, String lng, String maxPeople, List<TravelImage> travelImages) {
+    private Travel(String title, String content, int price, String local, String country, String lat, String lng, String maxPeople) {
         this.title = title;
         this.content = content;
         this.price = price;
@@ -82,7 +85,10 @@ public class Travel extends BaseTimeEntity {
         this.lat = lat;
         this.lng = lng;
         this.maxPeople = maxPeople;
-        this.travelImages = travelImages;
+    }
+
+    public static Travel generateTravel(String title, String content, int price, String local, String country, String lat, String lng, String maxPeople) {
+        return new Travel(title, content, price, local, country, lat, lng, maxPeople);
     }
 
     public void addImage(List<TravelImage> travelImages) {
