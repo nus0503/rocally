@@ -2,22 +2,18 @@ package com.company.rocally.controller.travel;
 
 import com.company.rocally.config.auth.LoginUser;
 import com.company.rocally.config.auth.dto.SessionUser;
-import com.company.rocally.controller.file.dto.ImageFileDto;
-import com.company.rocally.controller.travel.dto.TravelImageRequestDto;
+import com.company.rocally.controller.travel.dto.TravelDetailResponseDto;
 import com.company.rocally.controller.travel.dto.TravelRegisterRequestDto;
 import com.company.rocally.service.travel.TravelService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
 import java.io.IOException;
-import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
@@ -52,5 +48,12 @@ public class TravelController {
         }
         travelService.createTravelWithImage(user, travelRegisterRequestDto);
         return "index";
+    }
+
+    @GetMapping("/travel/{id}")
+    public String getTravel(@PathVariable Long id, Model model) {
+        TravelDetailResponseDto travelDetailResponseDto = travelService.getTravelProgramDetail(id);
+        model.addAttribute("travelDetailResponseDto", travelDetailResponseDto);
+        return "program-detail";
     }
 }

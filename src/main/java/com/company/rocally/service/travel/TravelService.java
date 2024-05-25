@@ -4,7 +4,7 @@ import com.company.rocally.common.dto.ImageDto;
 import com.company.rocally.common.file.image.ImageStore;
 import com.company.rocally.config.auth.dto.SessionUser;
 import com.company.rocally.controller.file.dto.ImageFileDto;
-import com.company.rocally.controller.travel.dto.TravelImageRequestDto;
+import com.company.rocally.controller.travel.dto.TravelDetailResponseDto;
 import com.company.rocally.controller.travel.dto.TravelRegisterRequestDto;
 import com.company.rocally.domain.travel.Travel;
 import com.company.rocally.domain.travel.TravelImage;
@@ -69,5 +69,13 @@ public class TravelService {
         travelRegisterRequestDto.setImageDto(imageDtos);
         travelRepository.save(travelRegisterRequestDto.toTravelEntity(user1));
 
+    }
+
+    public TravelDetailResponseDto getTravelProgramDetail(Long num) {
+        Travel travel = travelRepository.findById(num).orElseThrow(
+                () -> new IllegalArgumentException("없다.")
+        );
+        TravelDetailResponseDto travelDetailResponseDto = new TravelDetailResponseDto(travel);
+        return travelDetailResponseDto;
     }
 }
