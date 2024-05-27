@@ -2,14 +2,19 @@ package com.company.rocally.service.travel;
 
 import com.company.rocally.common.dto.ImageDto;
 import com.company.rocally.common.file.image.ImageStore;
+import com.company.rocally.config.auth.dto.SessionUser;
 import com.company.rocally.controller.file.dto.ImageFileDto;
-import com.company.rocally.controller.travel.dto.TravelImageRequestDto;
+import com.company.rocally.controller.travel.dto.TravelDetailResponseDto;
 import com.company.rocally.controller.travel.dto.TravelRegisterRequestDto;
 import com.company.rocally.domain.travel.Travel;
 import com.company.rocally.domain.travel.TravelImage;
 import com.company.rocally.domain.travel.TravelRepository;
+import com.company.rocally.domain.user.User;
+import com.company.rocally.domain.user.UserRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
@@ -20,10 +25,12 @@ import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
+@Transactional(readOnly = true)
 public class TravelService {
 
     private final TravelRepository travelRepository;
 
+    private final UserRepository userRepository;
     private final ImageStore imageStore;
 
     public void createTravel(TravelRegisterRequestDto dto, ImageFileDto imageFileDto) throws IOException {
@@ -53,10 +60,22 @@ public class TravelService {
         travelRepository.save(travel);
     }
 
-    public void createTravelWithImage(TravelRegisterRequestDto travelRegisterRequestDto) throws IOException {
+    @Transactional
+    public void createTravelWithImage(SessionUser user, TravelRegisterRequestDto travelRegisterRequestDto) throws IOException {
+        User user1 = userRepository.findByEmail(user.getEmail()).orElseThrow(
+                () -> new UsernameNotFoundException("해당 유저가 없습니다.")
+        );
         List<ImageDto> imageDtos = ImageStore.getFileDtoFromMultipartFile(travelRegisterRequestDto.getImages());
         travelRegisterRequestDto.setImageDto(imageDtos);
-        travelRepository.save(travelRegisterRequestDto.toTravelEntity());
+        travelRepository.save(travelRegisterRequestDto.toTravelEntity(user1));
 
+    }
+
+    public TravelDetailResponseDto getTravelProgramDetail(Long num) {
+        Travel travel = travelRepository.findById(num).orElseThrow(
+                () -> new IllegalArgumentException("없다.")
+        );
+        TravelDetailResponseDto travelDetailResponseDto = new TravelDetailResponseDto(travel);
+        return travelDetailResponseDto;
     }
 }
