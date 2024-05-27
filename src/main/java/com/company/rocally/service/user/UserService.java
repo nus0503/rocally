@@ -29,4 +29,10 @@ public class UserService {
                 .role(Role.USER)
                 .build()).getId();
     }
+
+    public String findByEmail(String email) {
+        String getEmail = userRepository.findByEmail(email)
+                .orElseThrow(() -> new IllegalArgumentException("해당 유저가 없습니다.")).getEmail();
+        return getEmail;
+    }
 }

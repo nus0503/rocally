@@ -1,5 +1,6 @@
 package com.company.rocally.controller.user;
 
+import com.company.rocally.controller.user.dto.LoginOrSignupRequestDto;
 import com.company.rocally.domain.partner.Partner;
 import com.company.rocally.domain.partner.PartnerRepository;
 import com.company.rocally.domain.user.Role;
@@ -7,13 +8,11 @@ import com.company.rocally.domain.user.User;
 import com.company.rocally.domain.user.UserRepository;
 import com.company.rocally.service.user.UserService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.PostConstruct;
 
@@ -32,13 +31,16 @@ public class LoginController {
 
     @GetMapping("/login-process1")
     public String loginOrSignup() {
-        return "loginOrSignup";
+        return "login_or_signup";
     }
 
-    @PostMapping("/login-process1")
-    public String loginPost(@RequestParam String email) {
-        return "loginOrSignup";
+
+    @PostMapping("/login-step1")
+    @ResponseBody
+    public ResponseEntity loginPost(@RequestBody LoginOrSignupRequestDto dto) {
+        return ResponseEntity.ok(userService.findByEmail(dto.getEmail()));
     }
+
 
     @GetMapping("/login-process2")
     public String loginProcess2() {
