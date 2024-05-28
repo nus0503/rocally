@@ -2,16 +2,20 @@ package com.company.rocally.service.travel;
 
 import com.company.rocally.common.dto.ImageDto;
 import com.company.rocally.common.file.image.ImageStore;
+import com.company.rocally.common.page.PageableRequest;
 import com.company.rocally.config.auth.dto.SessionUser;
 import com.company.rocally.controller.file.dto.ImageFileDto;
 import com.company.rocally.controller.travel.dto.TravelDetailResponseDto;
 import com.company.rocally.controller.travel.dto.TravelRegisterRequestDto;
+import com.company.rocally.controller.travel.dto.TravelsResponseDto;
 import com.company.rocally.domain.travel.Travel;
 import com.company.rocally.domain.travel.TravelImage;
 import com.company.rocally.domain.travel.TravelRepository;
 import com.company.rocally.domain.user.User;
 import com.company.rocally.domain.user.UserRepository;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -22,7 +26,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
-
+@Slf4j
 @Service
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
@@ -75,7 +79,14 @@ public class TravelService {
         Travel travel = travelRepository.findById(num).orElseThrow(
                 () -> new IllegalArgumentException("없다.")
         );
+//        Travel testTravel = travel;
         TravelDetailResponseDto travelDetailResponseDto = new TravelDetailResponseDto(travel);
         return travelDetailResponseDto;
+    }
+
+    public Page<TravelsResponseDto> getTravels(PageableRequest request) {
+        Page<Travel> page = travelRepository.findAll(request.toPageable());
+        return page.map(TravelsResponseDto::new);
+
     }
 }

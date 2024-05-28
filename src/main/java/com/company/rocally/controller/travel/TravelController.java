@@ -1,11 +1,14 @@
 package com.company.rocally.controller.travel;
 
+import com.company.rocally.common.page.PageableRequest;
 import com.company.rocally.config.auth.LoginUser;
 import com.company.rocally.config.auth.dto.SessionUser;
 import com.company.rocally.controller.travel.dto.TravelDetailResponseDto;
 import com.company.rocally.controller.travel.dto.TravelRegisterRequestDto;
+import com.company.rocally.controller.travel.dto.TravelsResponseDto;
 import com.company.rocally.service.travel.TravelService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
@@ -55,5 +58,11 @@ public class TravelController {
         TravelDetailResponseDto travelDetailResponseDto = travelService.getTravelProgramDetail(id);
         model.addAttribute("travelDetailResponseDto", travelDetailResponseDto);
         return "program-detail";
+    }
+
+    @GetMapping("travel-list")
+    public Page<TravelsResponseDto> getTravelList(@ModelAttribute PageableRequest request) {
+        Page<TravelsResponseDto> travels = travelService.getTravels(request);
+        return travels;
     }
 }
