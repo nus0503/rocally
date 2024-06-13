@@ -2,6 +2,7 @@ package com.company.rocally.domain.user;
 
 import com.company.rocally.domain.BaseTimeEntity;
 import com.company.rocally.domain.partner.Partner;
+import com.company.rocally.domain.travel.Reserve;
 import com.company.rocally.domain.travel.Travel;
 import lombok.AccessLevel;
 import lombok.Builder;
@@ -50,6 +51,9 @@ public class User extends BaseTimeEntity {
 
     @OneToMany(mappedBy = "user", cascade = {CascadeType.REMOVE}, fetch = FetchType.LAZY)
     private List<Travel> travels = new ArrayList<>();
+
+    @OneToMany(mappedBy = "user", cascade = {CascadeType.REMOVE}, fetch = FetchType.LAZY)
+    private List<Reserve> reserves = new ArrayList<>();
 
     public void addPartner(Partner partner) {
         this.partner = partner;
