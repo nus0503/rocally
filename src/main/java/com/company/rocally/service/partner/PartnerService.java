@@ -1,5 +1,6 @@
 package com.company.rocally.service.partner;
 
+import com.company.rocally.common.security.SecurityService;
 import com.company.rocally.config.auth.dto.SessionUser;
 import com.company.rocally.controller.partner.dto.PartnerRegistRequestDto;
 import com.company.rocally.domain.partner.Partner;
@@ -18,6 +19,7 @@ public class PartnerService {
 
     private final UserRepository userRepository;
     private final PartnerRepository partnerRepository;
+    private final SecurityService securityService;
 
 
     @Transactional
@@ -32,7 +34,8 @@ public class PartnerService {
                 .koreaLanguageLevel(partnerRegistRequestDto.getKoreaLanguageLevel())
                 .build();
         user1.addPartner(partner);
-//        user1.changeRoleToPartner();
+        user1.changeRoleToPartner();
         userRepository.save(user1);
+        securityService.updateAuthority();
     }
 }
