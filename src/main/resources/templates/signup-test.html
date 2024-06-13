@@ -1,9 +1,8 @@
-<html xmlns:th="http://www.thymeleaf.org">
+<!DOCTYPE html>
+<html>
 <head>
-    <link
-            href="https://fonts.googleapis.com/css?family=Poppins&display=swap"
-            rel="stylesheet"
-    />
+    <link href="https://fonts.googleapis.com/css?family=Poppins&display=swap" rel="stylesheet"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
     <link href="/css/main_copy.css" rel="stylesheet" />
     <title>Login</title>
 </head>
@@ -12,7 +11,7 @@
     <div class="header-container">
         <!-- 로고 -->
         <button class="logo">
-            <img src="/images/company_logo.png" alt="Company Logo" />
+            <img src="company_logo.png" alt="Company Logo" />
         </button>
 
         <!-- 우측 상단 Become Locally Partner 버튼 -->
@@ -37,9 +36,7 @@
                 <li>Wishlist</li>
                 <li>Become a Partner</li>
                 <li>Account</li>
-                <li th:if="${auth}">
-                    <a href="/logout" role="button">Log out</a>
-                </li>
+                <li>Log out</li>
             </ul>
         </div>
     </div>
@@ -49,41 +46,40 @@
 <!-- ------------------------------------------------------------------------------------- -->
 <section>
     <div class="contents-box">
-        <div class="login-container">
-            <div class="title">Log in</div>
-            <div class="subtitle">welcome Back, User!</div>
-            <div class="email-label">Password</div>
-            <form action="/login" method="post">
-                <div class="input-container">
-                    <input type="text" id="hiddenEmail" name="email" th:value="${email != null} ? ${email} : ''"/>
-                    <input
-                            type="password"
-                            id="password"
-                            name="password"
-                            placeholder="🔒 Enter your password"
-                    />
-                    <div th:if="${error}" th:text="${exception}"></div>
-                </div>
-                <div class="forgot">password forget?</div>
-                <div class="continue-button">
-                    <button class="button">Log in</button>
-                </div>
-            </form>
+        <div id="login-container" class="login-container">
+            <div class="title">회원가입 화면이다.</div>
+            <div class="subtitle">welcome to Locally</div>
+            <div class="email-label">Email</div>
+            <!--          <form action="">-->
+            <div class="input-container">
+                <input
+                        type="email"
+                        id="email"
+                        name="email"
+                        placeholder="🔒 Enter your email address to Login or Sign up"
+                />
+            </div>
+            <span id="valid_email" hidden="hidden"></span>
+            <div class="forgot">password forget?</div>
+            <div class="continue-button">
+                <button id="btn-login-step1" class="button">Continue</button>
+            </div>
+            <!--        </form>-->
             <div class="social-login-container">
                 <span class="continue-with">or continue with</span>
                 <div class="social-login-buttons">
                     <!-- 소셜 로그인 이미지 -->
                     <button class="social-login-button">
-                        <img src="/images/social_image_1.png" alt="Social Login 1" />
+                        <img src="social_image_1.png" alt="Social Login 1" />
                     </button>
                     <button class="social-login-button">
-                        <img src="/images/social_image_2.png" alt="Social Login 2" />
+                        <img src="social_image_2.png" alt="Social Login 2" />
                     </button>
                     <button class="social-login-button">
-                        <img src="/images/social_image_3.png" alt="Social Login 3" />
+                        <img src="social_image_3.png" alt="Social Login 3" />
                     </button>
                     <button class="social-login-button">
-                        <img src="/images/social_image_4.png" alt="Social Login 4" />
+                        <img src="social_image_4.png" alt="Social Login 4" />
                     </button>
                 </div>
             </div>
@@ -95,7 +91,8 @@
 
 </footer>
 </body>
-
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<script src="/js/index.js"></script>
 <script>
     // JavaScript를 사용하여 메뉴 버튼 클릭 시 드롭다운 토글 구현
     document
@@ -114,24 +111,3 @@
     });
   </script>
 </html>
-
-
-
-
-
-<!--<html xmlns:th="http://www.thymeleaf.org">-->
-<!--<head>-->
-<!--</head>-->
-<!--<body>-->
-<!--<form action="/login" method="post">-->
-<!--    <div>-->
-<!--        <input type="text" name="email" placeholder="email"/>-->
-<!--    </div>-->
-<!--    <div>-->
-<!--        <input type="password" name="password" placeholder="Password"/>-->
-<!--    </div>-->
-<!--    <div th:if="${error}" th:text="${exception}"></div>-->
-<!--    <input type="submit" value="Log in" />-->
-<!--</form>-->
-<!--</body>-->
-<!--</html>-->

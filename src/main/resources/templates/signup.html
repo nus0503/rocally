@@ -1,87 +1,234 @@
 <html xmlns:th="http://www.thymeleaf.org">
+<html>
 <head>
-    <style>
-        .field-error {
-            color: red;
-        }
-    </style>
+    <link
+            href="https://fonts.googleapis.com/css?family=Poppins&display=swap"
+            rel="stylesheet"
+    />
+    <link href="/css/main_copy.css" rel="stylesheet" />
+    <title>Login</title>
 </head>
 <body>
-<div class="login-box">
-    <h2>signup</h2>
-    <form method="post" action="/signup" enctype="multipart/form-data" id="form" th:object="${userRegisterRequestDto}" onsubmit="return submitFunction()">
-        <div class="user-box">
-            <label for="username">이름</label>
-            <input type="text" id="username" name="username" th:field="*{username}" th:errorclass="field-error">
-            <div th:if="${#fields.hasErrors('username')}" class="field-error" th:errors="*{username}">이름 오류</div>
-        </div>
-        <div class="user-box">
-            <label for="birth_date">생년월일</label>
-            <input type="date" id="birth_date" name="birthDate" th:field="*{birthDate}" th:errorclass="field-error">
-            <div th:if="${#fields.hasErrors('birthDate')}" class="field-error" th:errors="*{birthDate}">생년월일 오류</div>
-        </div>
-        <div class="user-box">
-            <label for="email">email</label>
-            <input type="text" id="email" name="email" th:field="*{email}" th:errorclass="field-error">
-            <div th:if="${#fields.hasErrors('email')}" class="field-error" th:errors="*{email}">이메일 오류</div>
-        </div>
-        <div class="user-box">
-            <label for="password">Password</label>
-            <input type="password" id="password" name="password" th:field="*{password}" th:errorclass="field-error">
-            <div th:if="${#fields.hasErrors('password')}" class="field-error" th:errors="*{password}">비밀번호 오류</div>
-        </div>
-        <div class="user-box">
-            <label for="phoneNumber">phoneNumber</label>
-            <input type="text" id="phoneNumber" name="phoneNumber" th:field="*{phoneNumber}" th:errorclass="field-error">
-            <div th:if="${#fields.hasErrors('phoneNumber')}" class="field-error" th:errors="*{phoneNumber}">전화번호 오류</div>
-        </div>
-        <div>
-            <label>알게된 경로</label>
-            <select id="discoveryRoute" name="discoveryRoute" th:field="*{discoveryRoute}" onchange="viewEtcText()">
-                <option value="">선택</option>
-                <option value="인터넷 검색">인터넷 검색</option>
-                <option value="홈페이지">홈페이지</option>
-                <option value="소셜 미디어">소셜 미디어</option>
-                <option value="특정 사이트">특정 사이트</option>
-                <option value="기타" id="etcOption">기타</option>
-            </select>
-            <input type="text" id="etcInput" name="discoveryRoute" style="display: none;">
-            <div th:if="${#fields.hasErrors('discoveryRoute')}" class="field-error" th:errors="*{discoveryRoute}">선택 오류</div>
-        </div>
-        <button type="submit" id="submit">
-            <span></span>
-            <span></span>
-            <span></span>
-            <span></span>
-            회원가입
+<header>
+    <div class="header-container">
+        <!-- 로고 -->
+        <button class="logo">
+            <img src="/images/company_logo.png" alt="Company Logo" />
         </button>
-    </form>
-</div>
-</body>
-<script>
-    function viewEtcText() {
-    var discoveryRoute = document.getElementById("discoveryRoute");
-    var etcInput = document.getElementById("etcInput");
-    if (discoveryRoute.value === "기타") {
-        etcInput.style.display = "block";
-        etcInput.name = "discoveryRoute";
-        discoveryRoute.name = "";
-    } else {
-        etcInput.style.display = "none";
-        etcInput.name = "";
-        discoveryRoute.name = "discoveryRoute";
-    }
-}
 
-function submitFunction() {
-    var discoveryRoute = document.getElementById("discoveryRoute");
-    var etcInput = document.getElementById("etcInput");
-    if (discoveryRoute.value === "기타" && etcInput.value) {
-        discoveryRoute.value = etcInput.value;
-    } else {
-        etcInput.name = "";
-    }
-    return true;
-}
-</script>
+        <!-- 우측 상단 Become Locally Partner 버튼 -->
+        <button class="partner-button">Become Locally Partner!</button>
+
+        <button class="globe-button"></button>
+        <div class="globe-dropdown">
+            <ul>
+                <li>한국어</li>
+                <li>English</li>
+                <li>日本語</li>
+            </ul>
+        </div>
+
+        <button class="menu-button">
+            <span class="menu-icon"></span>
+        </button>
+        <!-- 가장 우측 메뉴 드롭다운 -->
+        <div class="menu-dropdown">
+            <ul>
+                <li>Reservation</li>
+                <li>Wishlist</li>
+                <li>Become a Partner</li>
+                <li>Account</li>
+                <li th:if="${auth}">
+                    <a href="/logout" role="button">Log out</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+</header>
+
+<!-- ------------------------------------------------------------------------------------- -->
+<section>
+    <div class="contents-box">
+        <div class="login-container">
+            <div class="title">Log in</div>
+            <div class="subtitle">welcome Back!</div>
+            <div class="email-label">Password</div>
+            <form method="post" action="/signup" enctype="multipart/form-data" id="form" th:object="${userRegisterRequestDto}">
+                <div class="input-container">
+                    <div class="user-box">-->
+                                    <label for="username">이름</label>
+                                    <input type="text" id="username" name="username" th:field="*{username}" th:errorclass="field-error">
+                                    <div th:if="${#fields.hasErrors('username')}" class="field-error" th:errors="*{username}">이름 오류</div>
+                                </div>
+                                <div class="user-box">
+                                    <label for="birth_date">생년월일</label>
+                                    <input type="date" id="birth_date" name="birthDate" th:field="*{birthDate}" th:errorclass="field-error">
+                                    <div th:if="${#fields.hasErrors('birthDate')}" class="field-error" th:errors="*{birthDate}">생년월일 오류</div>
+                                </div>
+                                <div class="user-box">
+                                    <label for="email">email</label>
+                                    <input type="text" id="email" name="email" th:field="*{email}" th:errorclass="field-error">
+                                    <div th:if="${#fields.hasErrors('email')}" class="field-error" th:errors="*{email}">이메일 오류</div>
+                                </div>
+                                <div class="user-box">
+                                    <label for="password">Password</label>
+                                    <input type="password" id="password" name="password" th:field="*{password}" th:errorclass="field-error">
+                                    <div th:if="${#fields.hasErrors('password')}" class="field-error" th:errors="*{password}">비밀번호 오류</div>
+                                </div>
+                                <div class="user-box">
+                                    <label for="phoneNumber">phoneNumber</label>
+                                    <input type="text" id="phoneNumber" name="phoneNumber" th:field="*{phoneNumber}" th:errorclass="field-error">
+                                    <div th:if="${#fields.hasErrors('phoneNumber')}" class="field-error" th:errors="*{phoneNumber}">전화번호 오류</div>
+                                </div>
+                                <div class="user-box">
+                                    <label>알게된 경로</label>
+                                                <select id="discoveryRoute" name="discoveryRoute" th:field="*{discoveryRoute}" onchange="viewEtcText()">
+                                                    <option value="">선택</option>
+                                                    <option value="인터넷 검색">인터넷 검색</option>
+                                                    <option value="홈페이지">홈페이지</option>
+                                                    <option value="소셜 미디어">소셜 미디어</option>
+                                                    <option value="특정 사이트">특정 사이트</option>
+                                                    <option value="기타" id="etcOption">기타</option>
+                                                </select>
+                                </div>
+                </div>
+                <div class="forgot">password forget?</div>
+                <div class="continue-button">
+                    <button class="button">Continue</button>
+                </div>
+            </form>
+            <div class="social-login-container">
+                <span class="continue-with">or continue with</span>
+                <div class="social-login-buttons">
+                    <!-- 소셜 로그인 이미지 -->
+                    <button class="social-login-button">
+                        <img src="/images/social_image_1.png" alt="Social Login 1" />
+                    </button>
+                    <button class="social-login-button">
+                        <img src="/images/social_image_2.png" alt="Social Login 2" />
+                    </button>
+                    <button class="social-login-button">
+                        <img src="/images/social_image_3.png" alt="Social Login 3" />
+                    </button>
+                    <button class="social-login-button">
+                        <img src="/images/social_image_4.png" alt="Social Login 4" />
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- ------------------------------------------------------------------------------------- -->
+<footer>
+
+</footer>
+</body>
+
+<script>
+    // JavaScript를 사용하여 메뉴 버튼 클릭 시 드롭다운 토글 구현
+    document
+      .querySelector(".menu-button")
+      .addEventListener("click", function () {
+        document.querySelector(".menu-dropdown").classList.toggle("show");
+      });
+    document
+      .querySelector(".globe-button")
+      .addEventListener("click", function () {
+        document.querySelector(".globe-dropdown").classList.toggle("show");
+      });
+    // 로고 버튼 클릭 시 홈페이지로 이동
+    document.querySelector(".logo").addEventListener("click", function () {
+      window.location.href = "home.html"; // 홈페이지 주소로 변경
+    });
+  </script>
 </html>
+
+
+<!--<html xmlns:th="http://www.thymeleaf.org">-->
+<!--<head>-->
+<!--    <style>-->
+<!--        .field-error {-->
+<!--            color: red;-->
+<!--        }-->
+<!--    </style>-->
+<!--</head>-->
+<!--<body>-->
+<!--<div class="login-box">-->
+<!--    <h2>signup</h2>-->
+<!--    <form method="post" action="/signup" enctype="multipart/form-data" id="form" th:object="${userRegisterRequestDto}" onsubmit="return submitFunction()">-->
+<!--        <div class="user-box">-->
+<!--            <label for="username">이름</label>-->
+<!--            <input type="text" id="username" name="username" th:field="*{username}" th:errorclass="field-error">-->
+<!--            <div th:if="${#fields.hasErrors('username')}" class="field-error" th:errors="*{username}">이름 오류</div>-->
+<!--        </div>-->
+<!--        <div class="user-box">-->
+<!--            <label for="birth_date">생년월일</label>-->
+<!--            <input type="date" id="birth_date" name="birthDate" th:field="*{birthDate}" th:errorclass="field-error">-->
+<!--            <div th:if="${#fields.hasErrors('birthDate')}" class="field-error" th:errors="*{birthDate}">생년월일 오류</div>-->
+<!--        </div>-->
+<!--        <div class="user-box">-->
+<!--            <label for="email">email</label>-->
+<!--            <input type="text" id="email" name="email" th:field="*{email}" th:errorclass="field-error">-->
+<!--            <div th:if="${#fields.hasErrors('email')}" class="field-error" th:errors="*{email}">이메일 오류</div>-->
+<!--        </div>-->
+<!--        <div class="user-box">-->
+<!--            <label for="password">Password</label>-->
+<!--            <input type="password" id="password" name="password" th:field="*{password}" th:errorclass="field-error">-->
+<!--            <div th:if="${#fields.hasErrors('password')}" class="field-error" th:errors="*{password}">비밀번호 오류</div>-->
+<!--        </div>-->
+<!--        <div class="user-box">-->
+<!--            <label for="phoneNumber">phoneNumber</label>-->
+<!--            <input type="text" id="phoneNumber" name="phoneNumber" th:field="*{phoneNumber}" th:errorclass="field-error">-->
+<!--            <div th:if="${#fields.hasErrors('phoneNumber')}" class="field-error" th:errors="*{phoneNumber}">전화번호 오류</div>-->
+<!--        </div>-->
+<!--        <div>-->
+<!--            <label>알게된 경로</label>-->
+<!--            <select id="discoveryRoute" name="discoveryRoute" th:field="*{discoveryRoute}" onchange="viewEtcText()">-->
+<!--                <option value="">선택</option>-->
+<!--                <option value="인터넷 검색">인터넷 검색</option>-->
+<!--                <option value="홈페이지">홈페이지</option>-->
+<!--                <option value="소셜 미디어">소셜 미디어</option>-->
+<!--                <option value="특정 사이트">특정 사이트</option>-->
+<!--                <option value="기타" id="etcOption">기타</option>-->
+<!--            </select>-->
+<!--            <input type="text" id="etcInput" name="discoveryRoute" style="display: none;">-->
+<!--            <div th:if="${#fields.hasErrors('discoveryRoute')}" class="field-error" th:errors="*{discoveryRoute}">선택 오류</div>-->
+<!--        </div>-->
+<!--        <button type="submit" id="submit">-->
+<!--            <span></span>-->
+<!--            <span></span>-->
+<!--            <span></span>-->
+<!--            <span></span>-->
+<!--            회원가입-->
+<!--        </button>-->
+<!--    </form>-->
+<!--</div>-->
+<!--</body>-->
+<!--<script>-->
+<!--    function viewEtcText() {-->
+<!--    var discoveryRoute = document.getElementById("discoveryRoute");-->
+<!--    var etcInput = document.getElementById("etcInput");-->
+<!--    if (discoveryRoute.value === "기타") {-->
+<!--        etcInput.style.display = "block";-->
+<!--        etcInput.name = "discoveryRoute";-->
+<!--        discoveryRoute.name = "";-->
+<!--    } else {-->
+<!--        etcInput.style.display = "none";-->
+<!--        etcInput.name = "";-->
+<!--        discoveryRoute.name = "discoveryRoute";-->
+<!--    }-->
+<!--}-->
+
+<!--function submitFunction() {-->
+<!--    var discoveryRoute = document.getElementById("discoveryRoute");-->
+<!--    var etcInput = document.getElementById("etcInput");-->
+<!--    if (discoveryRoute.value === "기타" && etcInput.value) {-->
+<!--        discoveryRoute.value = etcInput.value;-->
+<!--    } else {-->
+<!--        etcInput.name = "";-->
+<!--    }-->
+<!--    return true;-->
+<!--}-->
+<!--</script>-->
+<!--</html>-->

@@ -1,0 +1,351 @@
+html, body {
+  height: 100%;
+  margin: 0;
+}
+body {
+  width: 100%;
+}
+header {
+  height: 100px;
+	background: #ddd;
+	position: relative;
+	z-index: 1;
+	width: auto;
+}
+section {
+  /* min-height: 100%; */
+	/* margin: -100px 0 -50px; */
+	width: auto;
+  /* background-color: red; */
+  height: 100%;
+}
+footer {
+  height: 50px;
+	background: #ddd;
+}
+
+/* .header-container {
+  height: 20%;
+} */
+
+.logo {
+  top: 0px;
+  left: 20px;
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+}
+
+.logo img {
+  width: 100px; /* 로고 이미지의 너비를 조정해야할 수 있습니다. */
+  height: auto;
+}
+
+/* 우측 상단 Become Locally Partner 버튼 */
+.partner-button {
+  position: fixed;
+  top: 25px;
+  right: 190px;
+  margin-top: 10px;
+  background-color: transparent;
+  color: #000000;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+
+/* 지구본 버튼 hover 효과 */
+.globe-button:hover {
+  filter: brightness(150%);
+  transform: scale(1.5); /* 1.1배 확대되는 효과 */
+  transition: transform 0.3s ease; /* 변환에 대한 부드러운 전환 효과 추가 */
+}
+
+/* 더 우측 상단 지구본 모양 버튼 */
+.globe-button {
+  position: fixed;
+  top: 40px;
+  right: 140px;
+  background-color: transparent;
+  border: none;
+  padding: 0;
+  width: 23px; /* 버튼의 너비 조정 */
+  height: 23px; /* 버튼의 높이 조정 */
+  background-image: url("/images/globe.png"); /* 이미지 경로 설정 */
+  background-size: cover; /* 배경 이미지를 버튼에 맞게 조정 */
+  background-repeat: no-repeat; /* 이미지 반복 방지 */
+  background-position: center; /* 이미지를 가운데로 정렬 */
+  cursor: pointer;
+}
+
+
+.globe-dropdown {
+  display: none;
+  position: absolute;
+  top: 65px;
+  right: 138px;
+  background-color: #fff;
+  border-radius: 5px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1); /* 그림자 추가 */
+}
+
+.globe-dropdown.show {
+  display: block;
+}
+
+.globe-dropdown ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+.globe-dropdown ul li {
+  padding: 10px;
+  cursor: pointer;
+}
+
+.globe-dropdown ul li:hover {
+  background-color: #f2f2f2;
+}
+
+
+
+
+
+/* 가장 우측 메뉴 버튼 */
+.menu-button {
+  position: fixed;
+  top: 15px;
+  right: 30px;
+  background-color: transparent;
+  color: #ffffff;
+  border: none;
+  padding: 0;
+  width: 70px; /* 이미지의 너비 */
+  height: 70px; /* 이미지의 높이 */
+  background-image: url("/images/menu.png"); /* 이미지 경로 설정 */
+  background-size: contain; /* 배경 이미지를 버튼에 맞게 조정 */
+  background-repeat: no-repeat; /* 이미지 반복 방지 */
+  background-position: center; /* 이미지를 가운데로 정렬 */
+  cursor: pointer;
+  image-rendering: crisp-edges; /* 이미지를 선명하게 렌더링 */
+}
+
+/* 메뉴 드롭다운 */
+.menu-dropdown {
+  position: fixed;
+  top: 65px;
+  right: 30px;
+  background-color: #fff;
+  border-radius: 5px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1); /* 그림자 추가 */
+  display: none;
+}
+
+.menu-dropdown ul li:first-child {
+  font-weight: bold;
+}
+
+.menu-dropdown.show {
+  display: block;
+}
+
+.menu-dropdown ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+.menu-dropdown ul li {
+  padding: 10px;
+  cursor: pointer;
+}
+
+.menu-dropdown ul li:hover {
+  background-color: #f2f2f2;
+}
+
+.contents-box {
+  height: 100%;
+	/* padding: 100px 0 50px 0; */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+
+}
+
+.login-container {
+  /* max-width: 35%; 
+  min-height: 55vh;
+  opacity: 1;
+  position: relative;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, 50%);
+  border-radius: 30px;
+  box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.25);
+  overflow: hidden; */
+  width: 50%;
+  /* height: 70%; */
+  background-color: red;
+  box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.25);
+  border-radius: 30px;
+  overflow: hidden;
+}
+
+
+
+.title {
+  width: 248px;
+  color: rgba(0, 0, 0, 1);
+  position: relative;
+  top: 0px;
+  left: 0px;
+  font-family: Poppins;
+  font-weight: Medium;
+  font-size: 30px;
+  opacity: 1;
+  text-align: left;
+  font-weight: bold;
+}
+
+.subtitle {
+  width: 308px;
+  color: rgba(0, 0, 0, 1);
+  position: relative;
+  top: 0px;
+  left: 0px;
+  font-family: Poppins;
+  font-weight: Regular;
+  font-size: 18px;
+  opacity: 1;
+  text-align: left;
+  -webkit-font-smoothing: antialiased; /* 안티 앨리어싱*/
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.email-label {
+  margin-top: 40px;
+  margin-left: 7px;
+  color: #000;
+  font-family: Poppins;
+  font-size: 13px;
+}
+
+
+input[type="email"], input[type="password"] {
+  width: 420px;
+  border: none;
+  border-bottom: 2px solid #000;
+  padding: 10px 5px;
+  font-family: Poppins;
+  font-size: 16px;
+  outline: none;
+}
+
+
+.forgot {
+  font-size: 12px; /* 폰트 크기 조정 */
+  color: #999999; /* 글씨 색상 변경 */
+  border: none; /* 테두리 제거 */
+  background: none; /* 배경 제거 */
+  cursor: pointer; /* 포인터 커서 설정 */
+  transition: transform 0.3s ease; /* 변환에 대한 부드러운 전환 효과 추가 */
+}
+
+.forgot:hover {
+  transform: scale(1.1); /* 1.2배 확대 */
+}
+
+
+
+.continue-button {
+  width: 429px;
+  height: 53px;
+  opacity: 1;
+  /* position: relative; */
+  top: 100px;
+  left: 200px;
+  overflow: hidden;
+  cursor: pointer;
+  background-color: transparent; /* 배경 투명 처리 */
+  transition: transform 0.3s ease; /* 변환에 대한 부드러운 전환 효과 추가 */
+  
+}
+/* hover 효과 */
+.continue-button:hover {
+  transform: scale(1.01); /* 1.05배 확대 */
+}
+
+
+.button {
+  width: 429px;
+  height: 53px;
+  background: rgba(255, 255, 255, 1);
+  opacity: 1;
+  /* position: relative; */
+  top: 0px;
+  left: 0px;
+  border-radius: 32px;
+  overflow: hidden;
+
+  transition: box-shadow 0.3s;
+  box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.1);
+
+
+
+
+  font-family: Poppins;
+  font-weight: Medium;
+  font-size: 17px;
+  opacity: 1;
+  text-align: center;
+}
+.button:hover {
+  box-shadow: 0px 15px 30px rgba(0, 0, 0, 0.5); /* 마우스 호버시 그림자 효과 강화 */
+}
+
+
+
+.social-login-buttons {
+  width: 200px;
+  height: 65px;
+  margin: 20px 0;
+  opacity: 1;
+  /* position: relative; */
+  top: -20px;
+  left: 45px;
+  display: flex; /* 수정된 부분: 플렉스 박스로 설정하여 내부 요소들을 가로로 정렬 */
+  justify-content: space-between; /* 수정된 부분: 내부 요소들을 좌우로 균등하게 배치 */
+  /* margin-top: -70px; */
+}
+
+
+.social-login-button {
+  width: 45px;
+  height: 35px;
+  opacity: 1;
+  /* position: relative; */
+  top: 40px;
+  left: -30px;
+  overflow: hidden;
+  border: none; /* 버튼의 테두리 없애기 */
+  background-color: transparent; /* 배경색 없애기 */
+  cursor: pointer; /* 커서를 포인터로 변경하여 클릭 가능하도록 설정 */
+  display: inline-block; /* 인라인 요소로 설정하여 다른 요소와 나란히 배치되도록 함 */
+  margin-right: 1px; /* 버튼들 사이의 간격 조절 */
+  background-size: contain; /* 이미지가 버튼 내에 완전히 나타나도록 설정 */
+  background-repeat: no-repeat; /* 이미지 반복 없애기 */
+  background-position: center;
+}
+
+/* 각 소셜 로그인 버튼에 배경 이미지 설정 */
+.social-login-button img {
+  width: 100%; /* 이미지 너비를 버튼에 맞게 조정 */
+  height: 100%; /* 이미지 높이를 버튼에 맞게 조정 */
+}

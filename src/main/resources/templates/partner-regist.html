@@ -2,7 +2,7 @@
 <head>
 </head>
 <body>
-<form action="/login" method="post">
+<form action="/partner-regist" method="post">
     <div>
         <label>Name</label>
         <input type="text" name="firstName" placeholder="First name"/>
@@ -20,8 +20,8 @@
     </div>
     <div>
         <label>Career</label>
-        <select name="career">
-            <option value="미정">미정</option>
+        <select name="occupation">
+            <option value="student">학생</option>
         </select>
     </div>
     <div>
@@ -64,13 +64,15 @@
         <select name="snsType">
             <option value="">Type of SNS</option>
         </select>
-        <input type="text" name="snsAddress"/>
+        <input type="text" name="personalSnsLink"/>
     </div>
     <div>
         <div>The payment will be settled once a month.<br>20% commission fee will be charged from the total amount.<br>(Transfer fees may be applied)</div>
         <p>Choose Payment method</p>
-        <input type='checkbox' name='payment' value='bank' onclick='checkOnlyOne(this)'/> Bank Transfer
+        <input type='checkbox' name='payment' value='bankk' onclick='checkOnlyOne(this)'/> Bank Transfer
         <input type='checkbox' name='payment' value='payPal' onclick='checkOnlyOne(this)'/> Pay Pal
+        <input type="text" name="bank">은행
+        <input type="text" name="account">계좌번호
     </div>
     <div>
         <label>Currency</label>
@@ -94,6 +96,7 @@
 <!--    </div>-->
 <!--    <div th:if="${error}" th:text="${exception}"></div>-->
 <!--    <input type="submit" value="Log in" />-->
+    <button type="submit">파트너 등록</button>
 </form>
 </body>
 <script>

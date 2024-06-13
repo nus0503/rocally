@@ -1,0 +1,120 @@
+<html xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <link
+      href="https://fonts.googleapis.com/css?family=Poppins&display=swap"
+      rel="stylesheet"
+    />
+    <link href="/css/main_copy.css" rel="stylesheet" />
+    <title>Login</title>
+  </head>
+  <body>
+    <header>
+      <div class="header-container">
+      <!-- 로고 -->
+      <button class="logo">
+        <img src="/images/company_logo.png" alt="Company Logo" />
+      </button>
+      
+      <!-- 우측 상단 Become Locally Partner 버튼 -->
+      <button class="partner-button">Become Locally Partner!</button>
+
+      <button class="globe-button"></button>
+      <div class="globe-dropdown">
+        <ul>
+          <li>한국어</li>
+          <li>English</li>
+          <li>日本語</li>
+        </ul>
+      </div>
+
+      <button class="menu-button">
+        <span class="menu-icon"></span>
+      </button>
+      <!-- 가장 우측 메뉴 드롭다운 -->
+      <div class="menu-dropdown">
+        <ul>
+          <li>Reservation</li>
+          <li>Wishlist</li>
+          <li>Become a Partner</li>
+          <li>Account</li>
+          <li th:if="${auth}">
+            <a href="/logout" role="button">Log out</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+      
+    </header>
+
+<!-- ------------------------------------------------------------------------------------- -->
+    <section>
+      <div class="contents-box">
+        <div class="login-container">
+          <div class="title">Log in</div>
+          <div class="subtitle">welcome Back, User!</div>
+          <!-- <div class="email-label">Password</div> -->
+<!--          <form action="">-->
+            <!-- <div class="input-container">
+              <input
+                  type="email"
+                  id="email"
+                  name="email"
+                  placeholder="🔒 Enter your password"
+                />
+            </div> -->
+            <!-- <div class="forgot">password forget?</div> -->
+            <div>
+              <img src="/images/2.png" alt="">
+              <div th:text="${email}">user***@gm***.com</div>
+            </div>
+            <div class="continue-button">
+              <a href="/oauth2/authorization/google">
+                <button class="button">Continue</button>
+              </a>
+            </div>
+<!--        </form>-->
+        <div>Not you? Use another account</div>
+        <!-- <div class="social-login-container">
+          <span class="continue-with">or continue with</span>
+          <div class="social-login-buttons">
+            <button class="social-login-button">
+              <img src="social_image_1.png" alt="Social Login 1" />
+            </button>
+            <button class="social-login-button">
+              <img src="social_image_2.png" alt="Social Login 2" />
+            </button>
+            <button class="social-login-button">
+              <img src="social_image_3.png" alt="Social Login 3" />
+            </button>
+            <button class="social-login-button">
+              <img src="social_image_4.png" alt="Social Login 4" />
+            </button>
+          </div>
+        </div> -->
+        </div>
+      </div>
+    </section>
+<!-- ------------------------------------------------------------------------------------- -->
+    <footer>
+
+    </footer>
+  </body>
+
+  <script>
+    // JavaScript를 사용하여 메뉴 버튼 클릭 시 드롭다운 토글 구현
+    document
+      .querySelector(".menu-button")
+      .addEventListener("click", function () {
+        document.querySelector(".menu-dropdown").classList.toggle("show");
+      });
+    document
+      .querySelector(".globe-button")
+      .addEventListener("click", function () {
+        document.querySelector(".globe-dropdown").classList.toggle("show");
+      });
+    // 로고 버튼 클릭 시 홈페이지로 이동
+    document.querySelector(".logo").addEventListener("click", function () {
+      window.location.href = "home.html"; // 홈페이지 주소로 변경
+    });
+  </script>
+</html>

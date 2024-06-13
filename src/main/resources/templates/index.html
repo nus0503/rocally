@@ -1,10 +1,11 @@
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <link rel="stylesheet" href="/css/main_nav.css">
     <link rel="stylesheet" href="/css/section_img.css">
     <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
     <link href='https://fonts.googleapis.com/css?family=Anton' rel='stylesheet' type='text/css'>
     <link href='https://fonts.googleapis.com/css?family=Neucha' rel='stylesheet' type='text/css'>
+    <link href="/css/main_copy.css" rel="stylesheet" />
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"
             integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="
             crossorigin="anonymous"></script>
@@ -26,46 +27,97 @@
     </style>
 </head>
 <body>
-    <header>
-        <div>
-            <div>rocally</div>
-            <div>
-                <div>숙소</div>
-                <div>체험</div>
-                <div>온라인 체험</div>
-            </div>
-            <div>
-                <div>당신의 공간을 로컬리하세요</div>
-                <div>
-                    <button>
-                        <div>
-                            <img src="images/horizontal_line.png" width="100px" height="100px">
-                        </div>
-                        <div>
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" aria-hidden="true" role="presentation" focusable="false" style="display: block; height: 100%; width: 100%; fill: currentcolor;"></svg>
-                        </div>
-                    </button>
-                </div>
-            </div>
+<header>
+    <div class="header-container">
+        <!-- 로고 -->
+        <button class="logo">
+            <img src="/images/company_logo.png" alt="Company Logo" />
+        </button>
+
+<!--         우측 상단 Become Locally Partner 버튼-->
+        <button sec:authorize="hasRole('ROLE_USER') or isAnonymous()" class="partner-button">
+            <a href="/partner-regist">Become Locally Partner!</a>
+        </button>
+        <button sec:authorize="hasRole('ROLE_PARTNER')" class="partner-button">
+            <a href="/travel-register">프로그램 등록</a>
+        </button>
+
+        <button class="globe-button"></button>
+        <div class="globe-dropdown">
+            <ul>
+                <li>한국어</li>
+                <li>English</li>
+                <li>日本語</li>
+            </ul>
         </div>
-        <div class="search-bar">
-            <input type="text" placeholder="검색">
-            <div class="category-filters">
-                <button class="filter">전체</button>
-                <button class="filter">이미지 검색</button>
-                <button class="filter">동영상 검색</button>
-                <button class="filter">뉴스 검색</button>
-                <button class="filter">더보기</button>
-            </div>
-            <button class="search-button">
-                <img src="magnifying-glass-icon.svg" alt="Search">
-            </button>
+
+        <button class="menu-button">
+            <span class="menu-icon"></span>
+        </button>
+        <!-- 가장 우측 메뉴 드롭다운 -->
+        <div class="menu-dropdown">
+            <ul th:if="${auth}">
+                <li>Reservation</li>
+                <li>Wishlist</li>
+                <li sec:authorize="hasRole('ROLE_USER') or isAnonymous()">
+                    <a href="/partner-regist" role="button">Become a Partner</a>
+                </li>
+                <li>Account</li>
+                <li>
+                    <a href="/logout" role="button">Log out</a>
+                </li>
+            </ul>
+            <ul th:unless="${auth}">
+                <li>
+                    <a href="/login-process1" role="button">Log in</a>
+                </li>
+            </ul>
         </div>
-        <div th:if="${user}">
-            <button>Become Locally Partner</button>
-        </div>
-        <div th:if="${user}" th:text="${user.getUsername}"></div>
-    </header>
+    </div>
+    <div th:if="${firstRole}" th:text="${firstRole.authority}"></div>
+<!--    <button sec:authorize="hasRole('ROLE_USER')" class="partner-buttonn">Become Locally Partner!</button>-->
+<!--    <button sec:authorize="hasRole('ROLE_PARTNER')" class="partner-buttonn">Become Locally Partner!!!!</button>-->
+</header>
+<!--    <header>-->
+<!--        <div>-->
+<!--            <div>rocally</div>-->
+<!--            <div>-->
+<!--                <div>숙소</div>-->
+<!--                <div>체험</div>-->
+<!--                <div>온라인 체험</div>-->
+<!--            </div>-->
+<!--            <div>-->
+<!--                <div>당신의 공간을 로컬리하세요</div>-->
+<!--                <div>-->
+<!--                    <button>-->
+<!--                        <div>-->
+<!--                            <img src="images/horizontal_line.png" width="100px" height="100px">-->
+<!--                        </div>-->
+<!--                        <div>-->
+<!--                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" aria-hidden="true" role="presentation" focusable="false" style="display: block; height: 100%; width: 100%; fill: currentcolor;"></svg>-->
+<!--                        </div>-->
+<!--                    </button>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--        <div class="search-bar">-->
+<!--            <input type="text" placeholder="검색">-->
+<!--            <div class="category-filters">-->
+<!--                <button class="filter">전체</button>-->
+<!--                <button class="filter">이미지 검색</button>-->
+<!--                <button class="filter">동영상 검색</button>-->
+<!--                <button class="filter">뉴스 검색</button>-->
+<!--                <button class="filter">더보기</button>-->
+<!--            </div>-->
+<!--            <button class="search-button">-->
+<!--                <img src="magnifying-glass-icon.svg" alt="Search">-->
+<!--            </button>-->
+<!--        </div>-->
+<!--        <div th:if="${user}">-->
+<!--            <button>Become Locally Partner</button>-->
+<!--        </div>-->
+<!--        <div th:if="${user}" th:text="${user.getUsername}"></div>-->
+<!--    </header>-->
     <nav>
 
     </nav>
@@ -144,5 +196,22 @@
                 imageContainer.innerHTML = '<img src="images/' + images[currentImageIndex] + '" alt="Image ' + (currentImageIndex + 1) + '">';
             }, 3000);
         });
-    </script>
+</script>
+<script>
+    // JavaScript를 사용하여 메뉴 버튼 클릭 시 드롭다운 토글 구현
+    document
+      .querySelector(".menu-button")
+      .addEventListener("click", function () {
+        document.querySelector(".menu-dropdown").classList.toggle("show");
+      });
+    document
+      .querySelector(".globe-button")
+      .addEventListener("click", function () {
+        document.querySelector(".globe-dropdown").classList.toggle("show");
+      });
+    // 로고 버튼 클릭 시 홈페이지로 이동
+    document.querySelector(".logo").addEventListener("click", function () {
+      window.location.href = "home.html"; // 홈페이지 주소로 변경
+    });
+  </script>
 </html>
