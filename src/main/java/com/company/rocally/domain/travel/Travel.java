@@ -49,6 +49,12 @@ public class Travel extends BaseTimeEntity {
     @OneToMany(mappedBy = "travel", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<TravelImage> travelImages = new ArrayList<>();
 
+    @OneToMany(mappedBy = "travel", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<Reserve> reserves = new ArrayList<>();
+
+    @OneToMany(mappedBy = "travel", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<AvailableDates> availableDates = new ArrayList<>();
+
 //    @ManyToOne(fetch = FetchType.LAZY)
 //    @JoinColumn(name = "travel_local_id")
 //    private TravelLocal travelLocal;
