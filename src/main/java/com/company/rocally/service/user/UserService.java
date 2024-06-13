@@ -30,9 +30,16 @@ public class UserService {
                 .build()).getId();
     }
 
-    public String findByEmail(String email) {
-        String getEmail = userRepository.findByEmail(email)
-                .orElseThrow(() -> new IllegalArgumentException("해당 유저가 없습니다.")).getEmail();
-        return getEmail;
+    public int findByEmail(String email) {
+        User user = userRepository.findByEmailAsObject(email);
+
+        if (user == null) {
+            return 0;
+        } else {
+            if (user.getPassword() == null) {
+                return 1;
+            }
+        }
+        return 2;
     }
 }

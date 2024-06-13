@@ -1,6 +1,7 @@
 package com.company.rocally.controller.user;
 
 import com.company.rocally.controller.user.dto.LoginOrSignupRequestDto;
+import com.company.rocally.controller.user.dto.UserRegisterRequestDto;
 import com.company.rocally.domain.partner.Partner;
 import com.company.rocally.domain.partner.PartnerRepository;
 import com.company.rocally.domain.user.Role;
@@ -15,6 +16,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.PostConstruct;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 @Controller
 @RequiredArgsConstructor
@@ -33,13 +36,29 @@ public class LoginController {
     public String loginOrSignup() {
         return "login_or_signup";
     }
-
-
     @PostMapping("/login-step1")
-    @ResponseBody
-    public ResponseEntity loginPost(@RequestBody LoginOrSignupRequestDto dto) {
-        return ResponseEntity.ok(userService.findByEmail(dto.getEmail()));
+//    @ResponseBody
+    public String loginPost(@ModelAttribute LoginOrSignupRequestDto dto, Model model) {
+        int num = userService.findByEmail(dto.getEmail());
+        if (num == 0) {
+            model.addAttribute("userRegisterRequestDto", new UserRegisterRequestDto());
+            return "signup";
+        } else if (num == 1) {
+            model.addAttribute("email", dto.getEmail());
+            return "login_sns";
+        } else {
+            model.addAttribute("email", dto.getEmail());
+            return "loginForm";
+        }
     }
+
+
+//    @PostMapping("/login-step1")
+//    @ResponseBody
+//    public ResponseEntity loginPost(@RequestBody LoginOrSignupRequestDto dto) {
+//        int num = userService.findByEmail(dto.getEmail());
+//        return ResponseEntity.ok(num);
+//    }
 
 
     @GetMapping("/login-process2")
@@ -53,9 +72,17 @@ public class LoginController {
     }
 
     @GetMapping("/loginForm")
-    public String login(@RequestParam(value = "error", required = false) String error,
+    public String login(HttpServletRequest request,
+                        @RequestParam(value = "error", required = false) String error,
                         @RequestParam(value = "exception", required = false) String exception,
                         Model model) {
+        HttpSession session = request.getSession(false);
+        if (session != null && session.getAttribute("email") != null) {
+            String email = (String) session.getAttribute("email");
+            model.addAttribute("email", email);
+
+            session.removeAttribute("email");
+        }
         model.addAttribute("error", error);
         model.addAttribute("exception", exception);
         return "/loginForm";
@@ -76,7 +103,15 @@ public class LoginController {
                 .password(bCryptPasswordEncoder.encode("Rla7539750!"))
                 .build();
 //        user.addPartner(partner1);
-
+        User user2 = User.builder()
+                .email("aaaa@aaaa.com")
+                .role(Role.USER)
+                .discoveryRoute("인터넷")
+                .phoneNumber("010-3703-7428")
+                .birthDate("1997-05-03")
+                .username("김정수")
+                .build();
         userRepository.save(user);
+        userRepository.save(user2);
     }
 }

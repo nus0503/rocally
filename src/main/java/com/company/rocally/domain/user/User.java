@@ -27,19 +27,19 @@ public class User extends BaseTimeEntity {
     @Column(name = "username", nullable = false)
     private String username;
 
-    @Column(name = "birth_date", nullable = false)
+    @Column(name = "birth_date")
     private String birthDate;
 
     @Column(name = "email", nullable = false, unique = true)
     private String email;
 
-    @Column(name = "password", nullable = false)
+    @Column(name = "password")
     private String password;
 
     @Column(name = "phone_number", nullable = false, unique = true)
     private String phoneNumber;
 
-    @Column(name = "discovery_route", nullable = false)
+    @Column(name = "discovery_route")
     private String discoveryRoute; //선택 입력 필드로
 
     @Enumerated(value = EnumType.STRING)
