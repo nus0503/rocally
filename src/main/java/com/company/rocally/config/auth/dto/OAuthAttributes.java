@@ -56,7 +56,6 @@ public class OAuthAttributes {
         return User.builder()
                 .username(name)
                 .email(email)
-                .password(UUID.randomUUID().toString())
                 .phoneNumber(UUID.randomUUID().toString())
                 .role(Role.USER)
                 .build();
