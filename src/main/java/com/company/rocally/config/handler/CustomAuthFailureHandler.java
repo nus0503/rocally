@@ -11,6 +11,7 @@ import org.springframework.security.web.authentication.SimpleUrlAuthenticationFa
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
@@ -37,6 +38,13 @@ public class CustomAuthFailureHandler extends SimpleUrlAuthenticationFailureHand
             errorMessage = "인증 요청이 거부되었습니다. 관리자에게 문의하세요.";
         } else {
             errorMessage = "알 수 없는 이유로 로그인에 실패하였습니다 관리자에게 문의하세요.";
+        }
+
+        String email = request.getParameter("email");
+
+        if (email != null && !email.trim().isEmpty()) {
+            HttpSession session = request.getSession();
+            session.setAttribute("email", email);
         }
 
         errorMessage = URLEncoder.encode(errorMessage, StandardCharsets.UTF_8);
