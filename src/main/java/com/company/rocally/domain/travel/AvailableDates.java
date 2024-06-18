@@ -10,7 +10,7 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 
 @Entity
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@NoArgsConstructor
 @Getter
 public class AvailableDates {
 
@@ -27,4 +27,25 @@ public class AvailableDates {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "travel_id")
     private Travel travel;
+
+    public void changeTravel(Travel travel) {
+        this.travel = travel;
+        travel.getAvailableDates().add(this);
+    }
+
+    private AvailableDates(LocalDate availableDate, LocalTime startTime, LocalTime endTime, boolean isReserved) {
+        this.availableDate = availableDate;
+        this.startTime = startTime;
+        this.endTime = endTime;
+        this.isReserved = isReserved;
+
+    }
+
+    public AvailableDates generateAvailableDates(LocalDate availableDate, LocalTime startTime, LocalTime endTime, boolean isReserved) {
+        return new AvailableDates(availableDate, startTime, endTime, isReserved);
+    }
+
+    public void changeIsReservedToFalse() {
+        this.isReserved = false;
+    }
 }

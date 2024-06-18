@@ -63,6 +63,10 @@ public class Travel extends BaseTimeEntity {
     @JoinColumn(name = "user_id")
     private User user;
 
+    public void addAvailableDates(List<AvailableDates> availableDates) {
+        this.availableDates = availableDates;
+
+    }
     public void addTravelImages(List<TravelImage> travelImages) {
 
         for (TravelImage travelImage : travelImages) {

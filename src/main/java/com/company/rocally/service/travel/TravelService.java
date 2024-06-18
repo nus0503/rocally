@@ -5,12 +5,8 @@ import com.company.rocally.common.file.image.ImageStore;
 import com.company.rocally.common.page.PageableRequest;
 import com.company.rocally.config.auth.dto.SessionUser;
 import com.company.rocally.controller.file.dto.ImageFileDto;
-import com.company.rocally.controller.travel.dto.TravelDetailResponseDto;
-import com.company.rocally.controller.travel.dto.TravelRegisterRequestDto;
-import com.company.rocally.controller.travel.dto.TravelsResponseDto;
-import com.company.rocally.domain.travel.Travel;
-import com.company.rocally.domain.travel.TravelImage;
-import com.company.rocally.domain.travel.TravelRepository;
+import com.company.rocally.controller.travel.dto.*;
+import com.company.rocally.domain.travel.*;
 import com.company.rocally.domain.user.User;
 import com.company.rocally.domain.user.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -35,6 +31,10 @@ public class TravelService {
     private final TravelRepository travelRepository;
 
     private final UserRepository userRepository;
+
+    private final AvailableDatesRepository availableDatesRepository;
+
+    private final ReserveRepository reserveRepository;
     private final ImageStore imageStore;
 
     public void createTravel(TravelRegisterRequestDto dto, ImageFileDto imageFileDto) throws IOException {
@@ -65,13 +65,19 @@ public class TravelService {
     }
 
     @Transactional
-    public void createTravelWithImage(SessionUser user, TravelRegisterRequestDto travelRegisterRequestDto) throws IOException {
+    public void createTravelWithImage(SessionUser user,
+                                      TravelRegisterRequestDto travelRegisterRequestDto,
+                                      AvailableDateWrapper availableDateWrapper) throws IOException {
         User user1 = userRepository.findByEmail(user.getEmail()).orElseThrow(
                 () -> new UsernameNotFoundException("해당 유저가 없습니다.")
         );
         List<ImageDto> imageDtos = ImageStore.getFileDtoFromMultipartFile(travelRegisterRequestDto.getImages());
         travelRegisterRequestDto.setImageDto(imageDtos);
-        travelRepository.save(travelRegisterRequestDto.toTravelEntity(user1));
+//        travelRegisterRequestDto.setAvailableDateWrapper(availableDateWrapper);
+        Travel travel = travelRegisterRequestDto.toTravelEntity(user1);
+        List<AvailableDates> availableDates = availableDateWrapper.toAvailableDatesList(travel);
+        travel.addAvailableDates(availableDates);
+        travelRepository.save(travel);
 
     }
 
@@ -88,5 +94,24 @@ public class TravelService {
         Page<Travel> page = travelRepository.findAll(request.toPageable());
         return page.map(TravelsResponseDto::new);
 
+    }
+
+    @Transactional
+    public void reserveTravel(SessionUser user, TravelReserveRequestDto travelReserveRequestDto) {
+        User user1 = userRepository.findByEmail(user.getEmail()).orElseThrow(
+                () -> new UsernameNotFoundException("해당 유저가 없습니다."));
+
+        Travel travel = travelRepository.findById(travelReserveRequestDto.getTravelId()).orElseThrow(
+                () -> new IllegalArgumentException("해당 체험이 없습니다."));
+
+        AvailableDates availableDate = availableDatesRepository.findById(travelReserveRequestDto.getAvailableDateId()).orElseThrow(
+                () -> new IllegalArgumentException("선택하신 예약날짜가 없습니다."));
+
+        availableDate.isReserved(); // 보안성 추가 (나중에)
+
+        availableDate.changeIsReservedToFalse();
+        availableDatesRepository.save(availableDate);
+        Reserve reserve = Reserve.generateReserve(ReserveStatus.WAIT, availableDate, travel, user1);
+        reserveRepository.save(reserve);
     }
 }

@@ -3,9 +3,7 @@ package com.company.rocally.controller.travel;
 import com.company.rocally.common.page.PageableRequest;
 import com.company.rocally.config.auth.LoginUser;
 import com.company.rocally.config.auth.dto.SessionUser;
-import com.company.rocally.controller.travel.dto.TravelDetailResponseDto;
-import com.company.rocally.controller.travel.dto.TravelRegisterRequestDto;
-import com.company.rocally.controller.travel.dto.TravelsResponseDto;
+import com.company.rocally.controller.travel.dto.*;
 import com.company.rocally.service.travel.TravelService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -33,7 +31,9 @@ public class TravelController {
     }
 
     @PostMapping("/travel-register")
-    public String createTravel(@LoginUser SessionUser user, @ModelAttribute @Valid TravelRegisterRequestDto travelRegisterRequestDto,
+    public String createTravel(@LoginUser SessionUser user,
+                               @ModelAttribute @Valid TravelRegisterRequestDto travelRegisterRequestDto,
+                               @ModelAttribute AvailableDateWrapper availableDateWrapper,
                                Errors errors, Model model) throws IOException {
 
         if (errors.hasErrors()) {
@@ -49,8 +49,13 @@ public class TravelController {
             model.addAttribute("travelRegisterRequestDto", travelRegisterRequestDto);
             return "travel-register";
         }
-        travelService.createTravelWithImage(user, travelRegisterRequestDto);
+        travelService.createTravelWithImage(user, travelRegisterRequestDto, availableDateWrapper);
         return "index";
+    }
+
+    @PostMapping("/나중에 짓기")
+    public String reserveTravel(@LoginUser SessionUser user, @ModelAttribute TravelReserveRequestDto travelReserveRequestDto) {
+        return "";
     }
 
     @GetMapping("/travel/{id}")

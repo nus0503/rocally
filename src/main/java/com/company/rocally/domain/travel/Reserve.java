@@ -21,7 +21,7 @@ public class Reserve {
     @Enumerated(value = EnumType.STRING)
     private ReserveStatus reserveStatus;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "available_dates_id")
     private AvailableDates availableDates;
 //    private LocalDate availableDate;
@@ -37,4 +37,15 @@ public class Reserve {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private User user;
+
+    private Reserve(ReserveStatus reserveStatus, AvailableDates availableDates, Travel travel, User user) {
+        this.reserveStatus = reserveStatus;
+        this.availableDates = availableDates;
+        this.travel = travel;
+        this.user = user;
+    }
+
+    public static Reserve generateReserve(ReserveStatus reserveStatus, AvailableDates availableDates, Travel travel, User user) {
+        return new Reserve(reserveStatus, availableDates, travel, user);
+    }
 }
