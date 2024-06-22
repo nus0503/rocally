@@ -45,7 +45,7 @@ public class AvailableDates {
         return new AvailableDates(availableDate, startTime, endTime, isReserved);
     }
 
-    public void changeIsReservedToFalse() {
-        this.isReserved = false;
+    public void changeIsReservedToTrue() {
+        this.isReserved = true;
     }
 }

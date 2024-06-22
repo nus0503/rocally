@@ -111,7 +111,7 @@ public class TravelService {
 
         availableDate.isReserved(); // 보안성 추가 (나중에)
 
-        availableDate.changeIsReservedToFalse();
+        availableDate.changeIsReservedToTrue();
         availableDatesRepository.save(availableDate);
         Reserve reserve = Reserve.generateReserve(ReserveStatus.WAIT, availableDate, travel, user1);
         reserveRepository.save(reserve);
