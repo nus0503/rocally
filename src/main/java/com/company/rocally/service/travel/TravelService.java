@@ -22,6 +22,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
+
 @Slf4j
 @Service
 @RequiredArgsConstructor
@@ -115,11 +117,25 @@ public class TravelService {
         reserveRepository.save(reserve);
     }
 
-    public void checkReservedTravel(SessionUser user) {
+    public List<TravelReserveResponseDto> checkReservedTravel(SessionUser user) { //반환타입 변경해야 함
         User user1 = userRepository.findByEmail(user.getEmail()).orElseThrow(
                 () -> new IllegalArgumentException("회원정보가 없습니다."));
-        //user1.getReserves().stream().map()
+        return user1.getReserves().stream()
+                .map(reserve -> new TravelReserveResponseDto(
+                        reserve.getId(), reserve.getReserveStatus(), reserve.getAvailableDates().getAvailableDate(),
+                        reserve.getAvailableDates().getStartTime(), reserve.getAvailableDates().getEndTime(),
+                        reserve.getTravel().getId(), reserve.getTravel().getTitle()
+                )).collect(Collectors.toList());
     }
 
+    public  List<TravelReservedAsPartnerResponseDto> checkReservedTravelAsPartner(SessionUser user) {
+        User user1 = userRepository.findByEmail(user.getEmail()).orElseThrow(
+                () -> new IllegalArgumentException("회원정보가 없습니다."));
 
+        return user1.getTravels().stream()
+                .map(travel -> {
+                    Long reservedCount = travel.getReserves().stream().count();
+                    return new TravelReservedAsPartnerResponseDto(travel.getId(), travel.getTitle(), reservedCount);
+                }).collect(Collectors.toList());
+    }
 }
