@@ -62,12 +62,13 @@ public class TravelController {
     public String getTravel(@PathVariable Long id, Model model) {
         TravelDetailResponseDto travelDetailResponseDto = travelService.getTravelProgramDetail(id);
         model.addAttribute("travelDetailResponseDto", travelDetailResponseDto);
-        return "program-detail";
+        return "a";
     }
 
-    @GetMapping("travel-list")
-    public Page<TravelsResponseDto> getTravelList(@ModelAttribute PageableRequest request) {
+    @GetMapping("/travel-list")
+    public String getTravelList(@ModelAttribute PageableRequest request, Model model) {
         Page<TravelsResponseDto> travels = travelService.getTravels(request);
-        return travels;
+        model.addAttribute("travelList", travels);
+        return "package";
     }
 }

@@ -1,5 +1,6 @@
 package com.company.rocally.controller.travel.dto;
 
+import com.company.rocally.domain.travel.AvailableDates;
 import com.company.rocally.domain.travel.Travel;
 import lombok.Getter;
 import lombok.Setter;
@@ -11,12 +12,15 @@ import java.util.stream.Collectors;
 @Setter
 public class TravelsResponseDto {
 
+    private Long id;
     private String title;
 
     private List<TravelImageResponseDto> travelImages;
 
 
+
     public TravelsResponseDto(Travel travel) {
+        this.id = travel.getId();
         this.title = travel.getTitle();
         this.travelImages = travel.getTravelImages().stream()
                 .map(travelImage -> new TravelImageResponseDto(travelImage.getFilename(), travelImage.getFilepath()))

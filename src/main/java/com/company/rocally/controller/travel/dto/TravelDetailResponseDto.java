@@ -12,6 +12,8 @@ import java.util.stream.Collectors;
 @Setter
 public class TravelDetailResponseDto {
 
+    private Long id;
+
     private String title;
 
     private String content;
@@ -30,9 +32,12 @@ public class TravelDetailResponseDto {
 
     private List<TravelImageResponseDto> travelImages;
 
+    private List<AvailableDateResponseDto> availableDateResponseDto;
+
     private UserResponseDto user;
 
     public TravelDetailResponseDto(Travel travel) {
+        this.id = travel.getId();
         this.title = travel.getTitle();
         this.content = travel.getContent();
         this.price = travel.getPrice();
@@ -43,6 +48,9 @@ public class TravelDetailResponseDto {
         this.maxPeople = travel.getMaxPeople();
         this.travelImages = travel.getTravelImages().stream()
                 .map(travelImage -> new TravelImageResponseDto(travelImage.getFilename(), travelImage.getFilepath()))
+                .collect(Collectors.toList());
+        this.availableDateResponseDto = travel.getAvailableDates().stream()
+                .map(availableDates -> new AvailableDateResponseDto(availableDates.getId(), availableDates.getAvailableDate(), availableDates.getStartTime(), availableDates.getEndTime()))
                 .collect(Collectors.toList());
         this.user = new UserResponseDto(travel.getUser().getUsername());
     }
