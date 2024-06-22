@@ -114,4 +114,12 @@ public class TravelService {
         Reserve reserve = Reserve.generateReserve(ReserveStatus.WAIT, availableDate, travel, user1);
         reserveRepository.save(reserve);
     }
+
+    public void checkReservedTravel(SessionUser user) {
+        User user1 = userRepository.findByEmail(user.getEmail()).orElseThrow(
+                () -> new IllegalArgumentException("회원정보가 없습니다."));
+        //user1.getReserves().stream().map()
+    }
+
+
 }
