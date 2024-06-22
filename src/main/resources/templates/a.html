@@ -1,38 +1,21 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <link href="https://fonts.googleapis.com/css?family=Poppins&display=swap" rel="stylesheet"/>
     <link href="./css/main.css" rel="stylesheet"/>
-    <title>Document</title></head>
+    <title>Document</title>
+</head>
 <body>
-<div class="v63_3685">
-    <div class="v63_3686">
-        <div class="v63_3687">
-            <div class="v63_3688"><span class="v63_3689">Log in or Sign up</span>
-                <div class="v63_3690"><span class="v63_3691">Welcome to Locally</span></div>
-            </div>
-            <div class="v63_3692">
-                <input class="v63_3693" type="text" name="email" placeholder="Enter your email address to Login or Sign up">
-                <div class="v63_3695">
-                    <input class="v63_3696" type="checkbox" />
-                    <span class="v63_3697">Rememebr me</span></div>
-            </div>
-        </div>
-        <span class="v63_3698">or continue with</span>
-        <div class="v63_3699">
-            <div class="v63_3700">
-                <div class="name"></div>
-                <div class="name"></div>
-                <div class="name"></div>
-                <div class="name"></div>
-            </div>
-        </div>
-    </div>
-    <div class="v63_3705">
-        <div class="v63_3706">
-            <div class="v63_3707"></div>
-            <span class="v63_3708">Continue</span></div>
-    </div>
-</div>
+    <div th:text="${travelDetailResponseDto.title}"></div>
+    <div th:text="${travelDetailResponseDto.content}"></div>
+    <div th:text="${travelDetailResponseDto.price}"></div>
+    <form method="post" action="/reserve" th:each="availableDates : ${travelDetailResponseDto.availableDateResponseDto}">
+        <input type="hidden" th:value="${travelDetailResponseDto.id}">
+        <div th:text="${availableDates.id}"></div>
+        <div th:text="${availableDates.availableDate}"></div>
+        <div th:text="${availableDates.startTime}"></div>
+        <div th:text="${availableDates.endTime}"></div>
+        <br>
+    </form>
 </body>
 </html>
