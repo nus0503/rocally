@@ -22,7 +22,7 @@
             <tr th:each="reserve : ${reserveList}">
                 <td th:text="${reserve.travelTitle}">여행 제목</td>
                 <td th:text="${reserve.reserveStatus}">예약 상태</td>
-                <td th:text="${#dates.format(reserve.availableDate, 'yyyy-MM-dd')}">예약 날짜</td>
+                <td th:text="${#temporals.format(reserve.availableDate, 'yyyy-MM-dd')}">예약 날짜</td>
                 <td th:text="${reserve.startTime}">시작 시간</td>
                 <td th:text="${reserve.endTime}">종료 시간</td>
             </tr>

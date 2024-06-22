@@ -56,23 +56,15 @@
                 console.log(JSON.stringify(formData));
 
                 $.ajax({
-                    url: '/reserve',
                     type: 'POST',
+                    url: '/reserve',
                     contentType: 'application/json; charset=utf-8',
-                    data: JSON.stringify(formData),
-                    success: function(response) {
-                        if (response.success) {
-                            alert('예약되었습니다.');
-<!--                            window.location.href = '/reserveResult'; // 예약 결과 페이지로 리다이렉트-->
-                                window.location.href = '/';
-                        } else {
-                            alert('예약에 실패했습니다.');
-                        }
-                    },
-                    error: function(xhr, status, error) {
-                        console.error('Error:', error);
-                        alert('예약 중 오류가 발생했습니다.');
-                    }
+                    data: JSON.stringify(formData)
+                }).done(function () {
+                    alert('예약되었습니다.');
+                    window.location.href = '/';
+                }).fail(function (error) {
+                    alert(JSON.stringify(error));
                 });
             });
         });
