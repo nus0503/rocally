@@ -7,6 +7,8 @@ import com.company.rocally.controller.travel.dto.*;
 import com.company.rocally.service.travel.TravelService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
@@ -15,6 +17,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.io.IOException;
+import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
@@ -70,5 +73,24 @@ public class TravelController {
         Page<TravelsResponseDto> travels = travelService.getTravels(request);
         model.addAttribute("travelList", travels);
         return "package";
+    }
+
+    @PostMapping("/reserve")
+    @ResponseBody
+    public ResponseEntity<String> reserve(@LoginUser SessionUser user, @RequestBody TravelReserveRequestDto dto) {
+        travelService.reserveTravel(user, dto);
+        return new ResponseEntity<>("success", HttpStatus.OK);
+    }
+
+    @GetMapping("/check-reserve")
+    public String checkReserve(@LoginUser SessionUser user, Model model) {
+        model.addAttribute("reserveList", travelService.checkReservedTravel(user));
+        return "b";
+    }
+
+    @GetMapping("/check-reserve-partner")
+    public String checkReservePartner(@LoginUser SessionUser user, Model model) {
+        model.addAttribute("partnerReserveList", travelService.checkReservedTravelAsPartner(user));
+        return "c";
     }
 }

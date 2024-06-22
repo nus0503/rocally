@@ -3,19 +3,78 @@
 <head>
     <link href="https://fonts.googleapis.com/css?family=Poppins&display=swap" rel="stylesheet"/>
     <link href="./css/main.css" rel="stylesheet"/>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"
+            integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="
+            crossorigin="anonymous"></script>
     <title>Document</title>
 </head>
 <body>
+<!--    <div th:text="${travelDetailResponseDto.title}"></div>-->
+<!--    <div th:text="${travelDetailResponseDto.content}"></div>-->
+<!--    <div th:text="${travelDetailResponseDto.price}"></div>-->
+<!--    <form method="post" action="/reserve" th:each="availableDates : ${travelDetailResponseDto.availableDateResponseDto}">-->
+<!--        <input type="hidden" th:value="${travelDetailResponseDto.id}">-->
+<!--        <div th:text="${availableDates.id}"></div>-->
+<!--        <div th:text="${availableDates.availableDate}"></div>-->
+<!--        <div th:text="${availableDates.startTime}"></div>-->
+<!--        <div th:text="${availableDates.endTime}"></div>-->
+<!--        <br>-->
+<!--    </form>-->
+
+
     <div th:text="${travelDetailResponseDto.title}"></div>
     <div th:text="${travelDetailResponseDto.content}"></div>
     <div th:text="${travelDetailResponseDto.price}"></div>
-    <form method="post" action="/reserve" th:each="availableDates : ${travelDetailResponseDto.availableDateResponseDto}">
-        <input type="hidden" th:value="${travelDetailResponseDto.id}">
-        <div th:text="${availableDates.id}"></div>
-        <div th:text="${availableDates.availableDate}"></div>
-        <div th:text="${availableDates.startTime}"></div>
-        <div th:text="${availableDates.endTime}"></div>
-        <br>
+
+    <form id="reservationForm" method="post" action="/reserve">
+        <input type="hidden" th:value="${travelDetailResponseDto.id}" name="travelId">
+
+        <div th:each="availableDates, iterStat : ${travelDetailResponseDto.availableDateResponseDto}">
+            <input type="radio" th:id="'availableDate' + ${iterStat.index}" th:name="availableDateId" th:value="${availableDates.id}">
+            <label th:for="'availableDate' + ${iterStat.index}">
+                <div th:text="${availableDates.availableDate}"></div>
+                <div th:text="${availableDates.startTime}"></div>
+                <div th:text="${availableDates.endTime}"></div>
+            </label>
+            <br>
+        </div>
+
+        <button type="submit">Reserve</button>
     </form>
 </body>
+<script>
+        $(document).ready(function() {
+            $('#reservationForm').on('submit', function(event) {
+                event.preventDefault(); // 기본 폼 제출 동작을 막음
+
+                var formDataArray = $(this).serializeArray();
+                var formData = {};
+                $.each(formDataArray, function(_, field) {
+                    formData[field.name] = field.value;
+                });
+
+                console.log(JSON.stringify(formData));
+
+                $.ajax({
+                    url: '/reserve',
+                    type: 'POST',
+                    contentType: 'application/json; charset=utf-8',
+                    data: JSON.stringify(formData),
+                    success: function(response) {
+                        if (response.success) {
+                            alert('예약되었습니다.');
+<!--                            window.location.href = '/reserveResult'; // 예약 결과 페이지로 리다이렉트-->
+                                window.location.href = '/';
+                        } else {
+                            alert('예약에 실패했습니다.');
+                        }
+                    },
+                    error: function(xhr, status, error) {
+                        console.error('Error:', error);
+                        alert('예약 중 오류가 발생했습니다.');
+                    }
+                });
+            });
+        });
+</script>
 </html>

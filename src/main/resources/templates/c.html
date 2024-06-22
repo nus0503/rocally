@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>예약된 여행 프로그램</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+</head>
+<body>
+<div class="container mt-5">
+    <h2>예약된 여행 프로그램</h2>
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th>여행 프로그램 ID</th>
+                <th>여행 프로그램 제목</th>
+                <th>예약된 수</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="reserve : ${partnerReserveList}">
+                <td th:text="${reserve.travelId}">여행 프로그램 ID</td>
+                <td th:text="${reserve.travelTitle}">여행 프로그램 제목</td>
+                <td th:text="${reserve.reservedCount}">예약된 수</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+</body>
+</html>
