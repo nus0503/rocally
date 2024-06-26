@@ -132,10 +132,29 @@ public class TravelService {
         User user1 = userRepository.findByEmail(user.getEmail()).orElseThrow(
                 () -> new IllegalArgumentException("회원정보가 없습니다."));
 
-        return user1.getTravels().stream()
-                .map(travel -> {
-                    Long reservedCount = travel.getReserves().stream().count();
-                    return new TravelReservedAsPartnerResponseDto(travel.getId(), travel.getTitle(), reservedCount);
-                }).collect(Collectors.toList());
+//        return user1.getTravels().stream()
+//                .map(travel -> {
+//                    Long reservedCount = travel.getReserves().stream().count();
+//
+//                    return new TravelReservedAsPartnerResponseDto(travel.getId(), travel.getTitle(), reservedCount);
+//                }).collect(Collectors.toList());
+        List<TravelReservedAsPartnerResponseDto> collect = user1.getTravels().stream()
+                .flatMap(travel -> travel.getReserves().stream()
+                        .map(reserve -> {
+                            User reservedUser = reserve.getUser();
+                            Long reservedCount = travel.getReserves().stream().count();
+                            return new TravelReservedAsPartnerResponseDto(
+                                    travel.getId(),
+                                    travel.getTitle(),
+                                    reservedCount,
+                                    reserve.getReserveStatus(),
+                                    reservedUser.getId(),
+                                    reservedUser.getUsername(),
+                                    reservedUser.getEmail(),
+                                    reserve.getId()
+                            );
+                        })
+                ).collect(Collectors.toList());
+        return collect;
     }
 }
