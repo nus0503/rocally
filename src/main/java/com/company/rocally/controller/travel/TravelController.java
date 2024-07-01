@@ -93,4 +93,24 @@ public class TravelController {
         model.addAttribute("partnerReserveList", travelService.checkReservedTravelAsPartner(user));
         return "c";
     }
+
+    @PostMapping("/accept-reserve")
+    @ResponseBody
+    public ResponseEntity<String> acceptReserve(@LoginUser SessionUser user, @RequestParam Long reservationId) {
+
+        travelService.acceptReservation(reservationId);
+        return new ResponseEntity<>("success", HttpStatus.OK);
+    }
+
+    @GetMapping("/waiting-reserve")
+    public String checkWaitingReservation(@LoginUser SessionUser user, Model model) {
+        model.addAttribute("waitingReservationList", travelService.waitingReservation(user));
+        return "waiting-reservation";
+    }
+
+    @GetMapping("/complete-reserve")
+    public String checkCompleteReservation(@LoginUser SessionUser user, Model model) {
+        model.addAttribute("completeReservationList", travelService.completeReservation(user));
+        return "complete-reservation";
+    }
 }

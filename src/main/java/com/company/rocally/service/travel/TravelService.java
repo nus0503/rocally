@@ -157,4 +157,53 @@ public class TravelService {
                 ).collect(Collectors.toList());
         return collect;
     }
+
+    @Transactional
+    public void acceptReservation(Long reserveId) {
+        Reserve reserve = reserveRepository.findById(reserveId).orElseThrow(
+                () -> new IllegalArgumentException("예약정보가 없습니다."));
+
+        reserve.changeReserveStatus(ReserveStatus.COMPLETE);
+    }
+
+    public List<TravelWaitingReservationResponseDto> waitingReservation(SessionUser sessionUser) {
+        User user = userRepository.findByEmail(sessionUser.getEmail()).orElseThrow(
+                () -> new IllegalArgumentException("회원정보가 없습니다."));
+
+        return user.getTravels().stream()
+                .flatMap(travel -> travel.getReserves().stream()
+                        .filter(reserve -> ReserveStatus.WAIT.equals(reserve.getReserveStatus()))
+                        .map(reserve -> {
+                            User reservedUser = reserve.getUser();
+                            return new TravelWaitingReservationResponseDto(
+                                    travel.getId(),
+                                    travel.getTitle(),
+                                    reserve.getReserveStatus(),
+                                    reservedUser.getId(),
+                                    reservedUser.getUsername(),
+                                    reservedUser.getEmail(),
+                                    reserve.getId()
+                            );
+                        })
+                ).collect(Collectors.toList());
+    }
+
+    public List<TravelCompletedReservationResponseDto> completeReservation(SessionUser sessionUser) {
+        User user = userRepository.findByEmail(sessionUser.getEmail()).orElseThrow(
+                () -> new IllegalArgumentException("회원정보가 없습니다."));
+
+        return user.getTravels().stream()
+                .flatMap(travel -> travel.getReserves().stream()
+                        .filter(reserve -> ReserveStatus.COMPLETE.equals(reserve.getReserveStatus()))
+                        .map(reserve -> new TravelCompletedReservationResponseDto(
+                                travel.getId(),
+                                travel.getTitle(),
+                                reserve.getReserveStatus(),
+                                reserve.getUser().getId(),
+                                reserve.getUser().getUsername(),
+                                reserve.getUser().getEmail(),
+                                reserve.getId()
+                        ))
+                ).collect(Collectors.toList());
+    }
 }

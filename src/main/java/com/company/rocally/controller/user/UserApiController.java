@@ -47,4 +47,9 @@ public class UserApiController {
         userService.save(userRegisterRequestDto);
         return "index";
     }
+
+    @GetMapping("/dashboard")
+    public String dashboard() {
+        return "dashboardIndex";
+    }
 }
