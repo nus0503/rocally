@@ -57,6 +57,9 @@
         <!-- 가장 우측 메뉴 드롭다운 -->
         <div class="menu-dropdown">
             <ul th:if="${auth}">
+                <li>
+                    <a href="/dashboard" role="button">Dashboard</a>
+                </li>
                 <li>Reservation</li>
                 <li>Wishlist</li>
                 <li sec:authorize="hasRole('ROLE_USER') or isAnonymous()">
