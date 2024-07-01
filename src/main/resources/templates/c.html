@@ -3,6 +3,10 @@
 <head>
     <title>예약된 여행 프로그램</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"
+            integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="
+            crossorigin="anonymous">
+    </script>
 </head>
 <body>
 <div class="container mt-5">
@@ -39,6 +43,21 @@
         <script>
         function acceptReservation(reserveId) {
             // 수락 버튼 클릭 시 처리할 로직 구현
+            const data = {
+                reservationId : reserveId
+            };
+
+            $.ajax({
+                type: 'POST',
+                url: '/accept-reserve',
+                data: { reservationId: reserveId }
+            }).done(function () {
+                alert('수락되었습니다..');
+                window.location.reload();
+            }).fail(function (error) {
+                alert(JSON.stringify(error));
+            });
+
             alert('Accept reservation for user ID: ' + reserveId);
         }
         </script>
