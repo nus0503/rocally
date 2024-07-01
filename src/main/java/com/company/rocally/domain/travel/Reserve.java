@@ -48,4 +48,8 @@ public class Reserve {
     public static Reserve generateReserve(ReserveStatus reserveStatus, AvailableDates availableDates, Travel travel, User user) {
         return new Reserve(reserveStatus, availableDates, travel, user);
     }
+
+    public void changeReserveStatus(ReserveStatus reserveStatus) {
+        this.reserveStatus = reserveStatus;
+    }
 }
