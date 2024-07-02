@@ -9,6 +9,32 @@ var main = {
             _this.loginStep2();
         });
 
+        $('#btn-update').on('click', () => {
+            _this.update();
+        });
+    },
+
+    update : function () {
+        const data = {
+            id : $('#id').val(),
+            user : $('#username').val(),
+            existingPassword : $('#existingPassword').val();
+            newPassword : $('#newPassword').val(),
+            email : $('#email').val(),
+        };
+
+        $.ajax({
+            type : "PUT",
+            url : "/user",
+            data : JSON.stringify(data),
+            contentType : "application/json; charset=utf-8",
+            dataType : "json"
+        }).done(function (data) {
+            alert("회원수정이 완료되었습니다.");
+            location.href="/";
+        }).fail(function (error) {
+            alert(JSON.stringify(error));
+        });
     },
 
     loginStep1 : function () {
