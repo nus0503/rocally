@@ -238,7 +238,7 @@
                                             <td th:text="${reservation.email}"></td>
                                             <td th:text="${reservation.reserveStatus}"></td>
                                             <td>
-                                                <button th:if="${reservation.reserveStatus} == ${T(com.company.rocally.domain.travel.ReserveStatus).WAIT}" th:text="'Accept'" th:onclick="'acceptReservation(' + ${reservation.reserveId} + ')'"></button>
+                                                <button class="btn btn-primary m-1" th:if="${reservation.reserveStatus} == ${T(com.company.rocally.domain.travel.ReserveStatus).WAIT}" th:text="'Accept'" th:onclick="'acceptReservation(' + ${reservation.reserveId} + ')'"></button>
                                             </td>
                                         </tr>
                                         </tbody>
