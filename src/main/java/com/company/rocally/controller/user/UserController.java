@@ -9,19 +9,17 @@ import com.company.rocally.domain.user.User;
 import com.company.rocally.domain.user.UserRepository;
 import com.company.rocally.service.user.UserService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-
 import javax.annotation.PostConstruct;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 @Controller
 @RequiredArgsConstructor
-public class LoginController {
+public class UserController {
 
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
@@ -32,10 +30,6 @@ public class LoginController {
     private final PartnerRepository partnerRepository;
 
 
-    @GetMapping("/login-process1")
-    public String loginOrSignup() {
-        return "login_or_signup";
-    }
     @PostMapping("/login-step1")
 //    @ResponseBody
     public String loginPost(@ModelAttribute LoginOrSignupRequestDto dto, Model model) {
@@ -52,25 +46,6 @@ public class LoginController {
         }
     }
 
-
-//    @PostMapping("/login-step1")
-//    @ResponseBody
-//    public ResponseEntity loginPost(@RequestBody LoginOrSignupRequestDto dto) {
-//        int num = userService.findByEmail(dto.getEmail());
-//        return ResponseEntity.ok(num);
-//    }
-
-
-    @GetMapping("/login-process2")
-    public String loginProcess2() {
-        return "login-process2";
-    }
-
-    @GetMapping("/signup2")
-    public String signup2() {
-        return "signup2";
-    }
-
     @GetMapping("/loginForm")
     public String login(HttpServletRequest request,
                         @RequestParam(value = "error", required = false) String error,
@@ -85,7 +60,12 @@ public class LoginController {
         }
         model.addAttribute("error", error);
         model.addAttribute("exception", exception);
-        return "authentication-login";
+        return "user/authentication-login";
+    }
+
+    @GetMapping("/dashboard")
+    public String dashboard() {
+        return "dashboard/dashboardIndex";
     }
 
 
