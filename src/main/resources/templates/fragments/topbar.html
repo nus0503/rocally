@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head>
+</head>
+
+<body>
+<div th:fragment="fragment-topbar" class="container-fluid bg-light pt-3 d-none d-lg-block">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6 text-center text-lg-left mb-2 mb-lg-0">
+                <div class="d-inline-flex align-items-center">
+                    <p><i class="fa fa-envelope mr-2"></i>info@example.com</p>
+                    <p class="text-body px-3">|</p>
+                    <p><i class="fa fa-phone-alt mr-2"></i>+012 345 6789</p>
+                </div>
+            </div>
+            <div class="partner-button-box">
+                <div class="partner-button">
+                    <a href="/partner-regist">Become Locally Partner!</a>
+                </div>
+            </div>
+            <div class="col-lg-6 text-center text-lg-right">
+                <div class="align-items-center">
+                    <button class="menu-button">
+                        <span class="menu-icon"></span>
+                    </button>
+                    <!-- 가장 우측 메뉴 드롭다운 -->
+                    <div class="menu-dropdown">
+                        <ul th:if="${auth}">
+                            <li>Reservation</li>
+                            <li>Wishlist</li>
+                            <li sec:authorize="hasRole('ROLE_USER') or isAnonymous()">
+                                <a href="/partner-regist" role="button">Become a Partner</a>
+                            </li>
+                            <li>Account</li>
+                            <li><a href="/logout" role="button">Log out</a></li>
+                        </ul>
+                        <ul th:unless="${auth}">
+                            <li>
+                                <a href="/loginForm" role="button">Log in</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+
+</html>
