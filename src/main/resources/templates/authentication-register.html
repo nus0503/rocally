@@ -36,8 +36,8 @@
                     <input th:field="*{yyyy}" th:errorclass="field-error" id="birth_date" name="yyyy" class="birth-input form-control" type="text" placeholder="YYYY" maxlength="4">
                     <input th:field="*{mm}" th:errorclass="field-error" name="mm" class="birth-input form-control" type="text" placeholder="MM" maxlength="2">
                     <input th:field="*{dd}" th:errorclass="field-error" name="dd" class="birth-input form-control" type="text" placeholder="DD" maxlength="2">
-                    <div th:if="${#fields.hasErrors('birthDate')}" class="field-error" th:errors="*{birthDate}">생년월일 오류</div>
                   </div>
+                  <div th:if="${#fields.hasErrors('birthDate')}" class="field-error" th:errors="*{birthDate}">생년월일 오류</div>
                 </div>
                 <div class="mb-3">
                   <label for="phoneNumber" class="form-label">PhoneNumber</label>

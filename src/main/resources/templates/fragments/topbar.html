@@ -16,8 +16,11 @@
                 </div>
             </div>
             <div class="partner-button-box">
-                <div class="partner-button">
+                <div sec:authorize="hasRole('ROLE_USER') or isAnonymous()" class="partner-button">
                     <a href="/partner-regist">Become Locally Partner!</a>
+                </div>
+                <div sec:authorize="hasRole('ROLE_PARTNER')" class="partner-button">
+                    <a href="/travel-register">Regist Travel</a>
                 </div>
             </div>
             <div class="col-lg-6 text-center text-lg-right">
@@ -28,6 +31,9 @@
                     <!-- 가장 우측 메뉴 드롭다운 -->
                     <div class="menu-dropdown">
                         <ul th:if="${auth}">
+                            <li>
+                                <a href="/dashboard" role="button">Dashboard</a>
+                            </li>
                             <li>Reservation</li>
                             <li>Wishlist</li>
                             <li sec:authorize="hasRole('ROLE_USER') or isAnonymous()">
