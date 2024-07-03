@@ -1,220 +1,387 @@
+<!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
 <head>
-    <link rel="stylesheet" href="/css/main_nav.css">
-    <link rel="stylesheet" href="/css/section_img.css">
-    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
-    <link href='https://fonts.googleapis.com/css?family=Anton' rel='stylesheet' type='text/css'>
-    <link href='https://fonts.googleapis.com/css?family=Neucha' rel='stylesheet' type='text/css'>
-    <link href="/css/main_copy.css" rel="stylesheet" />
-    <script src="https://code.jquery.com/jquery-3.7.1.min.js"
-            integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="
-            crossorigin="anonymous"></script>
-    <style>
-        .image-container {
-            position: relative;
-            width: 200px;
-            height: 200px;
-            overflow: hidden;
-        }
-        .image-container img {
-            width: 100%;
-            height: 100%;
-            transition: transform 3s;
-        }
-        .image-container img:hover {
-            transform: scale(1.2);
-        }
-    </style>
+    <meta charset="utf-8">
+    <title>TRAVELER - Free Travel Website Template</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="Free HTML Templates" name="keywords">
+    <meta content="Free HTML Templates" name="description">
+
+    <!-- Favicon -->
+    <link href="img/favicon.ico" rel="icon">
+
+    <!-- Google Web Fonts -->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+
+    <!-- Libraries Stylesheet -->
+    <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+    <link href="lib/tempusdominus/css/tempusdominus-bootstrap-4.min.css" rel="stylesheet" />
+
+    <!-- Customized Bootstrap Stylesheet -->
+    <link href="css/style.css" rel="stylesheet">
 </head>
+
 <body>
-<header>
-    <div class="header-container">
-        <!-- 로고 -->
-        <button class="logo">
-            <img src="/images/company_logo.png" alt="Company Logo" />
-        </button>
+<!-- Topbar Start -->
+<div th:replace="/fragments/topbar.html :: fragment-topbar"></div>
+<!-- Topbar End -->
 
-<!--         우측 상단 Become Locally Partner 버튼-->
-        <button sec:authorize="hasRole('ROLE_USER') or isAnonymous()" class="partner-button">
-            <a href="/partner-regist">Become Locally Partner!</a>
-        </button>
-        <button sec:authorize="hasRole('ROLE_PARTNER')" class="partner-button">
-            <a href="/travel-register">프로그램 등록</a>
-        </button>
 
-        <button class="globe-button"></button>
-        <div class="globe-dropdown">
-            <ul>
-                <li>한국어</li>
-                <li>English</li>
-                <li>日本語</li>
-            </ul>
+<!-- Navbar Start -->
+<div th:replace="/fragments/navbar.html :: fragment-navbar"></div>
+<!-- Navbar End -->
+
+
+<!-- Carousel Start -->
+<div th:replace="/fragments/carousel.html :: fragment-carousel"></div>
+<!-- Carousel End -->
+
+
+<!-- Booking Start -->
+<div th:replace="/fragments/booking.html :: fragment-booking"></div>
+<!-- Booking End -->
+
+
+<!-- About Start -->
+<div th:replace="/fragments/about.html :: fragment-about"></div>
+<!-- About End -->
+
+
+<!-- Feature Start -->
+<div th:replace="/fragments/feature.html :: fragment-feature"></div>
+<!-- Feature End -->
+
+
+<!-- Destination Start -->
+<div th:replace="/fragments/destination.html :: fragment-destination"></div>
+<!-- Destination Start -->
+
+
+<!-- Service Start -->
+<div class="container-fluid py-5">
+    <div class="container pt-5 pb-3">
+        <div class="text-center mb-3 pb-3">
+            <h6 class="text-primary text-uppercase" style="letter-spacing: 5px;">Services</h6>
+            <h1>Tours & Travel Services</h1>
         </div>
-
-        <button class="menu-button">
-            <span class="menu-icon"></span>
-        </button>
-        <!-- 가장 우측 메뉴 드롭다운 -->
-        <div class="menu-dropdown">
-            <ul th:if="${auth}">
-                <li>
-                    <a href="/dashboard" role="button">Dashboard</a>
-                </li>
-                <li>Reservation</li>
-                <li>Wishlist</li>
-                <li sec:authorize="hasRole('ROLE_USER') or isAnonymous()">
-                    <a href="/partner-regist" role="button">Become a Partner</a>
-                </li>
-                <li>Account</li>
-                <li>
-                    <a href="/logout" role="button">Log out</a>
-                </li>
-            </ul>
-            <ul th:unless="${auth}">
-                <li>
-                    <a href="/login-process1" role="button">Log in</a>
-                </li>
-            </ul>
+        <div class="row">
+            <div class="col-lg-4 col-md-6 mb-4">
+                <div class="service-item bg-white text-center mb-2 py-5 px-4">
+                    <i class="fa fa-2x fa-route mx-auto mb-4"></i>
+                    <h5 class="mb-2">Travel Guide</h5>
+                    <p class="m-0">Justo sit justo eos amet tempor amet clita amet ipsum eos elitr. Amet lorem est amet labore</p>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6 mb-4">
+                <div class="service-item bg-white text-center mb-2 py-5 px-4">
+                    <i class="fa fa-2x fa-ticket-alt mx-auto mb-4"></i>
+                    <h5 class="mb-2">Ticket Booking</h5>
+                    <p class="m-0">Justo sit justo eos amet tempor amet clita amet ipsum eos elitr. Amet lorem est amet labore</p>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6 mb-4">
+                <div class="service-item bg-white text-center mb-2 py-5 px-4">
+                    <i class="fa fa-2x fa-hotel mx-auto mb-4"></i>
+                    <h5 class="mb-2">Hotel Booking</h5>
+                    <p class="m-0">Justo sit justo eos amet tempor amet clita amet ipsum eos elitr. Amet lorem est amet labore</p>
+                </div>
+            </div>
         </div>
     </div>
-    <div th:if="${firstRole}" th:text="${firstRole.authority}"></div>
-<!--    <button sec:authorize="hasRole('ROLE_USER')" class="partner-buttonn">Become Locally Partner!</button>-->
-<!--    <button sec:authorize="hasRole('ROLE_PARTNER')" class="partner-buttonn">Become Locally Partner!!!!</button>-->
-</header>
-<!--    <header>-->
-<!--        <div>-->
-<!--            <div>rocally</div>-->
-<!--            <div>-->
-<!--                <div>숙소</div>-->
-<!--                <div>체험</div>-->
-<!--                <div>온라인 체험</div>-->
+</div>
+<!-- Service End -->
+
+
+<!-- Packages Start -->
+<div th:replace="/fragments/package.html :: fragment-package"></div>
+<!-- Packages End -->
+
+
+<!-- Registration Start -->
+<!--<div class="container-fluid bg-registration py-5" style="margin: 90px 0;">-->
+<!--    <div class="container py-5">-->
+<!--        <div class="row align-items-center">-->
+<!--            <div class="col-lg-7 mb-5 mb-lg-0">-->
+<!--                <div class="mb-4">-->
+<!--                    <h6 class="text-primary text-uppercase" style="letter-spacing: 5px;">Mega Offer</h6>-->
+<!--                    <h1 class="text-white"><span class="text-primary">30% OFF</span> For Honeymoon</h1>-->
+<!--                </div>-->
+<!--                <p class="text-white">Invidunt lorem justo sanctus clita. Erat lorem labore ea, justo dolor lorem ipsum ut sed eos,-->
+<!--                    ipsum et dolor kasd sit ea justo. Erat justo sed sed diam. Ea et erat ut sed diam sea ipsum est-->
+<!--                    dolor</p>-->
+<!--                <ul class="list-inline text-white m-0">-->
+<!--                    <li class="py-2"><i class="fa fa-check text-primary mr-3"></i>Labore eos amet dolor amet diam</li>-->
+<!--                    <li class="py-2"><i class="fa fa-check text-primary mr-3"></i>Etsea et sit dolor amet ipsum</li>-->
+<!--                    <li class="py-2"><i class="fa fa-check text-primary mr-3"></i>Diam dolor diam elitripsum vero.</li>-->
+<!--                </ul>-->
 <!--            </div>-->
-<!--            <div>-->
-<!--                <div>당신의 공간을 로컬리하세요</div>-->
-<!--                <div>-->
-<!--                    <button>-->
-<!--                        <div>-->
-<!--                            <img src="images/horizontal_line.png" width="100px" height="100px">-->
-<!--                        </div>-->
-<!--                        <div>-->
-<!--                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" aria-hidden="true" role="presentation" focusable="false" style="display: block; height: 100%; width: 100%; fill: currentcolor;"></svg>-->
-<!--                        </div>-->
-<!--                    </button>-->
+<!--            <div class="col-lg-5">-->
+<!--                <div class="card border-0">-->
+<!--                    <div class="card-header bg-primary text-center p-4">-->
+<!--                        <h1 class="text-white m-0">Sign Up Now</h1>-->
+<!--                    </div>-->
+<!--                    <div class="card-body rounded-bottom bg-white p-5">-->
+<!--                        <form>-->
+<!--                            <div class="form-group">-->
+<!--                                <input type="text" class="form-control p-4" placeholder="Your name" required="required" />-->
+<!--                            </div>-->
+<!--                            <div class="form-group">-->
+<!--                                <input type="email" class="form-control p-4" placeholder="Your email" required="required" />-->
+<!--                            </div>-->
+<!--                            <div class="form-group">-->
+<!--                                <select class="custom-select px-4" style="height: 47px;">-->
+<!--                                    <option selected>Select a destination</option>-->
+<!--                                    <option value="1">destination 1</option>-->
+<!--                                    <option value="2">destination 1</option>-->
+<!--                                    <option value="3">destination 1</option>-->
+<!--                                </select>-->
+<!--                            </div>-->
+<!--                            <div>-->
+<!--                                <button class="btn btn-primary btn-block py-3" type="submit">Sign Up Now</button>-->
+<!--                            </div>-->
+<!--                        </form>-->
+<!--                    </div>-->
 <!--                </div>-->
 <!--            </div>-->
 <!--        </div>-->
-<!--        <div class="search-bar">-->
-<!--            <input type="text" placeholder="검색">-->
-<!--            <div class="category-filters">-->
-<!--                <button class="filter">전체</button>-->
-<!--                <button class="filter">이미지 검색</button>-->
-<!--                <button class="filter">동영상 검색</button>-->
-<!--                <button class="filter">뉴스 검색</button>-->
-<!--                <button class="filter">더보기</button>-->
+<!--    </div>-->
+<!--</div>-->
+<!-- Registration End -->
+
+
+<!-- Team Start -->
+<!--<div class="container-fluid py-5">-->
+<!--    <div class="container pt-5 pb-3">-->
+<!--        <div class="text-center mb-3 pb-3">-->
+<!--            <h6 class="text-primary text-uppercase" style="letter-spacing: 5px;">Guides</h6>-->
+<!--            <h1>Our Travel Guides</h1>-->
+<!--        </div>-->
+<!--        <div class="row">-->
+<!--            <div class="col-lg-3 col-md-4 col-sm-6 pb-2">-->
+<!--                <div class="team-item bg-white mb-4">-->
+<!--                    <div class="team-img position-relative overflow-hidden">-->
+<!--                        <img class="img-fluid w-100" src="img/team-1.jpg" alt="">-->
+<!--                        <div class="team-social">-->
+<!--                            <a class="btn btn-outline-primary btn-square" href=""><i class="fab fa-twitter"></i></a>-->
+<!--                            <a class="btn btn-outline-primary btn-square" href=""><i class="fab fa-facebook-f"></i></a>-->
+<!--                            <a class="btn btn-outline-primary btn-square" href=""><i class="fab fa-instagram"></i></a>-->
+<!--                            <a class="btn btn-outline-primary btn-square" href=""><i class="fab fa-linkedin-in"></i></a>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                    <div class="text-center py-4">-->
+<!--                        <h5 class="text-truncate">Guide Name</h5>-->
+<!--                        <p class="m-0">Designation</p>-->
+<!--                    </div>-->
+<!--                </div>-->
 <!--            </div>-->
-<!--            <button class="search-button">-->
-<!--                <img src="magnifying-glass-icon.svg" alt="Search">-->
-<!--            </button>-->
+<!--            <div class="col-lg-3 col-md-4 col-sm-6 pb-2">-->
+<!--                <div class="team-item bg-white mb-4">-->
+<!--                    <div class="team-img position-relative overflow-hidden">-->
+<!--                        <img class="img-fluid w-100" src="img/team-2.jpg" alt="">-->
+<!--                        <div class="team-social">-->
+<!--                            <a class="btn btn-outline-primary btn-square" href=""><i class="fab fa-twitter"></i></a>-->
+<!--                            <a class="btn btn-outline-primary btn-square" href=""><i class="fab fa-facebook-f"></i></a>-->
+<!--                            <a class="btn btn-outline-primary btn-square" href=""><i class="fab fa-instagram"></i></a>-->
+<!--                            <a class="btn btn-outline-primary btn-square" href=""><i class="fab fa-linkedin-in"></i></a>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                    <div class="text-center py-4">-->
+<!--                        <h5 class="text-truncate">Guide Name</h5>-->
+<!--                        <p class="m-0">Designation</p>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--            <div class="col-lg-3 col-md-4 col-sm-6 pb-2">-->
+<!--                <div class="team-item bg-white mb-4">-->
+<!--                    <div class="team-img position-relative overflow-hidden">-->
+<!--                        <img class="img-fluid w-100" src="img/team-3.jpg" alt="">-->
+<!--                        <div class="team-social">-->
+<!--                            <a class="btn btn-outline-primary btn-square" href=""><i class="fab fa-twitter"></i></a>-->
+<!--                            <a class="btn btn-outline-primary btn-square" href=""><i class="fab fa-facebook-f"></i></a>-->
+<!--                            <a class="btn btn-outline-primary btn-square" href=""><i class="fab fa-instagram"></i></a>-->
+<!--                            <a class="btn btn-outline-primary btn-square" href=""><i class="fab fa-linkedin-in"></i></a>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                    <div class="text-center py-4">-->
+<!--                        <h5 class="text-truncate">Guide Name</h5>-->
+<!--                        <p class="m-0">Designation</p>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--            <div class="col-lg-3 col-md-4 col-sm-6 pb-2">-->
+<!--                <div class="team-item bg-white mb-4">-->
+<!--                    <div class="team-img position-relative overflow-hidden">-->
+<!--                        <img class="img-fluid w-100" src="img/team-4.jpg" alt="">-->
+<!--                        <div class="team-social">-->
+<!--                            <a class="btn btn-outline-primary btn-square" href=""><i class="fab fa-twitter"></i></a>-->
+<!--                            <a class="btn btn-outline-primary btn-square" href=""><i class="fab fa-facebook-f"></i></a>-->
+<!--                            <a class="btn btn-outline-primary btn-square" href=""><i class="fab fa-instagram"></i></a>-->
+<!--                            <a class="btn btn-outline-primary btn-square" href=""><i class="fab fa-linkedin-in"></i></a>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                    <div class="text-center py-4">-->
+<!--                        <h5 class="text-truncate">Guide Name</h5>-->
+<!--                        <p class="m-0">Designation</p>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
 <!--        </div>-->
-<!--        <div th:if="${user}">-->
-<!--            <button>Become Locally Partner</button>-->
+<!--    </div>-->
+<!--</div>-->
+<!-- Team End -->
+
+
+<!-- Testimonial Start -->
+<!--<div class="container-fluid py-5">-->
+<!--    <div class="container py-5">-->
+<!--        <div class="text-center mb-3 pb-3">-->
+<!--            <h6 class="text-primary text-uppercase" style="letter-spacing: 5px;">Testimonial</h6>-->
+<!--            <h1>What Say Our Clients</h1>-->
 <!--        </div>-->
-<!--        <div th:if="${user}" th:text="${user.getUsername}"></div>-->
-<!--    </header>-->
-    <nav>
+<!--        <div class="owl-carousel testimonial-carousel">-->
+<!--            <div class="text-center pb-4">-->
+<!--                <img class="img-fluid mx-auto" src="img/testimonial-1.jpg" style="width: 100px; height: 100px;" >-->
+<!--                <div class="testimonial-text bg-white p-4 mt-n5">-->
+<!--                    <p class="mt-5">Dolor et eos labore, stet justo sed est sed. Diam sed sed dolor stet amet eirmod eos labore diam-->
+<!--                    </p>-->
+<!--                    <h5 class="text-truncate">Client Name</h5>-->
+<!--                    <span>Profession</span>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--            <div class="text-center">-->
+<!--                <img class="img-fluid mx-auto" src="img/testimonial-2.jpg" style="width: 100px; height: 100px;" >-->
+<!--                <div class="testimonial-text bg-white p-4 mt-n5">-->
+<!--                    <p class="mt-5">Dolor et eos labore, stet justo sed est sed. Diam sed sed dolor stet amet eirmod eos labore diam-->
+<!--                    </p>-->
+<!--                    <h5 class="text-truncate">Client Name</h5>-->
+<!--                    <span>Profession</span>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--            <div class="text-center">-->
+<!--                <img class="img-fluid mx-auto" src="img/testimonial-3.jpg" style="width: 100px; height: 100px;" >-->
+<!--                <div class="testimonial-text bg-white p-4 mt-n5">-->
+<!--                    <p class="mt-5">Dolor et eos labore, stet justo sed est sed. Diam sed sed dolor stet amet eirmod eos labore diam-->
+<!--                    </p>-->
+<!--                    <h5 class="text-truncate">Client Name</h5>-->
+<!--                    <span>Profession</span>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--            <div class="text-center">-->
+<!--                <img class="img-fluid mx-auto" src="img/testimonial-4.jpg" style="width: 100px; height: 100px;" >-->
+<!--                <div class="testimonial-text bg-white p-4 mt-n5">-->
+<!--                    <p class="mt-5">Dolor et eos labore, stet justo sed est sed. Diam sed sed dolor stet amet eirmod eos labore diam-->
+<!--                    </p>-->
+<!--                    <h5 class="text-truncate">Client Name</h5>-->
+<!--                    <span>Profession</span>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--</div>-->
+<!-- Testimonial End -->
 
-    </nav>
-    <section>
-        <div id="slider-wrap">
-            <ul id="slider">
-                <li>
-                    <div>
-                        <h3>Slide #1</h3>
-                        <span>Sub-title #1</span>
-                    </div>
-                    <img src="https://fakeimg.pl/350x200/960a96/000?text=11111">
-                </li>
 
-                <li>
-                    <div>
-                        <h3>Slide #2</h3>
-                        <span>Sub-title #2</span>
-                    </div>
-                    <img src="https://fakeimg.pl/350x200/D27328/000?text=22222">
-                </li>
+<!-- Blog Start -->
+<!--<div class="container-fluid py-5">-->
+<!--    <div class="container pt-5 pb-3">-->
+<!--        <div class="text-center mb-3 pb-3">-->
+<!--            <h6 class="text-primary text-uppercase" style="letter-spacing: 5px;">Our Blog</h6>-->
+<!--            <h1>Latest From Our Blog</h1>-->
+<!--        </div>-->
+<!--        <div class="row pb-3">-->
+<!--            <div class="col-lg-4 col-md-6 mb-4 pb-2">-->
+<!--                <div class="blog-item">-->
+<!--                    <div class="position-relative">-->
+<!--                        <img class="img-fluid w-100" src="img/blog-1.jpg" alt="">-->
+<!--                        <div class="blog-date">-->
+<!--                            <h6 class="font-weight-bold mb-n1">01</h6>-->
+<!--                            <small class="text-white text-uppercase">Jan</small>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                    <div class="bg-white p-4">-->
+<!--                        <div class="d-flex mb-2">-->
+<!--                            <a class="text-primary text-uppercase text-decoration-none" href="">Admin</a>-->
+<!--                            <span class="text-primary px-2">|</span>-->
+<!--                            <a class="text-primary text-uppercase text-decoration-none" href="">Tours & Travel</a>-->
+<!--                        </div>-->
+<!--                        <a class="h5 m-0 text-decoration-none" href="">Dolor justo sea kasd lorem clita justo diam amet</a>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--            <div class="col-lg-4 col-md-6 mb-4 pb-2">-->
+<!--                <div class="blog-item">-->
+<!--                    <div class="position-relative">-->
+<!--                        <img class="img-fluid w-100" src="img/blog-2.jpg" alt="">-->
+<!--                        <div class="blog-date">-->
+<!--                            <h6 class="font-weight-bold mb-n1">01</h6>-->
+<!--                            <small class="text-white text-uppercase">Jan</small>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                    <div class="bg-white p-4">-->
+<!--                        <div class="d-flex mb-2">-->
+<!--                            <a class="text-primary text-uppercase text-decoration-none" href="">Admin</a>-->
+<!--                            <span class="text-primary px-2">|</span>-->
+<!--                            <a class="text-primary text-uppercase text-decoration-none" href="">Tours & Travel</a>-->
+<!--                        </div>-->
+<!--                        <a class="h5 m-0 text-decoration-none" href="">Dolor justo sea kasd lorem clita justo diam amet</a>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--            <div class="col-lg-4 col-md-6 mb-4 pb-2">-->
+<!--                <div class="blog-item">-->
+<!--                    <div class="position-relative">-->
+<!--                        <img class="img-fluid w-100" src="img/blog-3.jpg" alt="">-->
+<!--                        <div class="blog-date">-->
+<!--                            <h6 class="font-weight-bold mb-n1">01</h6>-->
+<!--                            <small class="text-white text-uppercase">Jan</small>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                    <div class="bg-white p-4">-->
+<!--                        <div class="d-flex mb-2">-->
+<!--                            <a class="text-primary text-uppercase text-decoration-none" href="">Admin</a>-->
+<!--                            <span class="text-primary px-2">|</span>-->
+<!--                            <a class="text-primary text-uppercase text-decoration-none" href="">Tours & Travel</a>-->
+<!--                        </div>-->
+<!--                        <a class="h5 m-0 text-decoration-none" href="">Dolor justo sea kasd lorem clita justo diam amet</a>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--</div>-->
+<!-- Blog End -->
 
-                <li>
-                    <div>
-                        <h3>Slide #3</h3>
-                        <span>Sub-title #3</span>
-                    </div>
-                    <img src="https://fakeimg.pl/350x200/FF607F/000?text=33333">
-                </li>
 
-                <li>
-                    <div>
-                        <h3>Slide #4</h3>
-                        <span>Sub-title #4</span>
-                    </div>
-                    <img src="https://fakeimg.pl/350x200/0A6E0A/000?text=44444">
-                </li>
+<!-- Footer Start -->
+<div th:replace="/fragments/footer.html :: fragment-footer"></div>
+<!-- Footer End -->
 
-                <li>
-                    <div>
-                        <h3>Slide #5</h3>
-                        <span>Sub-title #5</span>
-                    </div>
-                    <img src="https://fakeimg.pl/350x200/0064CD/000?text=55555">
-                </li>
-            </ul>
 
-            <div class="slider-btns" id="next"><span>▶</span></div>
-            <div class="slider-btns" id="previous"><span>◀</span></div>
+<!-- Back to Top -->
+<a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="fa fa-angle-double-up"></i></a>
 
-            <div id="slider-pagination-wrap">
-                <ul>
-                </ul>
-            </div>
-        </div>
-        <div class="image-container" id="imageContainer">
-            <img src="/images/image1.png" alt="Image 1">
-        </div>
-    </section>
-    <aside>
 
-    </aside>
-    <footer>
+<!-- JavaScript Libraries -->
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
+<script src="lib/easing/easing.min.js"></script>
+<script src="lib/owlcarousel/owl.carousel.min.js"></script>
+<script src="lib/tempusdominus/js/moment.min.js"></script>
+<script src="lib/tempusdominus/js/moment-timezone.min.js"></script>
+<script src="lib/tempusdominus/js/tempusdominus-bootstrap-4.min.js"></script>
 
-    </footer>
+<!-- Contact Javascript File -->
+<script src="mail/jqBootstrapValidation.min.js"></script>
+<script src="mail/contact.js"></script>
+
+<!-- Template Javascript -->
+<script src="js/main.js"></script>
+<script src="js/userToggle.js"></script>
 </body>
-<script src="/js/img_slider.js"></script>
-<script>
-        var images = ["image1.png", "image2.png", "image3.png"];
-        var currentImageIndex = 0;
-        var imageContainer = document.getElementById("imageContainer");
 
-        imageContainer.addEventListener("mouseover", function() {
-            setTimeout(function() {
-                currentImageIndex = (currentImageIndex + 1) % images.length;
-                imageContainer.innerHTML = '<img src="images/' + images[currentImageIndex] + '" alt="Image ' + (currentImageIndex + 1) + '">';
-            }, 3000);
-        });
-</script>
-<script>
-    // JavaScript를 사용하여 메뉴 버튼 클릭 시 드롭다운 토글 구현
-    document
-      .querySelector(".menu-button")
-      .addEventListener("click", function () {
-        document.querySelector(".menu-dropdown").classList.toggle("show");
-      });
-    document
-      .querySelector(".globe-button")
-      .addEventListener("click", function () {
-        document.querySelector(".globe-dropdown").classList.toggle("show");
-      });
-    // 로고 버튼 클릭 시 홈페이지로 이동
-    document.querySelector(".logo").addEventListener("click", function () {
-      window.location.href = "home.html"; // 홈페이지 주소로 변경
-    });
-  </script>
 </html>
