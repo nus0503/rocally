@@ -6,20 +6,27 @@ import lombok.Setter;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.ModelAttribute;
 
+import javax.validation.constraints.AssertTrue;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 
 @Getter
 @Setter
 public class UserRegisterRequestDto {
 
+    @NotNull(message = "이름 입력해주세요.")
     @NotBlank(message = "이름을 입력하세요.")
     private String username;
 
+    @NotBlank(message = "생년월일을 입력해주세요.")
     private String yyyy;
+    @NotBlank(message = "생년월일을 입력해주세요.")
     private String mm;
+    @NotBlank(message = "생년월일을 입력해주세요.")
     private String dd;
     @NotNull(message = "생년월일을 입력해주세요.")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
@@ -47,14 +54,18 @@ public class UserRegisterRequestDto {
         }
     }
 
-    @ModelAttribute
-    public void setBirthDate() {
-        if (yyyy != null && mm != null && dd != null) {
-            this.birthDate = LocalDate.of(
-                    Integer.parseInt(yyyy),
-                    Integer.parseInt(mm),
-                    Integer.parseInt(dd)
-            );
+    @AssertTrue(message = "유효한 생년월일을 입력해주세요.")
+    public boolean isValidBirthDate() {
+        if (yyyy != null && mm != null & dd != null) {
+            try {
+                String dateStr = String.format("%s-%s-%s", yyyy, mm, dd);
+                DateTimeFormatter formatter = Period.yyyyMMdd;
+                this.birthDate = LocalDate.parse(dateStr, formatter);
+                return true;
+            } catch (DateTimeParseException e) {
+                return false;
+            }
         }
+        return false;
     }
 }
