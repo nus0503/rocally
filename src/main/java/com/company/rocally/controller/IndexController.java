@@ -12,7 +12,7 @@ import javax.servlet.http.HttpSession;
 
 @Controller
 @RequiredArgsConstructor
-public class HelloController {
+public class IndexController {
 
     private final HttpSession httpSession;
 
@@ -25,11 +25,5 @@ public class HelloController {
         }
         return "index";
     }
-
-    @GetMapping("/register")
-    public String register() {
-        return "travel-register";
-    }
-
 
 }
