@@ -39,7 +39,7 @@ public class UserApiController {
     @GetMapping("/signup")
     public String signup(Model model) {
         model.addAttribute("userRegisterRequestDto", new UserRegisterRequestDto());
-        return "signup";
+        return "authentication-register";
     }
 
     @PostMapping("/signup")
@@ -49,7 +49,7 @@ public class UserApiController {
 
         if (errors.hasErrors()) {
             model.addAttribute("userRegisterRequestDto", userRegisterRequestDto);
-            return "signup";
+            return "authentication-register";
         }
 
         userService.save(userRegisterRequestDto);

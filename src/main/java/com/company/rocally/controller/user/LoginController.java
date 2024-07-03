@@ -85,7 +85,7 @@ public class LoginController {
         }
         model.addAttribute("error", error);
         model.addAttribute("exception", exception);
-        return "/loginForm";
+        return "authentication-login";
     }
 
 
