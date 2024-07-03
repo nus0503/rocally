@@ -56,11 +56,6 @@ public class TravelController {
         return "index";
     }
 
-    @PostMapping("/나중에 짓기")
-    public String reserveTravel(@LoginUser SessionUser user, @ModelAttribute TravelReserveRequestDto travelReserveRequestDto) {
-        return "";
-    }
-
     @GetMapping("/travel/{id}")
     public String getTravel(@PathVariable Long id, Model model) {
         TravelDetailResponseDto travelDetailResponseDto = travelService.getTravelProgramDetail(id);
@@ -105,12 +100,12 @@ public class TravelController {
     @GetMapping("/waiting-reserve")
     public String checkWaitingReservation(@LoginUser SessionUser user, Model model) {
         model.addAttribute("waitingReservationList", travelService.waitingReservation(user));
-        return "waiting-reservation";
+        return "dashboard/waiting-reservation";
     }
 
     @GetMapping("/complete-reserve")
     public String checkCompleteReservation(@LoginUser SessionUser user, Model model) {
         model.addAttribute("completeReservationList", travelService.completeReservation(user));
-        return "complete-reservation";
+        return "dashboard/complete-reservation";
     }
 }

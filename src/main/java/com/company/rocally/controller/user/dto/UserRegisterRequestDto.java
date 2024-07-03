@@ -59,8 +59,7 @@ public class UserRegisterRequestDto {
         if (yyyy != null && mm != null & dd != null) {
             try {
                 String dateStr = String.format("%s-%s-%s", yyyy, mm, dd);
-                DateTimeFormatter formatter = Period.yyyyMMdd;
-                this.birthDate = LocalDate.parse(dateStr, formatter);
+                this.birthDate = LocalDate.parse(dateStr, Period.yyyyMMdd);
                 return true;
             } catch (DateTimeParseException e) {
                 return false;

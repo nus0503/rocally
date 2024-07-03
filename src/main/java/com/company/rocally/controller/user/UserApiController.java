@@ -30,16 +30,17 @@ public class UserApiController {
     public void validatorBinder(WebDataBinder binder) {
         binder.addValidators(checkEmailValidator);
     }
-
     @InitBinder(value = "passwordChangeDto")
     public void passwordValidatorBinder(WebDataBinder binder) {
         binder.addValidators(existingPasswordValidator);
     }
 
+
+
     @GetMapping("/signup")
     public String signup(Model model) {
         model.addAttribute("userRegisterRequestDto", new UserRegisterRequestDto());
-        return "authentication-register";
+        return "user/authentication-register";
     }
 
     @PostMapping("/signup")
@@ -49,16 +50,11 @@ public class UserApiController {
 
         if (errors.hasErrors()) {
             model.addAttribute("userRegisterRequestDto", userRegisterRequestDto);
-            return "authentication-register";
+            return "user/authentication-register";
         }
 
         userService.save(userRegisterRequestDto);
         return "index";
-    }
-
-    @GetMapping("/dashboard")
-    public String dashboard() {
-        return "dashboardIndex";
     }
 
     @PostMapping("matchPassword")
