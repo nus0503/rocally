@@ -1,7 +1,10 @@
 package com.company.rocally.common.security;
 
+import com.company.rocally.config.auth.dto.SessionUser;
+import com.company.rocally.controller.user.dto.UserUpdateRequestDto;
 import com.company.rocally.domain.user.Role;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
@@ -19,7 +22,7 @@ import java.util.Set;
 @RequiredArgsConstructor
 public class SecurityServiceImpl implements SecurityService{
 
-
+    private final AuthenticationManager authenticationManager;
 
     @Override
     public void updateAuthority() {
@@ -55,5 +58,14 @@ public class SecurityServiceImpl implements SecurityService{
         }
     }
 
+    @Override
+    public void updateAuthentication(SessionUser user, UserUpdateRequestDto dto) {
+        Authentication authenticate = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(user.getEmail(), dto.getNewPassword()));
+        SecurityContextHolder.getContext().setAuthentication(authenticate);
 
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        authentication.getPrincipal();
+        int num = 0;
+        num = 1;
+    }
 }
