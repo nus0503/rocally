@@ -1,13 +1,18 @@
 package com.company.rocally.controller.user;
 
+import com.company.rocally.common.security.SecurityService;
 import com.company.rocally.common.validation.email.CheckEmailValidator;
 import com.company.rocally.common.validation.password.ExistingPasswordValidator;
+import com.company.rocally.config.auth.LoginUser;
+import com.company.rocally.config.auth.dto.SessionUser;
 import com.company.rocally.controller.user.dto.PasswordChangeDto;
 import com.company.rocally.controller.user.dto.UserRegisterRequestDto;
 import com.company.rocally.controller.user.dto.UserUpdateRequestDto;
 import com.company.rocally.service.user.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
@@ -25,6 +30,8 @@ public class UserApiController {
     private final ExistingPasswordValidator existingPasswordValidator;
 
     private final UserService userService;
+
+    private final SecurityService securityService;
 
     @InitBinder(value = "userRegisterRequestDto")
     public void validatorBinder(WebDataBinder binder) {
@@ -68,7 +75,10 @@ public class UserApiController {
 
     @PutMapping("/user")
     @ResponseBody
-    public ResponseEntity<String> modify(@RequestBody UserUpdateRequestDto dto) {
+    public ResponseEntity<String> modify(@LoginUser SessionUser user, @RequestBody UserUpdateRequestDto dto) {
+        userService.updateUser(user, dto);
+        securityService.updateAuthentication(user, dto);
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         return ResponseEntity.ok().build();
     }
 

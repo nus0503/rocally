@@ -1,6 +1,8 @@
 package com.company.rocally.service.user;
 
+import com.company.rocally.config.auth.dto.SessionUser;
 import com.company.rocally.controller.user.dto.UserRegisterRequestDto;
+import com.company.rocally.controller.user.dto.UserUpdateRequestDto;
 import com.company.rocally.domain.user.Role;
 import com.company.rocally.domain.user.User;
 import com.company.rocally.domain.user.UserRepository;
@@ -41,5 +43,13 @@ public class UserService {
             }
         }
         return 2;
+    }
+
+    @Transactional
+    public void updateUser(SessionUser user, UserUpdateRequestDto dto) {
+        User user1 = userRepository.findByEmail(user.getEmail()).orElseThrow(
+                () -> new IllegalArgumentException("회원정보가 없습니다."));
+
+        user1.setNewPassword(dto.getNewPassword());
     }
 }
