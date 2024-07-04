@@ -63,9 +63,5 @@ public class SecurityServiceImpl implements SecurityService{
         Authentication authenticate = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(user.getEmail(), dto.getNewPassword()));
         SecurityContextHolder.getContext().setAuthentication(authenticate);
 
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        authentication.getPrincipal();
-        int num = 0;
-        num = 1;
     }
 }
