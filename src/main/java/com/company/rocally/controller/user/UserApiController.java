@@ -10,6 +10,7 @@ import com.company.rocally.controller.user.dto.UserRegisterRequestDto;
 import com.company.rocally.controller.user.dto.UserUpdateRequestDto;
 import com.company.rocally.service.user.UserService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -78,8 +79,7 @@ public class UserApiController {
     public ResponseEntity<String> modify(@LoginUser SessionUser user, @RequestBody UserUpdateRequestDto dto) {
         userService.updateUser(user, dto);
         securityService.updateAuthentication(user, dto);
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        return ResponseEntity.ok().build();
+        return new ResponseEntity<>("success", HttpStatus.OK);
     }
 
 }

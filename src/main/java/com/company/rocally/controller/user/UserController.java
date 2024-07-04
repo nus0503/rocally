@@ -63,6 +63,11 @@ public class UserController {
         return "user/authentication-login";
     }
 
+    @GetMapping("/user/update")
+    public String update() {
+        return "user/authentication-update";
+    }
+
     @GetMapping("/dashboard")
     public String dashboard() {
         return "dashboard/dashboardIndex";

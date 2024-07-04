@@ -50,6 +50,6 @@ public class UserService {
         User user1 = userRepository.findByEmail(user.getEmail()).orElseThrow(
                 () -> new IllegalArgumentException("회원정보가 없습니다."));
 
-        user1.setNewPassword(dto.getNewPassword());
+        user1.setNewPassword(bCryptPasswordEncoder.encode(dto.getNewPassword()));
     }
 }

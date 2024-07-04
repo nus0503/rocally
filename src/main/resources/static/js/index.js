@@ -16,25 +16,39 @@ var main = {
 
     update : function () {
         const data = {
-            id : $('#id').val(),
-            user : $('#username').val(),
-            existingPassword : $('#existingPassword').val();
-            newPassword : $('#newPassword').val(),
-            email : $('#email').val(),
-        };
+            newPassword : $('#newPassword').val()
+        }
+        const newPassword = $('#newPassword').val();
+        const conformNewPassword = $('#conformNewPassword').val();
 
-        $.ajax({
-            type : "PUT",
-            url : "/user",
-            data : JSON.stringify(data),
-            contentType : "application/json; charset=utf-8",
-            dataType : "json"
-        }).done(function (data) {
-            alert("회원수정이 완료되었습니다.");
-            location.href="/";
-        }).fail(function (error) {
-            alert(JSON.stringify(error));
-        });
+        if (!data.newPassword || data.newPassword.trim() === "") {
+            alert("공백 또는 입력하지 않은 부분이 있습니다.");
+            return false;
+        }
+
+        if (newPassword !== conformNewPassword) {
+            alert("비밀번호를 확인해주세요");
+            return false;
+        }
+
+        const con_check = confirm("수정하시겠습니까?");
+        if (con_check === true) {
+            $.ajax({
+                type : "PUT",
+                url : "/user",
+                data : JSON.stringify(data),
+                contentType : "application/json; charset=utf-8",
+
+                }).done(function (data) {
+                    alert("회원수정이 완료되었습니다.");
+                    window.location.href="/";
+                }).fail(function (error) {
+//                    alert(JSON.stringify(error));
+                      alert("실패했습니다.");
+                });
+        }
+
+
     },
 
     loginStep1 : function () {
