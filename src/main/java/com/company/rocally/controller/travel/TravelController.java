@@ -60,7 +60,7 @@ public class TravelController {
     public String getTravel(@PathVariable Long id, Model model) {
         TravelDetailResponseDto travelDetailResponseDto = travelService.getTravelProgramDetail(id);
         model.addAttribute("travelDetailResponseDto", travelDetailResponseDto);
-        return "a";
+        return "product/product-detail";
     }
 
     @GetMapping("/travel-list")

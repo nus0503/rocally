@@ -1,21 +1,16 @@
 * {
-  box-sizing: border-box;
   margin: 0;
-  padding: 0;
 }
-body {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 0 30px;
-}
+
 
 header {
   margin-bottom: 20px;
 }
 
 .product-container {
+  margin-left: 200px;
   display: flex;
-  justify-content: start;
+  justify-content: end;
   align-items: start;
   gap: 40px;
 }
@@ -112,10 +107,7 @@ button {
   font-weight: 600;
 }
 
-button:hover {
-  background: #ff4242;
-  transition: ease-in 0.4s;
-}
+
 
 .delivery {
   display: flex;
@@ -163,4 +155,8 @@ hr {
   hr{
     width: 100%;
   }
+}
+.delivery-container {
+  display: flex;
+  flex-direction: column;
 }
