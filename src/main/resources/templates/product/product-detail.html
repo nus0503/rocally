@@ -26,6 +26,36 @@
     <!-- Customized Bootstrap Stylesheet -->
     <link href="/css/style.css" rel="stylesheet">
 
+    <style>
+        .reservation-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+  font-family: Arial, sans-serif;
+}
+
+.reservation-table th,
+.reservation-table td {
+  padding: 12px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+.reservation-table th {
+  background-color: #f2f2f2;
+  font-weight: bold;
+  color: #333;
+}
+
+.reservation-table tr:hover {
+  background-color: #f5f5f5;
+}
+
+.reservation-table tr:nth-child(even) {
+  background-color: #fafafa;
+}
+    </style>
+
 </head>
 <body>
     <!-- Topbar Start -->
@@ -87,18 +117,34 @@
             <div class="select_reservation">
                 <p>가능한 날짜</p>
                 <p>Free standard shipping on orders over $35 before tax, plus free returns.</p>
-                <div class="delivery">
-                    <p>날짜</p> <p>시작 시간</p> <p>종료 시간</p>
-                </div>
-                <hr>
-                <div class="reservation-container">
-                    <div th:each="availableDate : ${travelDetailResponseDto.availableDateResponseDto}" class="delivery">
-                        <p th:text="${availableDate.availableDate}">Standard delivery</p>
-                        <p th:text="${availableDate.startTime}">1-4 business days</p>
-                        <p th:text="${availableDate.endTime}">$4.50</p>
-                    </div>
-                    <hr>
-                </div>
+<!--                <div class="delivery">-->
+<!--                    <p>날짜</p> <p>시작 시간</p> <p>종료 시간</p>-->
+<!--                </div>-->
+<!--                <hr>-->
+<!--                <div class="reservation-container">-->
+<!--                    <div th:each="availableDate : ${travelDetailResponseDto.availableDateResponseDto}" class="delivery">-->
+<!--                        <p th:text="${availableDate.availableDate}">Standard delivery</p>-->
+<!--                        <p th:text="${availableDate.startTime}">1-4 business days</p>-->
+<!--                        <p th:text="${availableDate.endTime}">$4.50</p>-->
+<!--                    </div>-->
+<!--                    <hr>-->
+<!--                </div>-->
+                <table class="reservation-table">
+                    <thead>
+                    <tr>
+                        <th>날짜</th>
+                        <th>시작 시간</th>
+                        <th>종료 시간</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="availableDate : ${travelDetailResponseDto.availableDateResponseDto}">
+                        <td th:text="${availableDate.availableDate}"></td>
+                        <td th:text="${availableDate.startTime}"></td>
+                        <td th:text="${availableDate.endTime}"></td>
+                    </tr>
+                    </tbody>
+                </table>
 <!--                <div class="delivery">-->
 <!--                    <p>Express delivery</p>-->
 <!--                    <p>1 business day</p>-->
