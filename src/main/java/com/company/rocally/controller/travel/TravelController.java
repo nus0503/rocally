@@ -80,7 +80,7 @@ public class TravelController {
     @GetMapping("/check-reserve")
     public String checkReserve(@LoginUser SessionUser user, Model model) {
         model.addAttribute("reserveList", travelService.checkReservedTravel(user));
-        return "b";
+        return "dashboard/reservation-detail";
     }
 
     @GetMapping("/check-reserve-partner")
