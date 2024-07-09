@@ -78,7 +78,6 @@
                                         <tr>
                                             <th>Travel ID</th>
                                             <th>Title</th>
-                                            <th>Reserved Count</th>
                                             <th>User ID</th>
                                             <th>Username</th>
                                             <th>Email</th>
@@ -90,10 +89,9 @@
                                         <tr th:each="reservation : ${waitingReservationList}">
                                             <td th:text="${reservation.travelId}"></td>
                                             <td th:text="${reservation.travelTitle}"></td>
-                                            <td th:text="${reservation.reservedCount}"></td>
                                             <td th:text="${reservation.userId}"></td>
                                             <td th:text="${reservation.username}"></td>
-                                            <td th:text="${reservation.email}"></td>
+                                            <td th:text="${reservation.userEmail}"></td>
                                             <td th:text="${reservation.reserveStatus}"></td>
                                             <td>
                                                 <button class="btn btn-primary m-1" th:if="${reservation.reserveStatus} == ${T(com.company.rocally.domain.travel.ReserveStatus).WAIT}" th:text="'Accept'" th:onclick="'acceptReservation(' + ${reservation.reserveId} + ')'"></button>
@@ -102,20 +100,6 @@
                                         </tbody>
                                     </table>
                                 </div>
-                            </div>
-                        </div>
-                        <h5 class="card-title fw-semibold mb-4">Outline buttons</h5>
-                        <div class="card mb-0">
-                            <div class="card-body p-4">
-                                <button type="button" class="btn btn-outline-primary m-1">Primary</button>
-                                <button type="button" class="btn btn-outline-secondary m-1">Secondary</button>
-                                <button type="button" class="btn btn-outline-success m-1">Success</button>
-                                <button type="button" class="btn btn-outline-danger m-1">Danger</button>
-                                <button type="button" class="btn btn-outline-warning m-1">Warning</button>
-                                <button type="button" class="btn btn-outline-info m-1">Info</button>
-                                <button type="button" class="btn btn-outline-light m-1">Light</button>
-                                <button type="button" class="btn btn-outline-dark m-1">Dark</button>
-                                <button type="button" class="btn btn-outline-link m-1">Link</button>
                             </div>
                         </div>
                     </div>

@@ -1,113 +1,167 @@
-<html xmlns:th="http://www.thymeleaf.org">
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>파트너 등록</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+    font-family: 'Arial', sans-serif;
+    line-height: 1.6;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    max-width: 600px;
+    margin: 2rem auto;
+    padding: 2rem;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
+h1 {
+    text-align: center;
+    color: #333;
+    margin-bottom: 2rem;
+}
+
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+label {
+    display: block;
+    margin-bottom: 0.5rem;
+    color: #555;
+    font-weight: bold;
+}
+
+input[type="text"],
+input[type="tel"],
+input[type="url"],
+select {
+    width: 100%;
+    padding: 0.75rem;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 1rem;
+}
+
+select {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background-image: url('data:image/svg+xml;utf8,<svg fill="black" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M7 10l5 5 5-5z"/><path d="M0 0h24v24H0z" fill="none"/></svg>');
+    background-repeat: no-repeat;
+    background-position-x: 98%;
+    background-position-y: 50%;
+}
+
+.submit-btn {
+    display: block;
+    width: 100%;
+    padding: 1rem;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.submit-btn:hover {
+    background-color: #45a049;
+}
+
+@media (max-width: 768px) {
+    .container {
+        margin: 1rem;
+        padding: 1rem;
+    }
+}
+    </style>
 </head>
 <body>
-<form action="/partner-regist" method="post">
-    <div>
-        <label>Name</label>
-        <input type="text" name="firstName" placeholder="First name"/>
-        <input type="text" name="lastName" PLACEHOLDER="Last name"/>
-    </div>
-    <div>
-        <div>Make sure this matches the name on your Government Id</div>
-    </div>
-    <div>
-        <label>Date of Birth</label>
-        <input type="date" id="birth_date" name="birthDate">
-    </div>
-    <div>
-        <div>To sign up, ypu need to be at least 18.<br>Your birthday won't be shared with other people who use Locally.</div>
-    </div>
-    <div>
-        <label>Career</label>
-        <select name="occupation">
-            <option value="student">학생</option>
-        </select>
-    </div>
-    <div>
-        <label>Region</label>
-        <select name="local">
-            <option value="지역">미정</option>
-        </select>
-        <select name="city">
-            <option>미정</option>
-        </select>
-    </div>
-    <div>
-        <label>Phone</label>
-        <input type="text" name="phoneNumber"/>
-    </div>
-    <div>
-        <label>Level of Korean</label>
-        <select name="koreaLanguageLevel">
-            <option value="">Please select your level of Korean</option>
-            <option value="1">LV.1</option>
-            <option value="2">LV.2</option>
-            <option value="3">LV.3</option>
-            <option value="4">LV.4</option>
-            <option value="5">LV.5</option>
-        </select>
-    </div>
-    <div>
-        <label>How did you find Locally?</label>
-        <select name="discoveryRoute">
-            <option value="">선택</option>
-            <option value="인터넷 검색">인터넷 검색</option>
-            <option value="홈페이지">홈페이지</option>
-            <option value="소셜 미디어">소셜 미디어</option>
-            <option value="특정 사이트">특정 사이트</option>
-            <option value="기타" id="etcOption">기타</option>
-        </select>
-    </div>
-    <div>
-        <label>SNS Address</label>
-        <select name="snsType">
-            <option value="">Type of SNS</option>
-        </select>
-        <input type="text" name="personalSnsLink"/>
-    </div>
-    <div>
-        <div>The payment will be settled once a month.<br>20% commission fee will be charged from the total amount.<br>(Transfer fees may be applied)</div>
-        <p>Choose Payment method</p>
-        <input type='checkbox' name='payment' value='bankk' onclick='checkOnlyOne(this)'/> Bank Transfer
-        <input type='checkbox' name='payment' value='payPal' onclick='checkOnlyOne(this)'/> Pay Pal
-        <input type="text" name="bank">은행
-        <input type="text" name="account">계좌번호
-    </div>
-    <div>
-        <label>Currency</label>
-        <select name="currency">
-            <option>미정</option>
-        </select>
-    </div>
-    <div>
-        <label>Country of bank account</label>
-        <select name="accountCountry">
-            <option>미정</option>
-        </select>
-    </div>
-    <div>
-        <label>IBAN</label>
-        <input type="text" name="iban" placeholder="Enter your IBAN">
-        <input type="text" name="iban" placeholder="confirm your IBAN">
-    </div>
-<!--    <div>-->
-<!--        <input type="password" name="password" placeholder="Password"/>-->
-<!--    </div>-->
-<!--    <div th:if="${error}" th:text="${exception}"></div>-->
-<!--    <input type="submit" value="Log in" />-->
-    <button type="submit">파트너 등록</button>
-</form>
+<div class="container">
+    <h1>파트너 등록</h1>
+    <form action="/partner-regist" method="post">
+        <div class="form-group">
+            <label for="occupation">직업</label>
+            <select id="occupation" name="occupation" required>
+                <option value="">직업을 선택해주세요</option>
+                <option value="student">학생</option>
+                <option value="employee">회사원</option>
+                <option value="self-employed">자영업</option>
+                <option value="other">기타</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="koreaLanguageLevel">한국어 능력</label>
+            <select id="koreaLanguageLevel" name="koreaLanguageLevel" required>
+                <option value="">한국어 능력을 선택해주세요</option>
+                <option value="1">LV.1 (기초)</option>
+                <option value="2">LV.2 (초급)</option>
+                <option value="3">LV.3 (중급)</option>
+                <option value="4">LV.4 (고급)</option>
+                <option value="5">LV.5 (능통)</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="discoveryRoute">Locally를 알게 된 경로</label>
+            <select id="discoveryRoute" name="discoveryRoute" required>
+                <option value="">선택해주세요</option>
+                <option value="인터넷 검색">인터넷 검색</option>
+                <option value="홈페이지">홈페이지</option>
+                <option value="소셜 미디어">소셜 미디어</option>
+                <option value="특정 사이트">특정 사이트</option>
+                <option value="기타">기타</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="snsType">SNS 종류</label>
+            <select id="snsType" name="snsType" required>
+                <option value="">SNS 종류를 선택해주세요</option>
+                <option value="instagram">Instagram</option>
+                <option value="facebook">Facebook</option>
+                <option value="twitter">Twitter</option>
+                <option value="other">기타</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="personalSnsLink">SNS 주소</label>
+            <input type="url" id="personalSnsLink" name="personalSnsLink" placeholder="https://...">
+        </div>
+
+        <div class="form-group">
+            <label for="bank">은행</label>
+            <input type="text" id="bank" name="bank" required>
+        </div>
+
+        <div class="form-group">
+            <label for="account">계좌번호</label>
+            <input type="text" id="account" name="account" required placeholder="'-' 없이 입력해주세요">
+        </div>
+
+        <button type="submit" class="submit-btn">파트너 등록</button>
+    </form>
+</div>
 </body>
-<script>
-  function checkOnlyOne (element) {
-      const checkboxes = document.getElementsByName("payment");
+<script th:inline="javascript">
+    /*<![CDATA[*/
+    var error = /*[[${error}]]*/ null;
 
-      checkboxes.forEach((cb) => {
-        cb.checked = false;
-      })
-
-      element.checked = true;
-  }
-</script>
+    if (error) {
+        alert(error);
+    }
+    /*]]>*/
+    </script>
 </html>

@@ -28,7 +28,6 @@
 
     <style>
         .reservation-table {
-  width: 100%;
   border-collapse: collapse;
   margin-top: 20px;
   font-family: Arial, sans-serif;
@@ -94,29 +93,29 @@
         <div class="product-info">
             <h3 th:text="${travelDetailResponseDto.title}">LEVI'S® WOMEN'S XL TRUCKER JACKET</h3>
             <h5 th:text="'Price: ￦' + ${travelDetailResponseDto.price}">Price: $140 <del>$170</del></h5>
+            <p>프로그램 설명</p>
             <p th:text="${travelDetailResponseDto.content}">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ipsa accusantium, aspernatur provident beatae corporis veniam atque facilis, consequuntur assumenda, vitae dignissimos iste exercitationem dolor eveniet alias eos ullam nesciunt voluptatum.</p>
             <!--            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Inventore accusamus natus dolorum. Quaerat nulla quod doloremque, officia quis provident amet adipisci unde esse iure delectus, maxime inventore optio fuga nisi?</p>-->
 
             <div class="sizes">
-                <p>여행지</p>
+                <p style="margin-bottom: 0px;">만나는 장소</p>
                 <!--                <select name="Size" id="size" class="size-option">-->
                 <!--                    <option value="xxl">XXL</option>-->
                 <!--                    <option value="xl">XL</option>-->
                 <!--                    <option value="medium">Medium</option>-->
                 <!--                    <option value="small">Small</option>-->
                 <!--                </select>-->
-                <div th:text="${travelDetailResponseDto.country} + ', ' + ${travelDetailResponseDto.local}"></div>
+                <div th:text="${travelDetailResponseDto.meetingPlace}"></div>
             </div>
 
             <!--            <div class="quantity">-->
             <!--                <input type="number" value="1" min="1">-->
             <!--                <button>Add to Cart</button>-->
             <!--            </div>-->
-            <div th:text="'최대 인원수 : ' + ${travelDetailResponseDto.maxPeople} + '명'"></div>
+            <div style="margin: 15px 0;" th:text="'최대 인원수 : ' + ${travelDetailResponseDto.maxPeople} + '명'"></div>
 
             <div class="select_reservation">
                 <p>가능한 날짜</p>
-                <p>Free standard shipping on orders over $35 before tax, plus free returns.</p>
 <!--                <div class="delivery">-->
 <!--                    <p>날짜</p> <p>시작 시간</p> <p>종료 시간</p>-->
 <!--                </div>-->
@@ -135,13 +134,19 @@
                         <th>날짜</th>
                         <th>시작 시간</th>
                         <th>종료 시간</th>
+                        <th>예약 하기</th>
                     </tr>
                     </thead>
                     <tbody>
-                    <tr th:each="availableDate : ${travelDetailResponseDto.availableDateResponseDto}">
+                    <tr th:each="availableDate : ${travelDetailResponseDto.availableDateResponseDto}" th:if="${!availableDate.reserved}">
                         <td th:text="${availableDate.availableDate}"></td>
                         <td th:text="${availableDate.startTime}"></td>
                         <td th:text="${availableDate.endTime}"></td>
+                        <td>
+                            <button type="button" class="btn btn-outline-success reserve-btn"
+                                    th:data-travel-id="${travelDetailResponseDto.id}"
+                                    th:data-available-date-id="${availableDate.id}">예약</button>
+                        </td>
                     </tr>
                     </tbody>
                 </table>
@@ -199,4 +204,30 @@
     <script src="/js/main.js"></script>
     <script src="/js/userToggle.js"></script>
 </body>
+<script>
+    $(document).ready(function() {
+        $('.reserve-btn').on('click', function() {
+            var travelId = $(this).data('travel-id');
+            var availableDateId = $(this).data('available-date-id');
+
+            var data = {
+                travelId: travelId,
+                availableDateId: availableDateId
+            }
+            console.log(JSON.stringify(data));
+
+            $.ajax({
+                type: 'POST',
+                url: '/reserve',
+                contentType: 'application/json; charset=utf-8',
+                data: JSON.stringify(data)
+            }).done(function () {
+                alert('예약되었습니다.');
+                window.location.href = '/';
+            }).fail(function (error) {
+                alert(JSON.stringify(error));
+            });
+        });
+    });
+</script>
 </html>
