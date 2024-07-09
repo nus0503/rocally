@@ -23,13 +23,7 @@ public class TravelRegisterRequestDto {
 
     private int price;
 
-    private String local;
-
-    private String country;
-
-    private String lat;
-
-    private String lng;
+    private String meetingPlace;
 
     private String maxPeople;
 
@@ -41,7 +35,7 @@ public class TravelRegisterRequestDto {
     public Travel toTravelEntity(User user) {
         List<TravelImage> travelImages = toTravelImageEntity();
 //        Travel travel1 = new Travel("1", "2", 3);
-        Travel travel = Travel.generateTravel(title, content, price, local, country, lat, lng, maxPeople);
+        Travel travel = Travel.generateTravel(title, content, price, meetingPlace, maxPeople);
         travel.addTravelImages(travelImages);
         travel.addUser(user);
         return travel;

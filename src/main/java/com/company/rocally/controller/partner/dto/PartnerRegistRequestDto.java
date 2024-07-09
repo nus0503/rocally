@@ -8,15 +8,15 @@ import lombok.Setter;
 public class PartnerRegistRequestDto {
     private String occupation;
 
-    private String local;
-
     private String koreaLanguageLevel;
+
+    private String discoveryRoute;
+
+    private String personalSnsLink;
 
     private String bank;
 
     private String account;
 
-    private String discoveryRoute;
 
-    private String personalSnsLink;
 }
