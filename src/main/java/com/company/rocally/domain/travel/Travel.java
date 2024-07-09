@@ -31,17 +31,8 @@ public class Travel extends BaseTimeEntity {
     @Column(nullable = false)
     private int price; //BigDecimal으로 바꾸기
 
-    @Column(name = "local", nullable = false)
-    private String local; // 따로 테이블
-
-    @Column(name = "country", nullable = false)
-    private String country; // 따로 테이블
-
-    @Column(name = "lat")
-    private String lat; //축약 ㄴㄴ
-
-    @Column(name = "lng")
-    private String lng;
+    @Column(name = "meetingPlace", nullable = false)
+    private String meetingPlace;
 
     @Column(name = "max_people")
     private String maxPeople; // int로 바꾸기
@@ -86,19 +77,16 @@ public class Travel extends BaseTimeEntity {
         this.price = price;
     }
 
-    private Travel(String title, String content, int price, String local, String country, String lat, String lng, String maxPeople) {
+    private Travel(String title, String content, int price, String meetingPlace, String maxPeople) {
         this.title = title;
         this.content = content;
         this.price = price;
-        this.local = local;
-        this.country = country;
-        this.lat = lat;
-        this.lng = lng;
+        this.meetingPlace = meetingPlace;
         this.maxPeople = maxPeople;
     }
 
-    public static Travel generateTravel(String title, String content, int price, String local, String country, String lat, String lng, String maxPeople) {
-        return new Travel(title, content, price, local, country, lat, lng, maxPeople);
+    public static Travel generateTravel(String title, String content, int price, String meetingPlace, String maxPeople) {
+        return new Travel(title, content, price, meetingPlace, maxPeople);
     }
 
     public void addImage(List<TravelImage> travelImages) {

@@ -23,8 +23,6 @@ public class Partner extends BaseTimeEntity {
     @Column(name = "occupation", nullable = false)
     private String occupation;
 
-    @Column(name = "local")
-    private String local;
 
     @Column(name = "korea_language_level", nullable = false)
     private String koreaLanguageLevel;
@@ -38,21 +36,21 @@ public class Partner extends BaseTimeEntity {
     @Column(name = "personal_sns_link", unique = true)
     private String personalSnsLink;
 
-    @Column(name = "introduce")
-    private String introduce;
+    @Column(name = "discoveryRoute")
+    private String discoveryRoute;
 
     @OneToOne
     @JoinColumn(name = "user_id")
     private User user;
 
     @Builder
-    public Partner(String occupation, String local, String koreaLanguageLevel, String bank, String account, String personalSnsLink) {
+    public Partner(String occupation, String koreaLanguageLevel, String bank, String account, String personalSnsLink, String discoveryRoute) {
         this.occupation = occupation;
-        this.local = local;
         this.koreaLanguageLevel = koreaLanguageLevel;
         this.bank = bank;
         this.account = account;
         this.personalSnsLink = personalSnsLink;
+        this.discoveryRoute = discoveryRoute;
     }
 
     public void addUser(User user) {
