@@ -20,13 +20,7 @@ public class TravelDetailResponseDto {
 
     private int price; //BigDecimal으로 바꾸기
 
-    private String local; // 따로 테이블
-
-    private String country; // 따로 테이블
-
-    private String lat; //축약 ㄴㄴ
-
-    private String lng;
+    private String meetingPlace;
 
     private String maxPeople; // int로 바꾸기
 
@@ -41,16 +35,13 @@ public class TravelDetailResponseDto {
         this.title = travel.getTitle();
         this.content = travel.getContent();
         this.price = travel.getPrice();
-        this.local = travel.getLocal();
-        this.country = travel.getCountry();
-        this.lat = travel.getLat();
-        this.lng = travel.getLng();
+        this.meetingPlace = travel.getMeetingPlace();
         this.maxPeople = travel.getMaxPeople();
         this.travelImages = travel.getTravelImages().stream()
                 .map(travelImage -> new TravelImageResponseDto(travelImage.getFilename(), travelImage.getFilepath()))
                 .collect(Collectors.toList());
         this.availableDateResponseDto = travel.getAvailableDates().stream()
-                .map(availableDates -> new AvailableDateResponseDto(availableDates.getId(), availableDates.getAvailableDate(), availableDates.getStartTime(), availableDates.getEndTime()))
+                .map(availableDates -> new AvailableDateResponseDto(availableDates.getId(), availableDates.getAvailableDate(), availableDates.getStartTime(), availableDates.getEndTime(), availableDates.isReserved()))
                 .collect(Collectors.toList());
         this.user = new UserResponseDto(travel.getUser().getUsername());
     }

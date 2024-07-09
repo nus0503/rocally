@@ -18,16 +18,19 @@ public class AvailableDateResponseDto {
 
     private LocalTime endTime;
 
+    private boolean isReserved;
+
     public AvailableDateResponseDto(LocalDate availableDate, LocalTime startTime, LocalTime endTime) {
         this.availableDate = availableDate;
         this.startTime = startTime;
         this.endTime = endTime;
     }
 
-    public AvailableDateResponseDto(Long id, LocalDate availableDate, LocalTime startTime, LocalTime endTime) {
+    public AvailableDateResponseDto(Long id, LocalDate availableDate, LocalTime startTime, LocalTime endTime, boolean isReserved) {
         this.id = id;
         this.availableDate = availableDate;
         this.startTime = startTime;
         this.endTime = endTime;
+        this.isReserved = isReserved;
     }
 }
