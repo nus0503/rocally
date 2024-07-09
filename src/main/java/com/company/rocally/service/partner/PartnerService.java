@@ -27,11 +27,11 @@ public class PartnerService {
         User user1 = userRepository.findByEmail(user.getEmail()).orElseThrow(() -> new UsernameNotFoundException("해당 유저가 없습니다."));
         Partner partner = Partner.builder()
                 .occupation(partnerRegistRequestDto.getOccupation())
-                .local(partnerRegistRequestDto.getLocal())
                 .account(partnerRegistRequestDto.getAccount())
                 .bank(partnerRegistRequestDto.getBank())
                 .personalSnsLink(partnerRegistRequestDto.getPersonalSnsLink())
                 .koreaLanguageLevel(partnerRegistRequestDto.getKoreaLanguageLevel())
+                .discoveryRoute(partnerRegistRequestDto.getDiscoveryRoute())
                 .build();
         user1.addPartner(partner);
         user1.changeRoleToPartner();
