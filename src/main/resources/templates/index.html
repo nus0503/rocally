@@ -383,5 +383,13 @@
 <script src="js/main.js"></script>
 <script src="js/userToggle.js"></script>
 </body>
+<script th:inline="javascript">
+    /*<![CDATA[*/
+    var message = /*[[${message}]]*/ null;
 
+    if (message) {
+        alert(message);
+    }
+    /*]]>*/
+    </script>
 </html>
