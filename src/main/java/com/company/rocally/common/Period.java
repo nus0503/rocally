@@ -1,8 +1,11 @@
 package com.company.rocally.common;
 
-import java.time.format.DateTimeFormatter;
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
 
-public class Period {
+import java.time.format.DateTimeFormatter;
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
+public final class Period {
 
     public static DateTimeFormatter yyyyMMddHHmm = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 
