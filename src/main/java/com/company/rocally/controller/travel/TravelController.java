@@ -27,6 +27,8 @@ public class TravelController {
 
     private final TravelService travelService;
 
+
+
     @GetMapping("/travel-register")
     public String TravelRegister(Model model) {
         model.addAttribute("travelRegisterRequestDto", new TravelRegisterRequestDto());

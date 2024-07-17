@@ -69,6 +69,7 @@
 
     <!-- product section -->
     <section class="product-container">
+        <input id="travel-id" type="hidden" th:value="${travelDetailResponseDto.id}">
         <!-- left side -->
         <div class="img-card">
             <img th:if="${travelDetailResponseDto.travelImages.size() == 1}"
@@ -174,6 +175,22 @@
         <hr class="comment-divider">
         <div id="comments-section">
             <!-- 댓글들이 여기에 로드됩니다 -->
+            <div th:if="${not #lists.isEmpty(travelDetailResponseDto.commentList)}" class="comments">
+                <div th:each="comment : ${travelDetailResponseDto.commentList}" class="comment">
+                    <div class="comment-header">
+                        <span th:text="${comment.author}" class="comment-author"></span>
+                        <span th:text="${comment.modifiedDate}" class="comment-date"></span>
+                    </div>
+                    <div th:text="${comment.content}" class="comment-content"></div>
+                    <div class="comment-actions">
+                        <button class="like-button">👍</button>
+                        <button class="dislike-button">👎</button>
+                    </div>
+                </div>
+            </div>
+            <div th:unless="${not #lists.isEmpty(travelDetailResponseDto.commentList)}" class="no-comments">
+                등록된 댓글이 없습니다.
+            </div>
         </div>
     </div>
 

@@ -28,10 +28,16 @@ public class CommentService {
                 .collect(Collectors.toList());
     }
 
+    public List<Object> addComment() {
+
+    }
+
     private CommentResponseDto convertToDTO(Comment comment) {
         CommentResponseDto dto = new CommentResponseDto();
         dto.setId(comment.getId());
         dto.setContent(comment.getContent());
+        dto.setAuthor(comment.getUser().getUsername());
+        dto.setModifiedDate(comment.getModifiedDate());
         dto.setReplies(comment.getReplies().stream()
                 .map(this::convertToDTO)
                 .collect(Collectors.toList()));

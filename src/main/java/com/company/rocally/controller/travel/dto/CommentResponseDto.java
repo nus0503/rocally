@@ -11,7 +11,11 @@ import java.util.List;
 public class CommentResponseDto {
 
     private Long id;
+
+    private String author;
     private String content;
     private List<CommentResponseDto> replies;
+
+    private String modifiedDate;
 
 }

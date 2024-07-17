@@ -27,6 +27,13 @@ $(document).ready(function() {
       }
   });
 
+    $('#comment-button').on('click', function () {
+        const data = {
+            var travelId = $('travel-id').val();
+            var content = $('comment-text').val();
+            var parentId = $()
+        }
+    });
   // 여기에 댓글 로드 및 제출 로직을 추가할 수 있습니다.
 });
 
