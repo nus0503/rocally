@@ -25,6 +25,7 @@
 
     <!-- Customized Bootstrap Stylesheet -->
     <link href="/css/style.css" rel="stylesheet">
+    <link href="/css/comment-style.css" rel="stylesheet">
 
     <style>
         .reservation-table {
@@ -164,7 +165,17 @@
             </div>
         </div>
     </section>
-
+    <div class="comment-container">
+        <div class="comment-count">댓글 1,093개</div>
+        <div class="comment-input">
+            <input type="text" id="comment-text" placeholder="댓글 추가...">
+            <button id="comment-button" disabled>댓글</button>
+        </div>
+        <hr class="comment-divider">
+        <div id="comments-section">
+            <!-- 댓글들이 여기에 로드됩니다 -->
+        </div>
+    </div>
 
     <!-- Footer Start -->
     <div th:replace="~{/fragments/footer.html :: fragment-footer}"></div>
@@ -203,6 +214,7 @@
     <!-- Template Javascript -->
     <script src="/js/main.js"></script>
     <script src="/js/userToggle.js"></script>
+    <script src="/js/comments.js"></script>
 </body>
 <script>
     $(document).ready(function() {

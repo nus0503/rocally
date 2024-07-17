@@ -7,6 +7,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -15,10 +16,13 @@ import java.util.stream.Collectors;
 @Service
 public class CommentService {
 
-    private CommentRepository commentRepository;
+    private final CommentRepository commentRepository;
 
-    public List<CommentResponseDto> getCommentsForTravel(Long travelId) {
+    public List<CommentResponseDto> getCommentsWithReplies(Long travelId) {
         List<Comment> topLevelComments = commentRepository.findByTravelIdAndParentIdIsNullOrderByCreatedDateDesc(travelId);
+        if (topLevelComments == null) {
+            return new ArrayList<>();
+        }
         return topLevelComments.stream()
                 .map(this::convertToDTO)
                 .collect(Collectors.toList());

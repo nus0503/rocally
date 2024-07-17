@@ -9,6 +9,7 @@ import com.company.rocally.controller.travel.dto.*;
 import com.company.rocally.domain.travel.*;
 import com.company.rocally.domain.user.User;
 import com.company.rocally.domain.user.UserRepository;
+import com.company.rocally.service.comment.CommentService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
@@ -38,6 +39,8 @@ public class TravelService {
 
     private final ReserveRepository reserveRepository;
     private final ImageStore imageStore;
+
+    private final CommentService commentService;
 
     public void createTravel(TravelRegisterRequestDto dto, ImageFileDto imageFileDto) throws IOException {
         List<String> fileNames = new ArrayList<>();
@@ -88,7 +91,8 @@ public class TravelService {
                 () -> new IllegalArgumentException("없다.")
         );
 //        Travel testTravel = travel;
-        TravelDetailResponseDto travelDetailResponseDto = new TravelDetailResponseDto(travel);
+        List<CommentResponseDto> commentsWithReplies = commentService.getCommentsWithReplies(num);
+        TravelDetailResponseDto travelDetailResponseDto = new TravelDetailResponseDto(travel, commentsWithReplies);
         return travelDetailResponseDto;
     }
 

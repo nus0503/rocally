@@ -30,7 +30,9 @@ public class TravelDetailResponseDto {
 
     private UserResponseDto user;
 
-    public TravelDetailResponseDto(Travel travel) {
+    private List<CommentResponseDto> commentList;
+
+    public TravelDetailResponseDto(Travel travel, List<CommentResponseDto> commentList) {
         this.id = travel.getId();
         this.title = travel.getTitle();
         this.content = travel.getContent();
@@ -44,5 +46,6 @@ public class TravelDetailResponseDto {
                 .map(availableDates -> new AvailableDateResponseDto(availableDates.getId(), availableDates.getAvailableDate(), availableDates.getStartTime(), availableDates.getEndTime(), availableDates.isReserved()))
                 .collect(Collectors.toList());
         this.user = new UserResponseDto(travel.getUser().getUsername());
+        this.commentList = commentList;
     }
 }
