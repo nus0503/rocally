@@ -7,21 +7,24 @@ import com.company.rocally.controller.travel.dto.CommentResponseDto;
 import com.company.rocally.service.comment.CommentService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RequiredArgsConstructor
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api/comments")
 public class CommentApiController {
 
     private final CommentService commentService;
 
-    @PostMapping("/comment")
+    @GetMapping
+    public ResponseEntity<List<CommentResponseDto>> getComments(@RequestParam Long travelId) {
+        return ResponseEntity.ok(commentService.getCommentsWithReplies(travelId));
+    }
+    @PostMapping
     public ResponseEntity<CommentResponseDto> addComment(@RequestBody CommentRequestDto dto, @LoginUser SessionUser user) {
-
+        return ResponseEntity.ok(commentService.addComment(dto, user));
     }
 
 

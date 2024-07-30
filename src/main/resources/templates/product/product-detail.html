@@ -166,33 +166,38 @@
             </div>
         </div>
     </section>
-    <div class="comment-container">
-        <div class="comment-count">댓글 1,093개</div>
-        <div class="comment-input">
-            <input type="text" id="comment-text" placeholder="댓글 추가...">
-            <button id="comment-button" disabled>댓글</button>
-        </div>
-        <hr class="comment-divider">
-        <div id="comments-section">
-            <!-- 댓글들이 여기에 로드됩니다 -->
-            <div th:if="${not #lists.isEmpty(travelDetailResponseDto.commentList)}" class="comments">
-                <div th:each="comment : ${travelDetailResponseDto.commentList}" class="comment">
-                    <div class="comment-header">
-                        <span th:text="${comment.author}" class="comment-author"></span>
-                        <span th:text="${comment.modifiedDate}" class="comment-date"></span>
-                    </div>
-                    <div th:text="${comment.content}" class="comment-content"></div>
-                    <div class="comment-actions">
-                        <button class="like-button">👍</button>
-                        <button class="dislike-button">👎</button>
-                    </div>
-                </div>
-            </div>
-            <div th:unless="${not #lists.isEmpty(travelDetailResponseDto.commentList)}" class="no-comments">
-                등록된 댓글이 없습니다.
-            </div>
-        </div>
-    </div>
+    <div id="comments-container"></div>
+    <form id="comment-form">
+        <textarea id="comment-content" required></textarea>
+        <button type="submit">댓글 작성</button>
+    </form>
+<!--    <div class="comment-container">-->
+<!--        <div class="comment-count">댓글 1,093개</div>-->
+<!--        <div class="comment-input">-->
+<!--            <input type="text" id="comment-text" placeholder="댓글 추가...">-->
+<!--            <button id="comment-button" disabled>댓글</button>-->
+<!--        </div>-->
+<!--        <hr class="comment-divider">-->
+<!--        <div id="comments-section">-->
+<!--            &lt;!&ndash; 댓글들이 여기에 로드됩니다 &ndash;&gt;-->
+<!--            <div th:if="${not #lists.isEmpty(travelDetailResponseDto.commentList)}" class="comments">-->
+<!--                <div th:each="comment : ${travelDetailResponseDto.commentList}" class="comment">-->
+<!--                    <div class="comment-header">-->
+<!--                        <span th:text="${comment.author}" class="comment-author"></span>-->
+<!--                        <span th:text="${comment.modifiedDate}" class="comment-date"></span>-->
+<!--                    </div>-->
+<!--                    <div th:text="${comment.content}" class="comment-content"></div>-->
+<!--                    <div class="comment-actions">-->
+<!--                        <button class="like-button">👍</button>-->
+<!--                        <button class="dislike-button">👎</button>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--            <div th:unless="${not #lists.isEmpty(travelDetailResponseDto.commentList)}" class="no-comments">-->
+<!--                등록된 댓글이 없습니다.-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </div>-->
 
     <!-- Footer Start -->
     <div th:replace="~{/fragments/footer.html :: fragment-footer}"></div>
@@ -259,4 +264,84 @@
         });
     });
 </script>
+<script>
+        const travelId = 1; // 실제 게시물 ID로 변경 필요
+
+        function loadComments() {
+            $.ajax({
+                url: `/api/comments?travelId=${travelId}`,
+                method: 'GET',
+                success: function(comments) {
+                    renderComments(comments);
+                },
+                error: function(xhr, status, error) {
+                    console.error('댓글을 불러오는데 실패했습니다:', error);
+                }
+            });
+        }
+
+        function renderComments(comments, parentElement = $('#comments-container')) {
+            parentElement.empty();
+            comments.forEach(comment => {
+                const commentElement = $(`
+                    <div class="comment" data-id="${comment.id}">
+                        <p>${comment.content}</p>
+                        <small>${comment.authorName} - ${new Date(comment.createdAt).toLocaleString()}</small>
+                        <button class="reply-button">답글</button>
+                        <div class="reply-form">
+                            <textarea class="reply-content" required></textarea>
+                            <button class="submit-reply">답글 작성</button>
+                        </div>
+                        <div class="replies"></div>
+                    </div>
+                `);
+                parentElement.append(commentElement);
+                if (comment.replies && comment.replies.length > 0) {
+                    renderComments(comment.replies, commentElement.find('.replies'));
+                }
+            });
+        }
+
+        $('#comment-form').on('submit', function(e) {
+            e.preventDefault();
+            const content = $('#comment-content').val();
+            submitComment(content);
+        });
+
+        $(document).on('click', '.reply-button', function() {
+            $(this).siblings('.reply-form').toggle();
+        });
+
+        $(document).on('click', '.submit-reply', function() {
+            const parentId = $(this).closest('.comment').data('id');
+            const content = $(this).siblings('.reply-content').val();
+            submitComment(content, parentId);
+        });
+
+        function submitComment(content, parentId = null) {
+            $.ajax({
+                url: '/api/comments',
+                method: 'POST',
+                contentType: 'application/json',
+                data: JSON.stringify({
+                    travelId: travelId,
+                    content: content,
+                    parentId: parentId
+                }),
+                success: function(response) {
+                    loadComments();
+                    $('#comment-content').val('');
+                    $('.reply-content').val('');
+                    $('.reply-form').hide();
+                },
+                error: function(xhr, status, error) {
+                    console.error('댓글 작성에 실패했습니다:', error);
+                }
+            });
+        }
+
+        $(document).ready(function() {
+            loadComments();
+        });
+    </script>
 </html>
