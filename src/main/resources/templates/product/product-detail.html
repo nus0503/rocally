@@ -54,6 +54,63 @@
 .reservation-table tr:nth-child(even) {
   background-color: #fafafa;
 }
+<!-- ------------------------------------------------ -->
+.review-container {
+  font-family: 'Noto Sans KR', sans-serif;
+  max-width: 100%;
+  padding: 15px;
+  background-color: #fff;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.review {
+  display: flex;
+  justify-content: space-between;
+}
+
+.review-main {
+  flex: 1;
+}
+
+.rating {
+  color: #ff9900;
+  font-size: 18px;
+  margin-bottom: 10px;
+}
+
+.content {
+  font-size: 14px;
+  line-height: 1.5;
+  color: #333;
+  margin-bottom: 15px;
+}
+
+.review-info {
+  width: 100px;
+  text-align: right;
+  padding-left: 15px;
+}
+
+.reviewer {
+  color: #888;
+  font-size: 14px;
+  margin-bottom: 5px;
+}
+
+.date {
+  color: #888;
+  font-size: 14px;
+}
+
+.reply-button {
+  background-color: #f1f1f1;
+  border: 1px solid #d9d9d9;
+  color: #333;
+  padding: 5px 10px;
+  font-size: 13px;
+  cursor: pointer;
+  margin-top: 10px;
+}
     </style>
 
 </head>
@@ -166,6 +223,25 @@
             </div>
         </div>
     </section>
+
+    <div class="review-container">
+        <div class="review">
+            <div class="review-main">
+                <div class="rating">★★★★★</div>
+                <div class="content">
+                    일부 날씨가 넘 더워 시원한 밤에 투어 하려고 예약 했는데 밤도 무지 더웠어요 ㅠㅠ 더운 날씨에 가이드 해주셔서 넘 감사 했
+                    구요 소바도 너무 맛있었어요! 함께 다니신분들도 좋았구요 특히 스카이트리 주변에 앉아서 일본어 가르쳐주실때 가장 실
+                    났어요 ㅎㅎ 시간없은산본들 쫌개 밥 투어하기 나쁘지 않은것 같아요
+                </div>
+            </div>
+            <div class="review-info">
+                <div class="reviewer">hyey****</div>
+                <div class="date">2024-07-18</div>
+            </div>
+        </div>
+        <button class="reply-button">리뷰 작성</button>
+    </div>
+
     <div id="comments-container"></div>
     <form id="comment-form">
         <textarea id="comment-content" required></textarea>

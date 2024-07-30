@@ -4,6 +4,8 @@ import com.company.rocally.common.customException.RestApiException;
 import com.company.rocally.config.auth.dto.SessionUser;
 import com.company.rocally.controller.comment.dto.CommentRequestDto;
 import com.company.rocally.controller.travel.dto.CommentResponseDto;
+import com.company.rocally.domain.rating.Rating;
+import com.company.rocally.domain.rating.RatingRepository;
 import com.company.rocally.domain.travel.Comment;
 import com.company.rocally.domain.travel.CommentRepository;
 import com.company.rocally.domain.travel.Travel;
@@ -29,6 +31,8 @@ public class CommentService {
 
     private final UserRepository userRepository;
 
+    private final RatingRepository ratingRepository;
+
     public List<CommentResponseDto> getCommentsWithReplies(Long travelId) {
         List<Comment> topLevelComments = commentRepository.findByTravelIdAndParentIdIsNullOrderByCreatedDateDesc(travelId);
         if (topLevelComments == null) {
@@ -53,6 +57,7 @@ public class CommentService {
         }
         Comment comment = dto.toEntity(travel, user, dto.getContent(), parent);
         Comment savedComment = commentRepository.save(comment);
+        ratingRepository.save(Rating.generateEntity(dto.getRatingValue(), user, comment));
         return convertToDTO(savedComment);
 
     }

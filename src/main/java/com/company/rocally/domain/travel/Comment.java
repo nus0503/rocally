@@ -1,6 +1,7 @@
 package com.company.rocally.domain.travel;
 
 import com.company.rocally.domain.BaseTimeEntity;
+import com.company.rocally.domain.rating.Rating;
 import com.company.rocally.domain.user.User;
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -34,6 +35,10 @@ public class Comment extends BaseTimeEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "parent_id")
     private Comment parent;
+
+    @OneToOne(fetch = FetchType.LAZY, mappedBy = "comment")
+    private Rating rating;
+
 
     @OneToMany(mappedBy = "parent", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Comment> replies = new ArrayList<>();

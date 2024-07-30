@@ -16,6 +16,8 @@ public class CommentRequestDto {
 
     private Long parentId;
 
+    private Float ratingValue;
+
     public Comment toEntity(Travel travel, User user, String content, Comment parent) {
         return Comment.generateComment(travel, user, content, parent);
     }
