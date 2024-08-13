@@ -1,0 +1,132 @@
+.review-container {
+  font-family: 'Noto Sans KR', sans-serif;
+  max-width: 100%;
+  padding: 15px;
+  background-color: #fff;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.review {
+  display: flex;
+  justify-content: space-between;
+}
+
+.review-main {
+  flex: 1;
+}
+
+.ratings {
+  color: #ff9900;
+  font-size: 18px;
+  margin-bottom: 10px;
+}
+
+.content {
+  font-size: 14px;
+  line-height: 1.5;
+  color: #333;
+  margin-bottom: 15px;
+}
+
+.review-info {
+  width: 100px;
+  text-align: right;
+  padding-left: 15px;
+}
+
+.reviewer {
+  color: #888;
+  font-size: 14px;
+  margin-bottom: 5px;
+}
+
+.date {
+  color: #888;
+  font-size: 14px;
+}
+
+.reply-button {
+  background-color: #f1f1f1;
+  border: 1px solid #d9d9d9;
+  color: #333;
+  padding: 5px 10px;
+  font-size: 13px;
+  cursor: pointer;
+  margin-top: 10px;
+}
+.comment-form {
+    margin-top: 10px;
+    padding: 10px;
+    border: 1px solid #e0e0e0;
+    background-color: #f9f9f9;
+}
+
+.comment-form textarea {
+    width: 92%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 14px;
+    resize: none;
+}
+
+.comment-form .submit-comment {
+    margin-top: 10px;
+    background-color: #28a745;
+    color: #fff;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+    font-size: 14px;
+}
+.rating {
+ display: flex;
+        margin-top: -10px;
+    flex-direction: row-reverse;
+    margin-left: -4px;
+        float: left;
+}
+
+.rating>input {
+    display: none
+}
+
+.rating>label {
+        position: relative;
+    width: 19px;
+    font-size: 25px;
+    color: #ff0000;
+    cursor: pointer;
+}
+
+.rating>label::before {
+    content: "\2605";
+    position: absolute;
+    opacity: 0
+}
+
+.rating>label:hover:before,
+.rating>label:hover~label:before {
+    opacity: 1 !important
+}
+
+.rating>input:checked~label:before {
+    opacity: 1
+}
+
+.rating:hover>input:checked~label:before {
+    opacity: 0.4
+}
+.comment-area textarea{
+   resize: none;
+        border: 1px solid #ad9f9f;
+}
+
+
+.form-control:focus {
+    color: #495057;
+    background-color: #fff;
+    border-color: #ffffff;
+    outline: 0;
+    box-shadow: 0 0 0 1px rgb(255, 0, 0) !important;
+}
