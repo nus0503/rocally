@@ -25,4 +25,13 @@ public class Heart {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "travel_id")
     private Travel travel;
+
+    private Heart(User user, Travel travel) {
+        this.user = user;
+        this.travel = travel;
+    }
+
+    public static Heart generateHeart(User user, Travel travel) {
+        return new Heart(user, travel);
+    }
 }

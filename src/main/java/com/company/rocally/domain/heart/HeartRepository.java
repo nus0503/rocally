@@ -1,6 +1,11 @@
 package com.company.rocally.domain.heart;
 
+import com.company.rocally.domain.travel.Travel;
+import com.company.rocally.domain.user.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface HeartRepository extends JpaRepository<Long, Heart> {
+import java.util.Optional;
+
+public interface HeartRepository extends JpaRepository<Heart, Long> {
+    Optional<Heart> findByUserAndTravel(User user, Travel travel);
 }
