@@ -224,69 +224,71 @@
         </div>
     </section>
 
-    <div class="review-container">
-        <div class="comment-form" style="display: none;">
-            <div class="rating">
-                <input type="radio" name="rating" value="5" id="5"><label for="5">☆</label>
-                <input type="radio" name="rating" value="4" id="4"><label for="4">☆</label>
-                <input type="radio" name="rating" value="3" id="3"><label for="3">☆</label>
-                <input type="radio" name="rating" value="2" id="2"><label for="2">☆</label>
-                <input type="radio" name="rating" value="1" id="1"><label for="1">☆</label>
-            </div>
-            <div class="comment-area">
-                <textarea class="form-control" placeholder="what is your view?" rows="4"></textarea>
-            </div>
-            <button class="submit-comment" onclick="submitComment()">작성</button>
-        </div>
-        <div class="review">
-            <div class="review-main">
-                <div class="ratings">★★★★★</div>
-                <div class="content">
-                    일부 날씨가 넘 더워 시원한 밤에 투어 하려고 예약 했는데 밤도 무지 더웠어요 ㅠㅠ 더운 날씨에 가이드 해주셔서 넘 감사 했
-                    구요 소바도 너무 맛있었어요! 함께 다니신분들도 좋았구요 특히 스카이트리 주변에 앉아서 일본어 가르쳐주실때 가장 실
-                    났어요 ㅎㅎ 시간없은산본들 쫌개 밥 투어하기 나쁘지 않은것 같아요
-                </div>
-            </div>
-            <div class="review-info">
-                <div class="reviewer">hyey****</div>
-                <div class="date">2024-07-18</div>
-            </div>
-        </div>
-        <button class="reply-button" onclick="toggleCommentForm()">리뷰 작성</button>
-    </div>
+<!--    <div class="review-container">-->
+<!--        <div class="comment-form" style="display: none;">-->
+<!--            <div class="rating">-->
+<!--                <input type="radio" name="rating" value="5" id="5"><label for="5">☆</label>-->
+<!--                <input type="radio" name="rating" value="4" id="4"><label for="4">☆</label>-->
+<!--                <input type="radio" name="rating" value="3" id="3"><label for="3">☆</label>-->
+<!--                <input type="radio" name="rating" value="2" id="2"><label for="2">☆</label>-->
+<!--                <input type="radio" name="rating" value="1" id="1"><label for="1">☆</label>-->
+<!--            </div>-->
+<!--            <div class="comment-area">-->
+<!--                <textarea class="form-control" placeholder="what is your view?" rows="4"></textarea>-->
+<!--            </div>-->
+<!--            <button class="submit-comment" onclick="submitComment()">작성</button>-->
+<!--        </div>-->
+<!--        <div class="review">-->
+<!--            <div class="review-main">-->
+<!--                <div class="ratings">★★★★★</div>-->
+<!--                <div class="content">-->
+<!--                    일부 날씨가 넘 더워 시원한 밤에 투어 하려고 예약 했는데 밤도 무지 더웠어요 ㅠㅠ 더운 날씨에 가이드 해주셔서 넘 감사 했-->
+<!--                    구요 소바도 너무 맛있었어요! 함께 다니신분들도 좋았구요 특히 스카이트리 주변에 앉아서 일본어 가르쳐주실때 가장 실-->
+<!--                    났어요 ㅎㅎ 시간없은산본들 쫌개 밥 투어하기 나쁘지 않은것 같아요-->
+<!--                </div>-->
+<!--            </div>-->
+<!--            <div class="review-info">-->
+<!--                <div class="reviewer">hyey****</div>-->
+<!--                <div class="date">2024-07-18</div>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--        <button class="reply-button" onclick="toggleCommentForm()">리뷰 작성</button>-->
+<!--    </div>-->
 
     <div id="comments-container"></div>
     <form id="comment-form">
         <textarea id="comment-content" required></textarea>
         <button type="submit">댓글 작성</button>
     </form>
-<!--    <div class="comment-container">-->
-<!--        <div class="comment-count">댓글 1,093개</div>-->
-<!--        <div class="comment-input">-->
-<!--            <input type="text" id="comment-text" placeholder="댓글 추가...">-->
-<!--            <button id="comment-button" disabled>댓글</button>-->
-<!--        </div>-->
-<!--        <hr class="comment-divider">-->
-<!--        <div id="comments-section">-->
-<!--            &lt;!&ndash; 댓글들이 여기에 로드됩니다 &ndash;&gt;-->
-<!--            <div th:if="${not #lists.isEmpty(travelDetailResponseDto.commentList)}" class="comments">-->
-<!--                <div th:each="comment : ${travelDetailResponseDto.commentList}" class="comment">-->
-<!--                    <div class="comment-header">-->
-<!--                        <span th:text="${comment.author}" class="comment-author"></span>-->
-<!--                        <span th:text="${comment.modifiedDate}" class="comment-date"></span>-->
-<!--                    </div>-->
-<!--                    <div th:text="${comment.content}" class="comment-content"></div>-->
-<!--                    <div class="comment-actions">-->
-<!--                        <button class="like-button">👍</button>-->
-<!--                        <button class="dislike-button">👎</button>-->
-<!--                    </div>-->
-<!--                </div>-->
-<!--            </div>-->
-<!--            <div th:unless="${not #lists.isEmpty(travelDetailResponseDto.commentList)}" class="no-comments">-->
-<!--                등록된 댓글이 없습니다.-->
-<!--            </div>-->
-<!--        </div>-->
-<!--    </div>-->
+
+<!--  -----------------------------------------------------------  -->
+    <div class="comment-container">
+        <div class="comment-count">댓글 1,093개</div>
+        <div class="comment-input">
+            <input type="text" id="comment-text" placeholder="댓글 추가...">
+            <button id="comment-button" disabled>댓글</button>
+        </div>
+        <hr class="comment-divider">
+        <div id="comments-section">
+            <!-- 댓글들이 여기에 로드됩니다 -->
+            <div th:if="${not #lists.isEmpty(travelDetailResponseDto.commentList)}" class="comments">
+                <div th:each="comment : ${travelDetailResponseDto.commentList}" class="comment">
+                    <div class="comment-header">
+                        <span th:text="${comment.author}" class="comment-author"></span>
+                        <span th:text="${comment.modifiedDate}" class="comment-date"></span>
+                    </div>
+                    <div th:text="${comment.content}" class="comment-content"></div>
+                    <div class="comment-actions">
+                        <button class="like-button">👍</button>
+                        <button class="dislike-button">👎</button>
+                    </div>
+                </div>
+            </div>
+            <div th:unless="${not #lists.isEmpty(travelDetailResponseDto.commentList)}" class="no-comments">
+                등록된 댓글이 없습니다.
+            </div>
+        </div>
+    </div>
 
     <!-- Footer Start -->
     <div th:replace="~{/fragments/footer.html :: fragment-footer}"></div>
@@ -326,7 +328,7 @@
     <script src="/js/main.js"></script>
     <script src="/js/userToggle.js"></script>
     <script src="/js/comments.js"></script>
-    <script src="/js/review/js"></script>
+    <script src="/js/review.js"></script>
 </body>
 <script>
     $(document).ready(function() {
@@ -391,7 +393,7 @@
                 }
             });
         }
-
+<!-- ------------------------------------------------------------- -->
         $('#comment-form').on('submit', function(e) {
             e.preventDefault();
             const content = $('#comment-content').val();
