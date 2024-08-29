@@ -37,6 +37,12 @@ public class Travel extends BaseTimeEntity {
     @Column(name = "max_people")
     private String maxPeople; // int로 바꾸기
 
+    @Column(name = "like_count")
+    private int likeCount;
+
+    @Column(name = "view_count", columnDefinition = "integer default 0", nullable = false)
+    private int viewCount;
+
     @OneToMany(mappedBy = "travel", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<TravelImage> travelImages = new ArrayList<>();
 

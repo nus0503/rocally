@@ -32,6 +32,7 @@ public class HeartService {
                 () -> new IllegalArgumentException("해당 프로그램이 없습니다."));
 
         heartRepository.save(Heart.generateHeart(user, travel));
+//        travelRepository.increaseLikeCount(travel.getId());
     }
 
     @Transactional
@@ -46,5 +47,6 @@ public class HeartService {
                 () -> new IllegalArgumentException("에러에러"));
 
         heartRepository.delete(heart);
+//        travelRepository.decreaseLikeCount(travel.getId());
     }
 }

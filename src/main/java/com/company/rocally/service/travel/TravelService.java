@@ -210,4 +210,9 @@ public class TravelService {
                         ))
                 ).collect(Collectors.toList());
     }
+
+    @Transactional
+    public void updateView(Long id) {
+        travelRepository.updateView(id);
+    }
 }

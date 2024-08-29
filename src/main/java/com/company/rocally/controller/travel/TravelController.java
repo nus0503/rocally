@@ -15,6 +15,10 @@ import org.springframework.validation.Errors;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
 
+import javax.annotation.PostConstruct;
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import java.io.IOException;
 import java.util.List;
@@ -59,9 +63,35 @@ public class TravelController {
     }
 
     @GetMapping("/travel/{id}")
-    public String getTravel(@PathVariable Long id, Model model) {
+    public String getTravel(@PathVariable Long id, HttpServletRequest request, HttpServletResponse response, Model model) {
         TravelDetailResponseDto travelDetailResponseDto = travelService.getTravelProgramDetail(id);
         model.addAttribute("travelDetailResponseDto", travelDetailResponseDto);
+
+        Cookie oldCookie = null;
+        Cookie[] cookies = request.getCookies();
+        if (cookies != null) {
+            for (Cookie cookie : cookies) {
+                if (cookie.getName().equals("postView")) {
+                    oldCookie = cookie;
+                }
+            }
+        }
+
+        if (oldCookie != null) {
+            if (!oldCookie.getValue().contains("[" + id.toString() + "]")) {
+                travelService.updateView(id);
+                oldCookie.setValue(oldCookie.getValue() + "_[" + id + "]");
+                oldCookie.setPath("/");
+                oldCookie.setMaxAge(60 * 60 * 24);
+                response.addCookie(oldCookie);
+            }
+        } else {
+            travelService.updateView(id);
+            Cookie newCookie = new Cookie("postView", "[" + id + "]");
+            newCookie.setPath("/");
+            newCookie.setMaxAge(60 * 60 * 24);
+            response.addCookie(newCookie);
+        }
         return "product/product-detail";
     }
 
@@ -110,4 +140,10 @@ public class TravelController {
         model.addAttribute("completeReservationList", travelService.completeReservation(user));
         return "dashboard/complete-reservation";
     }
+
+    @PostConstruct
+    public void travelPostInto() {
+
+    }
+
 }
