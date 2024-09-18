@@ -219,4 +219,10 @@ public class TravelService {
     public void updateView(Long id) {
         travelRepository.updateView(id);
     }
+
+    public Page<TravelsResponseDto> search(String query, PageableRequest pageableRequest) {
+        Page<Travel> pages = travelRepository.findByTitleContaining(query, pageableRequest.toPageable());
+        return pages.map(TravelsResponseDto::new);
+    }
+
 }

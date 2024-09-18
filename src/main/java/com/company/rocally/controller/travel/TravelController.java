@@ -141,6 +141,12 @@ public class TravelController {
         return "dashboard/complete-reservation";
     }
 
+    @GetMapping("/travel/search")
+    public String searchTravel(@RequestParam(value = "q") String query, @ModelAttribute PageableRequest pageableRequest, Model model) {
+        model.addAttribute("travelList", travelService.search(query, pageableRequest));
+        return "package";
+    }
+
     @PostConstruct
     public void travelPostInto() {
 

@@ -1,5 +1,7 @@
 package com.company.rocally.domain.travel;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -20,6 +22,8 @@ public interface TravelRepository extends JpaRepository<Travel, Long> {
     @Modifying
     @Query(value = "UPDATE Travel t SET t.viewCount = t.viewCount + 1 WHERE t.id = :id")
     void updateView(@Param("id") Long id);
+
+    Page<Travel> findByTitleContaining(String q, Pageable pageable);
 
 //    //    @Transactional
 //    @Modifying
