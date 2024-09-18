@@ -1,6 +1,7 @@
 package com.company.rocally.domain.travel;
 
 import com.company.rocally.domain.BaseTimeEntity;
+import com.company.rocally.domain.heart.Heart;
 import com.company.rocally.domain.user.User;
 import lombok.AccessLevel;
 import lombok.Builder;
@@ -37,11 +38,14 @@ public class Travel extends BaseTimeEntity {
     @Column(name = "max_people")
     private String maxPeople; // int로 바꾸기
 
-    @Column(name = "like_count")
+    @Column(name = "like_count", columnDefinition = "integer default 0")
     private int likeCount;
 
     @Column(name = "view_count", columnDefinition = "integer default 0", nullable = false)
     private int viewCount;
+
+    @OneToMany(mappedBy = "travel", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<Heart> hearts = new ArrayList<>();
 
     @OneToMany(mappedBy = "travel", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<TravelImage> travelImages = new ArrayList<>();
@@ -100,5 +104,14 @@ public class Travel extends BaseTimeEntity {
 
     public void addImage(List<TravelImage> travelImages) {
         this.travelImages.addAll(travelImages);
+    }
+
+    public void updateLikeCount(boolean bool) {
+        if (bool) {
+            this.likeCount += 1;
+        } else {
+            this.likeCount -= 1;
+        }
+
     }
 }

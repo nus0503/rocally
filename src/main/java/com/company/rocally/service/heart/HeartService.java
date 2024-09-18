@@ -31,7 +31,12 @@ public class HeartService {
         Travel travel = travelRepository.findById(heartRequestDto.getTravelId()).orElseThrow(
                 () -> new IllegalArgumentException("해당 프로그램이 없습니다."));
 
+        // 좋아요가 이미 존재하는지 체크
+        if (heartRepository.existsByUserIdAndTravelId(user.getId(), travel.getId())) {
+            throw new IllegalArgumentException("이미 좋아요를 눌렀습니다.");
+        }
         heartRepository.save(Heart.generateHeart(user, travel));
+        travel.updateLikeCount(true);
 //        travelRepository.increaseLikeCount(travel.getId());
     }
 
@@ -46,7 +51,10 @@ public class HeartService {
         Heart heart = heartRepository.findByUserAndTravel(user, travel).orElseThrow(
                 () -> new IllegalArgumentException("에러에러"));
 
+
+
         heartRepository.delete(heart);
+        travel.updateLikeCount(false);
 //        travelRepository.decreaseLikeCount(travel.getId());
     }
 }

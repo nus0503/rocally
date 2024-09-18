@@ -63,8 +63,8 @@ public class TravelController {
     }
 
     @GetMapping("/travel/{id}")
-    public String getTravel(@PathVariable Long id, HttpServletRequest request, HttpServletResponse response, Model model) {
-        TravelDetailResponseDto travelDetailResponseDto = travelService.getTravelProgramDetail(id);
+    public String getTravel(@PathVariable Long id, @LoginUser SessionUser user, HttpServletRequest request, HttpServletResponse response, Model model) {
+        TravelDetailResponseDto travelDetailResponseDto = travelService.getTravelProgramDetail(id, user);
         model.addAttribute("travelDetailResponseDto", travelDetailResponseDto);
 
         Cookie oldCookie = null;

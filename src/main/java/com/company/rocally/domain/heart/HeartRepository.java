@@ -8,4 +8,6 @@ import java.util.Optional;
 
 public interface HeartRepository extends JpaRepository<Heart, Long> {
     Optional<Heart> findByUserAndTravel(User user, Travel travel);
+
+    boolean existsByUserIdAndTravelId(Long userId, Long travelId);
 }

@@ -6,6 +6,7 @@ import com.company.rocally.common.page.PageableRequest;
 import com.company.rocally.config.auth.dto.SessionUser;
 import com.company.rocally.controller.file.dto.ImageFileDto;
 import com.company.rocally.controller.travel.dto.*;
+import com.company.rocally.domain.heart.HeartRepository;
 import com.company.rocally.domain.travel.*;
 import com.company.rocally.domain.user.User;
 import com.company.rocally.domain.user.UserRepository;
@@ -42,6 +43,7 @@ public class TravelService {
 
     private final CommentService commentService;
 
+    private final HeartRepository heartRepository;
     public void createTravel(TravelRegisterRequestDto dto, ImageFileDto imageFileDto) throws IOException {
         List<String> fileNames = new ArrayList<>();
         List<String> filePaths = new ArrayList<>();
@@ -86,13 +88,15 @@ public class TravelService {
 
     }
 
-    public TravelDetailResponseDto getTravelProgramDetail(Long num) {
+    public TravelDetailResponseDto getTravelProgramDetail(Long num, SessionUser user) {
         Travel travel = travelRepository.findById(num).orElseThrow(
                 () -> new IllegalArgumentException("없다.")
         );
 //        Travel testTravel = travel;
         List<CommentResponseDto> commentsWithReplies = commentService.getCommentsWithReplies(num);
+        boolean isLikedUser = heartRepository.existsByUserIdAndTravelId(user.getId(), num);
         TravelDetailResponseDto travelDetailResponseDto = new TravelDetailResponseDto(travel, commentsWithReplies);
+        travelDetailResponseDto.setLikedByCurrentUser(isLikedUser);
         return travelDetailResponseDto;
     }
 

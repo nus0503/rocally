@@ -7,6 +7,6 @@ import lombok.Setter;
 @Setter
 public class HeartRequestDto {
 
-    private Long userId;
+
     private Long travelId;
 }

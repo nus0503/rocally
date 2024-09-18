@@ -32,6 +32,10 @@ public class TravelDetailResponseDto {
 
     private List<CommentResponseDto> commentList;
 
+    private int likeCount;
+
+    private boolean isLikedByCurrentUser;
+
     public TravelDetailResponseDto(Travel travel, List<CommentResponseDto> commentList) {
         this.id = travel.getId();
         this.title = travel.getTitle();
@@ -47,5 +51,6 @@ public class TravelDetailResponseDto {
                 .collect(Collectors.toList());
         this.user = new UserResponseDto(travel.getUser().getUsername());
         this.commentList = commentList;
+        this.likeCount = travel.getLikeCount();
     }
 }

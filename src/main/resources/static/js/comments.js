@@ -57,6 +57,12 @@ $(document).ready(function() {
     });
   }
 
+  function loadCommentsCount() {
+    $.ajax({
+        url :
+    });
+  }
+
   function renderComments(comments) {
       $commentsSection.empty(); // 기존 댓글을 모두 지웁니다.
 

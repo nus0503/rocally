@@ -111,6 +111,40 @@
   cursor: pointer;
   margin-top: 10px;
 }
+
+.like-button-container {
+        display: inline-flex;
+        align-items: center;
+        margin: 10px 0;
+    }
+    .like-button {
+        background: none;
+        border: none;
+        cursor: pointer;
+        padding: 5px;
+        font-size: 24px;
+        transition: transform 0.1s ease;
+    }
+    .like-button:hover {
+        transform: scale(1.1);
+    }
+    .like-button .far.fa-heart {
+        color: red;
+    }
+    .like-button .fas.fa-heart {
+        color: red;
+        display: none;
+    }
+    .like-button.liked .far.fa-heart {
+        display: none;
+    }
+    .like-button.liked .fas.fa-heart {
+        display: inline-block;
+    }
+    .like-count {
+        margin-left: 5px;
+        font-size: 18px;
+    }
     </style>
 
 </head>
@@ -150,6 +184,14 @@
         </div>
         <!-- Right side -->
         <div class="product-info">
+            <div class="like-button-container">
+                <button id="likeButton" class="like-button" th:data-travel-id="${travelDetailResponseDto.id}" th:data-liked="${travelDetailResponseDto.isLikedByCurrentUser}">
+                    <i class="far fa-heart"></i>
+                    <i class="fas fa-heart"></i>
+                </button>
+                <span id="likeCount" class="like-count" th:text="${travelDetailResponseDto.likeCount}">0</span>
+            </div>
+
             <h3 th:text="${travelDetailResponseDto.title}">LEVI'S® WOMEN'S XL TRUCKER JACKET</h3>
             <h5 th:text="'Price: ￦' + ${travelDetailResponseDto.price}">Price: $140 <del>$170</del></h5>
             <p>프로그램 설명</p>
@@ -255,11 +297,11 @@
 <!--        <button class="reply-button" onclick="toggleCommentForm()">리뷰 작성</button>-->
 <!--    </div>-->
 
-    <div id="comments-container"></div>
-    <form id="comment-form">
-        <textarea id="comment-content" required></textarea>
-        <button type="submit">댓글 작성</button>
-    </form>
+<!--    <div id="comments-container"></div>-->
+<!--    <form id="comment-form">-->
+<!--        <textarea id="comment-content" required></textarea>-->
+<!--        <button type="submit">댓글 작성</button>-->
+<!--    </form>-->
 
 <!--  -----------------------------------------------------------  -->
     <div class="comment-container">
@@ -330,6 +372,61 @@
     <script src="/js/comments.js"></script>
     <script src="/js/review.js"></script>
 </body>
+<script th:inline="javascript">
+document.addEventListener('DOMContentLoaded', function() {
+    const likeButton = document.getElementById('likeButton');
+    const likeCount = document.getElementById('likeCount');
+    const travelId = likeButton.getAttribute('data-travel-id');
+    let isLiked = likeButton.getAttribute('data-liked') === 'true';
+
+    updateLikeButtonState();
+
+    likeButton.addEventListener('click', function() {
+        isLiked = !isLiked;
+        updateLikeButtonState();
+        updateLikeCount(isLiked ? 1 : -1);
+        updateLikeStatus(travelId, isLiked);
+    });
+
+    function updateLikeButtonState() {
+        if (isLiked) {
+            likeButton.classList.add('liked');
+        } else {
+            likeButton.classList.remove('liked');
+        }
+    }
+
+    function updateLikeCount(change) {
+        let currentCount = parseInt(likeCount.textContent);
+        likeCount.textContent = currentCount + change;
+    }
+
+    function updateLikeStatus(travelId, isLiked) {
+    const url = '/api/heart';
+    const method = isLiked ? 'POST' : 'DELETE';
+    const data = JSON.stringify({ travelId : travelId });
+    $.ajax({
+        url: url,
+        type: method,
+        contentType: 'application/json',
+        data: data,
+        success: function(data) {
+            console.log('Like status updated:', data);
+            // 서버의 응답에 따라 UI를 업데이트할 수 있습니다.
+            // 예: $('#likeCount').text(data.newLikeCount);
+        },
+        error: function(xhr, status, error) {
+            console.error('Error updating like status:', error);
+            // 오류 발생 시 UI를 원래 상태로 되돌립니다.
+            isLiked = !isLiked;
+            updateLikeButtonState();
+            updateLikeCount(isLiked ? 1 : -1);
+        }
+    });
+}
+});
+</script>
+
 <script>
     $(document).ready(function() {
         $('.reserve-btn').on('click', function() {
