@@ -1,6 +1,11 @@
 package com.company.rocally.service.user;
 
+import com.company.rocally.common.codes.error.UserErrorCode;
+import com.company.rocally.common.customException.RestApiException;
+import com.company.rocally.common.password.PasswordUtil;
 import com.company.rocally.config.auth.dto.SessionUser;
+import com.company.rocally.controller.user.dto.FindIdRequestDto;
+import com.company.rocally.controller.user.dto.FindPasswordRequestDto;
 import com.company.rocally.controller.user.dto.UserRegisterRequestDto;
 import com.company.rocally.controller.user.dto.UserUpdateRequestDto;
 import com.company.rocally.domain.user.Role;
@@ -10,6 +15,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -51,5 +58,24 @@ public class UserService {
                 () -> new IllegalArgumentException("회원정보가 없습니다."));
 
         user1.setNewPassword(bCryptPasswordEncoder.encode(dto.getNewPassword()));
+    }
+
+    public String findIdAsNameAndPhone(FindIdRequestDto dto) {
+        User user = userRepository.findIdAsNameAndPhone(dto.getName(), dto.getPhoneNumber()).orElseThrow(
+                () -> new RestApiException(UserErrorCode.NOT_FOUND_INFORMATION));
+
+        return user.getEmail();
+    }
+
+    @Transactional
+    public String findPassword(FindPasswordRequestDto dto) {
+        String tempPassword = PasswordUtil.tempPasswordGenerate();
+        User user = userRepository.findByEmailAndNameAndPhoneNumber(dto.getEmail(), dto.getName(), dto.getPhoneNumber()).orElseThrow(
+                () -> new RestApiException(UserErrorCode.NOT_FOUND_INFORMATION));
+
+        String encodedPassword = bCryptPasswordEncoder.encode(tempPassword);
+        user.setNewPassword(encodedPassword);
+        return tempPassword;
+
     }
 }

@@ -1,19 +1,16 @@
 package com.company.rocally.controller.user;
 
+import com.company.rocally.common.codes.error.UserErrorCode;
 import com.company.rocally.common.security.SecurityService;
 import com.company.rocally.common.validation.email.CheckEmailValidator;
 import com.company.rocally.common.validation.password.ExistingPasswordValidator;
 import com.company.rocally.config.auth.LoginUser;
 import com.company.rocally.config.auth.dto.SessionUser;
-import com.company.rocally.controller.user.dto.PasswordChangeDto;
-import com.company.rocally.controller.user.dto.UserRegisterRequestDto;
-import com.company.rocally.controller.user.dto.UserUpdateRequestDto;
+import com.company.rocally.controller.user.dto.*;
 import com.company.rocally.service.user.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
@@ -82,15 +79,15 @@ public class UserApiController {
         return new ResponseEntity<>("success", HttpStatus.OK);
     }
 
-//    @PostMapping("/findId")
-//    @ResponseBody
-//    public ResponseEntity<String> findId(@RequestBody FindIdRequestDto dto) {
-//
-//    }
-//
-//    @PostMapping("findPassword")
-//    @ResponseBody
-//    public ResponseEntity<String> findPassword(@RequestBody FindPassword dto) {
-//
-//    }
+    @PostMapping("/findId")
+    @ResponseBody
+    public ResponseEntity<String> findId(@RequestBody FindIdRequestDto dto) {
+        return new ResponseEntity<>(userService.findIdAsNameAndPhone(dto), HttpStatus.OK);
+    }
+
+    @PostMapping("/findPassword")
+    @ResponseBody
+    public ResponseEntity<String> findPassword(@RequestBody FindPasswordRequestDto dto) {
+        return new ResponseEntity<>(userService.findPassword(dto), HttpStatus.OK);
+    }
 }
