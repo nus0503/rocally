@@ -82,4 +82,15 @@ public class UserApiController {
         return new ResponseEntity<>("success", HttpStatus.OK);
     }
 
+//    @PostMapping("/findId")
+//    @ResponseBody
+//    public ResponseEntity<String> findId(@RequestBody FindIdRequestDto dto) {
+//
+//    }
+//
+//    @PostMapping("findPassword")
+//    @ResponseBody
+//    public ResponseEntity<String> findPassword(@RequestBody FindPassword dto) {
+//
+//    }
 }

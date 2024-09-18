@@ -8,6 +8,7 @@ import com.company.rocally.domain.user.Role;
 import com.company.rocally.domain.user.User;
 import com.company.rocally.domain.user.UserRepository;
 import com.company.rocally.service.user.UserService;
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -71,6 +72,16 @@ public class UserController {
     @GetMapping("/dashboard")
     public String dashboard() {
         return "dashboard/dashboardIndex";
+    }
+
+    @GetMapping("/find-id")
+    public String findId() {
+        return "user/find-user-id";
+    }
+
+    @GetMapping("/find-password")
+    public String findPassword() {
+        return "user/find-user-password";
     }
 
 
