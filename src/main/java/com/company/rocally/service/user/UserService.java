@@ -4,14 +4,12 @@ import com.company.rocally.common.codes.error.UserErrorCode;
 import com.company.rocally.common.customException.RestApiException;
 import com.company.rocally.common.password.PasswordUtil;
 import com.company.rocally.config.auth.dto.SessionUser;
-import com.company.rocally.controller.user.dto.FindIdRequestDto;
-import com.company.rocally.controller.user.dto.FindPasswordRequestDto;
-import com.company.rocally.controller.user.dto.UserRegisterRequestDto;
-import com.company.rocally.controller.user.dto.UserUpdateRequestDto;
+import com.company.rocally.controller.user.dto.*;
 import com.company.rocally.domain.user.Role;
 import com.company.rocally.domain.user.User;
 import com.company.rocally.domain.user.UserRepository;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -21,6 +19,7 @@ import java.util.Optional;
 @Service
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
+@Slf4j
 public class UserService {
 
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
@@ -60,11 +59,13 @@ public class UserService {
         user1.setNewPassword(bCryptPasswordEncoder.encode(dto.getNewPassword()));
     }
 
-    public String findIdAsNameAndPhone(FindIdRequestDto dto) {
+    public FindIdResponseDto findIdAsNameAndPhone(FindIdRequestDto dto) {
         User user = userRepository.findIdAsNameAndPhone(dto.getName(), dto.getPhoneNumber()).orElseThrow(
                 () -> new RestApiException(UserErrorCode.NOT_FOUND_INFORMATION));
 
-        return user.getEmail();
+        String maskedUserId = maskUserId(user.getEmail());
+        log.info("User ID found for name: {}, phone: {}", dto.getName(), dto.getPhoneNumber());
+        return new FindIdResponseDto(true, maskedUserId);
     }
 
     @Transactional
@@ -77,5 +78,12 @@ public class UserService {
         user.setNewPassword(encodedPassword);
         return tempPassword;
 
+    }
+
+    private String maskUserId(String email) {
+        if (email == null || email.length() <= 4) {
+            return email;
+        }
+        return email.substring(0, 2) + "*".repeat(email.length() - 4) + email.substring(email.length() - 2);
     }
 }

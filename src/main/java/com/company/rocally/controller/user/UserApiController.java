@@ -18,6 +18,8 @@ import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.HashMap;
+import java.util.Map;
 
 @Controller
 @RequiredArgsConstructor
@@ -81,13 +83,16 @@ public class UserApiController {
 
     @PostMapping("/findId")
     @ResponseBody
-    public ResponseEntity<String> findId(@RequestBody FindIdRequestDto dto) {
+    public ResponseEntity<?> findId(@RequestBody FindIdRequestDto dto) {
         return new ResponseEntity<>(userService.findIdAsNameAndPhone(dto), HttpStatus.OK);
     }
 
     @PostMapping("/findPassword")
     @ResponseBody
-    public ResponseEntity<String> findPassword(@RequestBody FindPasswordRequestDto dto) {
-        return new ResponseEntity<>(userService.findPassword(dto), HttpStatus.OK);
+    public ResponseEntity<Map<String, String>> findPassword(@RequestBody FindPasswordRequestDto dto) {
+        String tempPassword = userService.findPassword(dto);
+        HashMap<String, String> response = new HashMap<>();
+        response.put("tempPassword", tempPassword);
+        return new ResponseEntity<>(response, HttpStatus.OK);
     }
 }
