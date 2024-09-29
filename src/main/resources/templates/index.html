@@ -24,9 +24,14 @@
 
     <!-- Customized Bootstrap Stylesheet -->
     <link href="css/style.css" rel="stylesheet">
+    <link href="/css/popup.css" rel="stylesheet">
 </head>
 
 <body>
+<!-- popup Start -->
+<div th:replace="/fragments/popup.html :: fragment-popup"></div>
+<!-- popup End -->
+
 <!-- Topbar Start -->
 <div th:replace="/fragments/topbar.html :: fragment-topbar"></div>
 <!-- Topbar End -->
@@ -382,6 +387,7 @@
 <!-- Template Javascript -->
 <script src="js/main.js"></script>
 <script src="js/userToggle.js"></script>
+<!--<script src="/js/popup.js"></script>-->
 </body>
 <script th:inline="javascript">
     /*<![CDATA[*/
@@ -392,4 +398,124 @@
     }
     /*]]>*/
     </script>
+<script>
+    var toggleMainPopup = function() {
+
+  /* 스토리지 제어 함수 정의 */
+  var handleStorage = {
+    // 스토리지에 데이터 쓰기(이름, 만료일)
+    setStorage: function (name, exp) {
+      // 만료 시간 구하기(exp를 ms단위로 변경)
+      var date = new Date();
+      date = date.setTime(date.getTime() + exp * 24 * 60 * 60 * 1000);
+
+      // 로컬 스토리지에 저장하기
+      // (값을 따로 저장하지 않고 만료 시간을 저장)
+      localStorage.setItem(name, date)
+    },
+    // 스토리지 읽어오기
+    getStorage: function (name) {
+      var now = new Date();
+      now = now.setTime(now.getTime());
+      // 현재 시각과 스토리지에 저장된 시각을 각각 비교하여
+      // 시간이 남아 있으면 true, 아니면 false 리턴
+      return parseInt(localStorage.getItem(name)) > now
+    }
+  };
+
+
+  // 쿠키 읽고 화면 보이게
+  if (handleStorage.getStorage("today")) {
+    $(".main_popup").removeClass("on");
+  } else {
+    $(".main_popup").addClass("on");
+  }
+
+  // 오늘하루 보지 않기 버튼
+  $(".main_popup").on("click", ".btn_today_close", function () {
+    // 로컬 스토리지에 today라는 이름으로 1일(24시간 뒤) 동안 보이지 않게
+    handleStorage.setStorage("today", 1);
+    $(this).parents(".main_popup.on").removeClass("on");
+  });
+
+  // 일반 닫기 버튼
+  $(".main_popup").on("click", ".btn_close", function () {
+    $(this).parents(".main_popup.on").removeClass("on");
+  });
+}
+
+$(function() {
+  toggleMainPopup();
+});
+</script>
+<script>
+    function setItemWithExpireTime(keyName, keyValue, tts) {
+        const obj = {
+            value : keyValue,
+            expire : Date.now() + tts
+        }
+
+        const objString = JSON.stringify(obj);
+
+        localStorage.setItem(keyName, objString);
+    }
+
+    function getItemWithExpireTime(keyName) {
+
+        const objString = localStorage.getItem(keyName);
+
+        if(objString == null) {
+            return null;
+        }
+
+        const obj = JSON.parse(objString);
+
+        if (Date.now() > obj.expire) {
+            localStorage.removeItem(keyName);
+
+            return null;
+        }
+        console.log(obj.value);
+        return obj.value;
+    }
+
+    function deletePopup(keyValue) {
+        if (keyValue == null) {
+            return null;
+        }
+
+        if (keyValue !== true) {
+            document.getElementById('popup').style.display = 'block';
+        } else {
+            document.getElementById('popup').style.display = 'none';
+        }
+    }
+</script>
+<script>
+
+        document.getElementById('close-btn').addEventListener('click', function() {
+            var isChecked = document.getElementById('no-show-again').checked;
+            if (isChecked) {
+                setItemWithExpireTime('no-show-again', true, 15000);
+                //localStorage.setItem('no-show-again', true);
+            }
+            document.getElementById('popup').style.display = 'none';
+        });
+
+
+</script>
+<script>
+$(document).ready(function() {
+    $(document).ready(function() {
+    console.log("1");
+        deletePopup(getItemWithExpireTime("no-show-again"));
+        console.log("2");
+        //var isNoShowAgain = localStorage.getItem('no-show-again');
+            //if (isNoShowAgain !== "true") {
+                //document.getElementById('popup').style.display = 'block';
+            //} else {
+                //document.getElementById('popup').style.display = 'none';
+            //}
+});
+</script>
 </html>
