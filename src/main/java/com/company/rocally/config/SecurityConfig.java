@@ -63,6 +63,9 @@ public class SecurityConfig {
                         .failureHandler(customAuthFailureHandler)
                 .and()
                 .oauth2Login()
+                .authorizationEndpoint()
+                .baseUri("/oauth2/authorization")
+                .and()
                 .loginPage("/login")
                 .userInfoEndpoint()
                 .userService(customOAuth2UserService);
