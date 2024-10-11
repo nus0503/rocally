@@ -28,12 +28,12 @@ public class SecurityConfig {
     /**
      * 특정 HTTP 요청 패턴에 대한 보안 구성 무시(인증, 권환 검사 등 적용 X)
      */
-//    @Bean
-//    public WebSecurityCustomizer configure() {
-//        return web -> web.ignoring().mvcMatchers(
-//                "/**"
-//        );
-//    }
+    @Bean
+    public WebSecurityCustomizer webSecurityCustomizer() {
+        return web -> web.ignoring()
+                .mvcMatchers("/error", "/favicon.ico");
+
+    }
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
@@ -66,7 +66,7 @@ public class SecurityConfig {
                 .authorizationEndpoint()
                 .baseUri("/oauth2/authorization")
                 .and()
-                .loginPage("/login")
+                .loginPage("/loginForm")
                 .userInfoEndpoint()
                 .userService(customOAuth2UserService);
         return http.build();
